@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>青岛申银电子商务有限公司后台系统</title>
+<link href="__ROOT__/statics/css/style_shenyin.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="container">
+	 <form action="{:U('public/login')}" method="post" id="myform" name="myform">
+     <div class="txt">
+         <p class="erweima"><img src="__ROOT__/statics/images/houtai_weixin.jpg" /></p>
+         <input  name="username" id="username" type="text"  class="name" value="用户名" onfocus="if (value =='用户名'){value =''}" onblur="if (value ==''){value='用户名'}" />
+         <input  type="password" name="password" id="password" class="password" value="" />
+         <a href="javascript:void(0);" onclick="javascript:document.myform.submit();" class="login_button" >登 录</a>
+     </div>
+     <input type="hidden" name="formSubmit" value="进入管理中心" />
+     <input type="hidden" name="ajaxlogin" id="ajaxlogin" />
+	 <input type="hidden" name="ajaxcode" id="ajaxcode" />
+	 </form>
+</div>
+<script language="javascript" type="text/javascript" src="__ROOT__/scripts/jQuery/jquery-1.9.1.min.js"></script>
+<script language="javascript" type="text/javascript" src="__ROOT__/scripts/jQuery/jquery.browser.js"></script>
+<script language="javascript" type="text/javascript" src="__ROOT__/scripts/jQueryUI/jquery-ui-1.10.2.all.min.js"></script>
+</body>
+</html>
+
+
+

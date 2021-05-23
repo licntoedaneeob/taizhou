@@ -1,0 +1,553 @@
+<include file="public:header" />
+
+<link href="__ROOT__/scripts/jQueryUI/jui-1.10-themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" />
+
+
+<include file="inc/competition-select" />
+
+<form id="myform" name="myform" action="{:U(MODULE_NAME .'/'.ACTION_NAME)}" method="post" onsubmit="return form_check_submit();" class="lkcmsform">
+<fieldset class="competition">
+	<legend class="competition"></legend>
+
+<div id="player-tabs">
+<ul>
+<li><a href="#player-tab-1">个人资料</a></li>
+<li><a href="#player-tab-2">报名点及代理商</a></li>
+<li><a href="#player-tab-3">报名信息</a></li>
+<li><a href="#player-tab-4">参赛组别及曲目</a></li>
+<li><a href="#player-tab-5">问卷调查</a></li>
+</ul>
+<div id="player-tab-1">
+	<table width="100%" cellpadding="2" cellspacing="1" class="form-table">
+		<thead>
+		<tr> 
+			<th colspan="2">{:L('用户账号')}</th>
+		</thead>
+		<tbody>
+		<tr> 
+			<th width="95">{:L('用户ID')} :</th>
+			<td>
+				<input type="text" name="userid" id="userid" value="{$record.userid}" size="12" class="input-text"  />
+				必须填写用户ID，可以在<a href="{:U('user/listing')}" class="action">用户列表</a>中查看。如果还未注册或者还未添加，请先<a href="{:U('user/create')}" class="action">添加用户</a>。
+			</td>
+		</tr>
+		</tbody>
+		<thead>
+		<tr> 
+			<th colspan="2">{:L('个人资料')}</th>
+		</thead>
+		<tbody>
+		<tr> 
+			<th width="95">{:L('中文姓名')} :</th>
+			<td>
+				<input type="text" name="name" id="name" value="{$record.name}" size="12" class="input-text"  />
+			</td>
+		</tr>
+		<tr>
+	      	<th>{:L('性别')} :</th>
+	      	<td>
+	      		<input type="radio" name="gender" id="gender1" class="radio_style" value="1" <if condition="$record.gender eq '1'"> checked</if> /> &nbsp;
+	      		<label for="gender1">{:L('男')}</label>&nbsp;&nbsp;&nbsp;
+	        	<input type="radio" name="gender" id="gender0" class="radio_style" value="0" <if condition="$record.gender neq '1'"> checked</if> /> &nbsp;
+	        	<label for="gender0">{:L('女')}</label>
+	      	</td>
+	    </tr>
+		<tr> 
+			<th>{:L('出生日期')} :</th>
+			<td>
+				<input type="text" name="birthday" id="birthday" value="{$record.birthday}" size="12" class="input-text"  />
+			</td>
+		</tr>
+		<tr> 
+			<th>{:L('身份证号')} :</th>
+			<td>
+				<input type="text" name="idcno" id="idcno" value="{$record.idcno}" size="25" class="input-text"  />
+			</td>
+		</tr>
+		<tr> 
+			<th>{:L('地址')} :</th>
+			<td>
+				<input type="text" name="address" id="address" value="{$record.address}" size="80" class="input-text"  />
+			</td>
+		</tr>
+		<tr> 
+			<th>{:L('电话')} :</th>
+			<td>
+				<input type="text" name="phone" id="phone" value="{$record.phone}" size="20" class="input-text"  />
+			</td>
+		</tr>
+		<tr> 
+			<th>{:L('传真')} :</th>
+			<td>
+				<input type="text" name="fax" id="fax" value="{$record.fax}" size="20" class="input-text"  />
+			</td>
+		</tr>
+		<tr> 
+			<th>{:L('学校')} :</th>
+			<td>
+				<input type="text" name="school" id="school" value="{$record.school}" size="80" class="input-text"  />
+			</td>
+		</tr>
+		</tbody>
+		<thead>
+		<tr> 
+			<td colspan="2">{:L('身份资料及照片')} :</td>
+		</tr>
+		</thead>
+		<tbody>
+
+		<tr> 
+			<th>{:L('身份证')} :</th>
+			<td>
+				<input type="text" name="file_idcard" id="file_idcard" value="{$record.file_idcard}" size="64" class="input-text" >
+				<a class="lk-pic-select button" href="javascript:LK_BrowseServer('file_idcard','players-{$competition}/');" >{:L('选择或上传')}{:L('身份证')}{:L('图片')}</a>
+			</td>
+		</tr>
+		<tr> 
+			<th>{:L('近期标准像')} :</th>
+			<td>
+				<input type="text" name="photo_normal" id="photo_normal" value="{$record.photo_normal}" size="64" class="input-text" >
+				<a class="lk-pic-select button" href="javascript:LK_BrowseServer('photo_normal','players-{$competition}/');" >{:L('选择或上传')}{:L('近期标准像')}{:L('图片')}</a>
+			</td>
+		</tr>
+		<tr> 
+			<th>{:L('艺术照')} :</th>
+			<td>
+				<input type="text" name="photo_artistic" id="photo_artistic" value="{$record.photo_artistic}" size="64" class="input-text" >
+				<a class="lk-pic-select button" href="javascript:LK_BrowseServer('photo_artistic','players-{$competition}/');" >{:L('选择或上传')}{:L('艺术照')}{:L('图片')}</a>
+			</td>
+		</tr>
+
+
+		</tbody>
+
+		<thead>
+		<tr> 
+			<td colspan="2">{:L('监护人')} :</td>
+		</tr>
+		</thead>
+		<tbody>
+		<tr> 
+			<th>{:L('姓名')} :</th>
+			<td>
+				<input type="text" name="guardian_name" id="guardian_name" value="{$record.guardian_name}" size="12" class="input-text"  />
+			</td>
+		</tr>
+		<tr> 
+			<th>{:L('关系')} :</th>
+			<td>
+				<input type="text" name="guardian_relation" id="guardian_relation" value="{$record.guardian_relation}" size="12" class="input-text"  />
+			</td>
+		</tr>
+		<tr> 
+			<th>{:L('电话')} :</th>
+			<td>
+				<input type="text" name="guardian_phone" id="guardian_phone" value="{$record.guardian_phone}" size="20" class="input-text"  />
+			</td>
+		</tr>
+	</table>
+
+</div>
+<div id="player-tab-2" display>
+	
+	<table width="100%" cellpadding="2" cellspacing="1" class="form-table">
+		<thead>
+		<tr> 
+			<th colspan="2">{:L('报名点及代理商.')}</th>
+		</thead>
+		<tbody>
+		<tr> 
+			<th width="95">{:L('赛区')} :</th>
+			<td><input type="text" name="game_area" id="game_area" value="{$record.game_area}" readonly="readonly" /></td>
+		</tr>
+		<tr> 
+			<th width="95">{:L('选择省份')} :</th>
+			<td>
+			<volist name="Data_Agents" id="prov" >
+				<input type="radio" name="game_prov" id="game_prov_{$i}" value="{$key}" data-index="{$i}"  size="80" class="input-text" />
+	      		<label for="game_prov_{$i}">{$key}</label>&nbsp;&nbsp;&nbsp;
+			</volist>
+			</td>
+		</tr>
+		<tr> 
+			<th>{:L('选择城市')} :</th>
+			<volist name="Data_Agents" id="prov" key="i" >
+				<?php $ProvKey = $key; ?>
+			
+			<td  id="section_prov_city_{$i}" class="section_prov_city" style="display:none;">
+				<volist name="prov" id="city" key="j">
+				
+				<input type="radio" name="game_city" id="game_city_{$i}_{$j}" value="{$key}" data-parent="{$i}" data-index="{$i}_{$j}" size="80" class="input-text" />
+	      		<label for="game_city_{$i}_{$j}">{$key}</label>&nbsp;&nbsp;&nbsp;
+				
+				</volist>
+			</td>
+			</volist>
+		</tr>
+		<tr> 
+			<th>{:L('选择代理商')} :</th>
+			<td>
+			<volist name="Data_Agents" id="prov" key="i">
+			<volist name="prov" id="city" key="j">
+			
+				<div id="section_agent_{$i}_{$j}" class="section_agent" style="display:none;">
+				<volist name="city" id="agent" key="k">
+
+					<dl>
+					<dt>
+					<input type="radio" name="game_agent" id="game_agent_{$agent.agent}" value="{$agent.agent}" data-area="{$agent.area}" size="80" class="input-text" />
+					<label for="game_agent_{$agent.agent_id}">{$agent['agent_name']}</label>
+					
+					</dt>
+					<!--
+					<dd>{:L('电话')} : {$agent['agent_phone']}</dd>
+					<dd>{:L('地址')} : {$agent['agent_address']}</dd>
+					-->
+					</dl>
+
+				</volist>
+				</div>
+			
+			</volist>
+			</volist>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+
+</div>
+<div id="player-tab-3">
+	<table width="100%" cellpadding="2" cellspacing="1" class="form-table">
+		<thead>
+		<tr> 
+			<th colspan="2">{:L('报名信息')}</th>
+		</tr>
+		</thead>
+		<thead>
+		<tr> 
+			<td colspan="2">{:L('音乐资历')} :</td>
+		</tr>
+		</thead>
+		<tbody>
+		<tr> 
+			<th width="95">{:L('学琴年资')} :</th>
+			<td>
+				<input type="text" name="piano_age" id="piano_age" value="{$record.piano_age}" size="8" class="input-text"  />
+			</td>
+		</tr>
+		<tr> 
+			<th>{:L('学琴院校')} :</th>
+			<td>
+				<input type="text" name="piano_school" id="piano_school" value="{$record.piano_school}" size="80" class="input-text"  />
+			</td>
+		</tr>
+		<tr> 
+			<th>{:L('导师姓名')} :</th>
+			<td>
+				<input type="text" name="piano_tutor" id="piano_tutor" value="{$record.piano_tutor}" size="12" class="input-text"  />
+			</td>
+		</tr>
+		<tr> 
+			<th>{:L('导师联系电话')} :</th>
+			<td>
+				<input type="text" name="piano_tutor_phone" id="piano_tutor_phone" value="{$record.piano_tutor_phone}" size="20" class="input-text"  />
+			</td>
+		</tr>
+		</tbody>
+		<thead>
+		<tr> 
+			<td colspan="2">{:L('钢琴级别')} :</td>
+		</tr>
+		</thead>
+		<tbody>
+		<tr> 
+			<th>{:L('音乐学院')} :</th>
+			<td>
+				<input type="text" name="music_school" id="music_school" value="{$record.music_school}" size="80" class="input-text"  />
+			</td>
+		</tr>
+		<tr> 
+			<th>{:L('级别')} :</th>
+			<td>
+				<input type="text" name="piano_level" id="piano_level" value="{$record.piano_level}" size="8" class="input-text"  />
+			</td>
+		</tr>
+		<tr> 
+			<th>{:L('年份')} :</th>
+			<td>
+				<input type="text" name="piano_level_year" id="piano_level_year" value="{$record.piano_level_year}" size="8" class="input-text"  />
+			</td>
+		</tr>
+		</tbody>
+		<thead>
+		<tr> 
+			<td colspan="2">{:L('练琴预约')} :</td>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<th>{:L('是否需要预约练琴？')} :</th>
+			<td>
+	      		<input type="radio" name="aop_piano" id="aop_piano1" class="radio_style" value="1" <if condition="$record.aop_piano eq '1'"> checked</if> /> &nbsp;
+	      		<label for="aop_piano1">{:L('是')}</label>&nbsp;&nbsp;&nbsp;
+	        	<input type="radio" name="aop_piano" id="aop_piano0" class="radio_style" value="0" <if condition="$record.aop_piano neq '1'"> checked</if> /> &nbsp;
+	        	<label for="aop_piano0">{:L('否')}</label>
+			</td>
+		</tr>
+		<tr> 
+			<th>{:L('需要预约的品牌选择')} :</th>
+			<td>
+	      		<input type="radio" name="aop_piano_brand" id="aop_piano_brand1" class="radio_style" value="施坦威钢琴" <if condition="$record.aop_piano_brand eq '施坦威钢琴'"> checked</if> /> &nbsp;
+	      		<label for="aop_piano_brand1">{:L('施坦威钢琴')}</label>&nbsp;&nbsp;&nbsp;
+	      		<input type="radio" name="aop_piano_brand" id="aop_piano_brand2" class="radio_style" value="郎朗钢琴" <if condition="$record.aop_piano_brand eq '郎朗钢琴'"> checked</if> /> &nbsp;
+	      		<label for="aop_piano_brand21">{:L('郎朗钢琴')}</label>&nbsp;&nbsp;&nbsp;
+	      		<input type="radio" name="aop_piano_brand" id="aop_piano_brand3" class="radio_style" value="波士顿钢琴" <if condition="$record.aop_piano_brand eq '波士顿钢琴'"> checked</if> /> &nbsp;
+	      		<label for="aop_piano_brand3">{:L('波士顿钢琴')}</label>&nbsp;&nbsp;&nbsp;
+	      		<input type="radio" name="aop_piano_brand" id="aop_piano_brand4" class="radio_style" value="艾塞克斯钢琴" <if condition="$record.aop_piano_brand eq '艾塞克斯钢琴'"> checked</if> /> &nbsp;
+	      		<label for="aop_piano_brand4">{:L('艾塞克斯钢琴')}</label>&nbsp;&nbsp;&nbsp;
+			</td>
+		</tr>
+		</thead>
+	</table>
+
+</div>
+<div id="player-tab-4">
+	<table width="100%" cellpadding="2" cellspacing="1" class="form-table">
+		<thead>
+		<tr> 
+			<th colspan="2">{:L('参赛组别及曲目')}</th>
+		</tr>
+		</thead>
+
+<include file="$tplGameTrackView" />
+
+	</table>
+
+</div>
+<div id="player-tab-5">
+	<table width="100%" cellpadding="2" cellspacing="1" class="form-table">
+		<thead>
+		<tr> 
+			<th colspan="2">{:L('问卷调查')}</th>
+		</tr>
+		</thead>
+		<tbody>
+		<volist name="Game_Survey" id="sec">
+		<tr> 
+			<th>{$sec['question']} :</th>
+			<td colspan="1">
+			<if condition="$sec['type'] eq 'radio'" >
+				<volist name="sec['options']" id="option">
+	      		<input type="radio" name="survey_{$sec['code']}" id="survey_{$sec['code']}_{$i}" class="radio_style" value="{$option}"
+	      			<volist name="survey" id="rec">
+	      			<if condition="$rec['survey_code'] eq $sec['code']" >
+	      				<if condition="$rec['survey_value'] eq $option" >checked="checked"</if>
+	      			</if>
+	      			</volist>
+	      		> &nbsp;
+	      		<label for="survey_{$sec['code']}_{$i}">{$option}</label>&nbsp;&nbsp;&nbsp;
+	      		</volist>
+			<elseif condition="$sec['type'] eq 'text'" />
+				<input type="text" name="survey_{$sec['code']}" id="survey_{$sec['code']}" class="input-text"  
+	      			<volist name="survey" id="rec">
+	      				<if condition="$rec['survey_code'] eq $sec['code']" >value="{$rec['survey_value']}"</if>
+	      			</volist>
+				/>
+			</if>
+			</td>
+		</tr>
+		</volist>
+		</tbody>
+	</table>
+
+</div>
+</div>
+
+
+<input type="hidden" name="id" value="{$record.playerid}" />
+<input type="hidden" name="competition" value="{$competition}" />
+<table width="100%" cellpadding="2" cellspacing="1" class="form-table">
+	<tfoot>
+	<tr>
+		<th width="80"> </th>
+		<th>
+			<input type="submit" name="dosubmit" id="dosubmit" class="button" value="确定">
+		</th>
+	</tr>
+	</tfoot>
+</table>
+
+
+</fieldset>
+
+</form>
+
+
+<script language="javascript" type="text/javascript" src="__ROOT__/scripts/jQueryUI/jquery-ui-1.10.2.all.min.js"></script>
+<script language="javascript" type="text/javascript" src="__ROOT__/scripts/jQueryUI/jqueryui-datepicker-lang-cn.js"></script>
+<script type="text/javascript">
+    function LK_BrowseServer(id, startupPath ) {
+        var finder = new CKFinder();
+        startupPath = !startupPath ? "": startupPath;
+        finder.BasePath = '__ROOT__/scripts/ckfinder/';
+        finder.startupPath  = "Images:/" +  startupPath;
+        finder.selectActionFunction = LK_SetFileField;
+        finder.selectActionData = new Array(id, startupPath);
+        finder.popup();
+    }
+
+    function LK_SetFileField(fileUrl, data) {
+        var id = data["selectActionData"][0];
+        //var fieldName = data["selectActionData"][1];
+        jQuery("#" + id).val(fileUrl);
+        jQuery("#" + id + "Preview").html("<img src='" + fileUrl + "' />");
+    }
+</script>
+<script language="javascript" type="text/javascript" src="__ROOT__/scripts/jPlugin/chinaregion/jquery.chinaregion.js"></script>
+<script language="javascript" type="text/javascript" src="__ROOT__/scripts/ckfinder/ckfinder.js"></script>
+<script language="javascript" type="text/javascript" src="__ROOT__/scripts/library/moment.min.js"></script>
+<script type="text/javascript">
+function form_show_dialog( $message, $setting ){
+	$ = jQuery;
+	$conf = $.extend({}, {content: '', lock:true, button: {name: '返回', callback: function () {}} }, $setting);
+	$conf.content = $message;
+	jQuery.dialog($conf);
+}
+function form_check_submit(){
+	var obj, msg;
+
+	obj = $('#userid');
+	msg = "{:L('请在【个人资料】中填写【用户账号】的用户ID！')}";
+	if( obj.val() == '' ){
+		form_show_dialog(msg);
+		$( "#player-tabs" ).tabs("option", "active", 0);
+		return false;
+	}
+
+	obj = $('input:radio[name="game_prov"]:checked');
+	msg = "{:L('请在【报名点及代理商】中选择省份！')}";
+	if( obj.length  < 1 ){
+		form_show_dialog(msg);
+		$( "#player-tabs" ).tabs("option", "active", 1);
+		return false;
+	}
+	obj = $('input:radio[name="game_city"]:checked');
+	msg = "{:L('请在【报名点及代理商】中选择城市！')}";
+	if( obj.length  < 1 ){
+		form_show_dialog(msg);
+		$( "#player-tabs" ).tabs("option", "active", 1);
+		return false;
+	}
+	obj = $('input:radio[name="game_agent"]:checked');
+	msg = "{:L('请在【报名点及代理商】中选择代理商！')}";
+	if( obj.length  < 1 ){
+		form_show_dialog(msg);
+		$( "#player-tabs" ).tabs("option", "active", 1);
+		return false;
+	}
+	
+	obj = $('input:radio[name="game_group"]:checked');
+	msg = "{:L('请在【参赛组别及曲目】中选择参赛组别！')}";
+	if( obj.length  < 1 ){
+		form_show_dialog(msg);
+		$( "#player-tabs" ).tabs("option", "active", 3);
+		return false;
+	}
+
+	return true;
+}
+
+function game_prov_change(){
+	var obj = $('input:radio[name="game_prov"]:checked');
+	var index = "";
+	if( obj.length < 1 ){
+		return;
+	}
+	index = obj.data("index");
+	$(".section_prov_city input:radio[name='game_city']").prop("checked",false);
+	$(".section_prov_city").css("display", "none");
+	$("#section_prov_city_" + index).css("display", "table-row")
+}
+function game_city_change(){
+	var obj = $('input:radio[name="game_city"]:checked');
+	var index = "";
+	if( obj.length < 1 ){
+		return;
+	}
+	index = obj.data("index");
+	$(".section_agent input:radio[name='game_agent']").prop("checked",false);
+	$(".section_agent").css("display", "none");
+	$("#section_agent_" + index).css("display", "")
+}
+function game_agent_change(){
+	var obj = $('input:radio[name="game_agent"]:checked');
+	var area = "";
+	if( obj.length < 1 ){
+		return;
+	}
+	area = obj.data("area");
+	$("#game_area").val(area);
+}
+function game_set_dat(prov, city, agent){
+	if( prov && prov != '' ){
+		//$('input:radio[name="game_prov"][value="'+prov+'"]').prop("checked",true);  
+		$('input:radio[name="game_prov"][value="'+prov+'"]').click();  
+		var obj = $('input:radio[name="game_prov"]:checked');
+		var index = "";
+		if( obj.length < 1 ){
+			return;
+		}
+		index = obj.data("index");
+		if( city && city != ''){
+			//$("#section_prov_city_" + index).find('input:radio[name="game_city"][value="'+city+'"]').prop("checked",true);  
+			$("#section_prov_city_" + index).find('input:radio[name="game_city"][value="'+city+'"]').click();  
+			obj = $('input:radio[name="game_city"]:checked');
+			index = "";
+			if( obj.length < 1 ){
+				return;
+			}
+			index = obj.data("index");
+			if( agent && agent != ''){
+				//$("#section_agent_" + index).find('input:radio[name="game_agent"][value="'+agent+'"]').prop("checked",true);  
+				$("#section_agent_" + index).find('input:radio[name="game_agent"][value="'+agent+'"]').click();  
+			}
+		}
+	}
+}
+(function($){
+	$(document).ready(function(){
+
+//		var msg0 = "{:L('不能为空')}";
+//		var msg10 = "{:L('不能为空')}";
+//		var msg19 = "{:L('请填写标题')}";
+//
+//		$.formValidator.initConfig(JPLUGIN_FORMVALIDATOR_CONFIG);
+//		$("#title").formValidator({onshow:msg0,onfocus:msg10}).inputValidator({min:1,onerror:msg19});
+//		//$("#title").formValidator({onshow:msg0,onfocus:msg10}).regexValidator({regExp:"username",dataType:"enum",onError:msg10});
+//		//$("#role_name").formValidator({onshow:msg0,onfocus:msg0}).inputValidator({min:1,onerror:msg29});
+//		$.formValidator.reloadAutoTip();
+
+
+		$( "#player-tabs" ).tabs();
+
+		$( "#birthday" ).datepicker({"dateFormat": "yy-mm-dd", "changeMonth":true,"changeYear":true, "maxDate": new Date() });
+		
+		
+		game_prov_change();
+		game_city_change();
+		game_agent_change();
+		
+		$('input[name="game_prov"]').change(function(){ game_prov_change(); });
+		$('input[name="game_city"]').change(function(){ game_city_change(); });
+		$('input[name="game_agent"]').change(function(){ game_agent_change(); });
+		
+		
+		
+		game_set_dat("{$record.game_prov}", "{$record.game_city}", "{$record.game_agent}");
+
+	});
+
+})(jQuery);
+</script>
+<include file="public:footer" />
+

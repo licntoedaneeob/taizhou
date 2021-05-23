@@ -1,0 +1,97 @@
+<include file="public:header" />
+<script language="javascript" type="text/javascript" src="__ROOT__/scripts/jPlugin/chinaregion/jquery.chinaregion.js"></script>
+
+<form action="{:U('agent/create_address' , array('agent_id'=>$agent_info['id']) )}" method="post" name="myform" id="myform" class="lkcmsform">
+
+<table width="100%" cellpadding="2" cellspacing="1" class="form-table">
+<tbody>
+	<tr> 
+      <th width="80">{:L('用户名')} :</th>
+      <td>{$agent_info['username']}</td>
+    </tr>
+	
+	<tr> 
+      <th width="">{:L('代理商名')} :</th>
+      <td>{$agent_info['agent_name']}
+      </td>
+    </tr>
+	<tr> 
+      <th width="">{:L('电话')} :</th>
+      <td><input type="text" name="phone" id="phone" class="input-text" value="" size="25" maxlength="100"></td>
+    </tr>
+    <tr> 
+      <th width="">{:L('Email')} :</th>
+      <td><input type="text" name="email" id="email" class="input-text" value="" size="25" maxlength="100"></td>
+    </tr>
+    <tr> 
+      <th width="">{:L('经度')} :</th>
+      <td><input type="text" name="longitude" id="longitude" class="input-text" value="" size="25" maxlength="100"></td>
+    </tr>
+    <tr> 
+      <th width="">{:L('纬度')} :</th>
+      <td><input type="text" name="latitude" id="latitude" class="input-text" value="" size="25" maxlength="100"></td>
+    </tr>
+    <tr> 
+      <th width="">{:L('省市')} :</th>
+      <td>
+      <div id="city_1">
+  		<select class="prov" name="prov" id="prov"></select> 
+    	<select class="city" name="city" id="city" disabled="disabled"></select>
+      </div>
+      </td>
+    </tr>
+	<tr> 
+      <th width="">{:L('联系地址')} :</th>
+      <td><input type="text" name="address" id="address" class="input-text" value="" size="25" maxlength="100"></td>
+    </tr>
+    
+    
+    
+    <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+    <tr>
+      	<th>{:L('状态')} :</th>
+      	<td>
+      		<input type="radio" name="status" class="radio_style" value="1" checked /> &nbsp;{:L('发布')}&nbsp;&nbsp;&nbsp;
+        	<input type="radio" name="status" class="radio_style" value="0" /> &nbsp;{:L('隐藏')}
+      	</td>
+    </tr>
+    <?php }else{ ?>
+    <tr>
+      	<th>{:L('状态')} :</th>
+      	<td>
+      		<input type="hidden" name="status" value="0" /> 隐藏
+      	</td>
+    </tr>
+    <?php } ?>
+    
+</tbody>
+</table>
+<table width="100%" cellpadding="2" cellspacing="1" class="form-table">
+	<tfoot>
+	<tr><th>
+	<input type="hidden" name="agent_id" id="agent_id"  value="{$agent_info['id']}" >
+<input type="submit" name="dosubmit" id="dosubmit" class="button" value="确定" >
+	</th></tr>
+	</tfoot>
+</table>
+</form>
+<script type="text/javascript">
+
+	$(function(){
+	
+	
+	$("#city_1").ChinaRegionSelector({}); 
+	
+	
+		var message_000 = "{:L('不能为空')}";
+
+		$.formValidator.initConfig($.extend(true, {}, JPLUGIN_FORMVALIDATOR_CONFIG, {formID: 'myform'}));
+
+		$("#address").formValidator({onShow:message_000,onFocus:message_000}).inputValidator({min:1,onError:"请输入联系地址"});
+		
+	});
+
+
+</script>
+
+<include file="public:footer" />

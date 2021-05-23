@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html dir="ltr" lang="zh-CN" class="no-js ie ie6 lte7 lte8 lte9"><![endif]-->
+<!--[if IE 7 ]><html dir="ltr" lang="zh-CN" class="no-js ie ie7 lte7 lte8 lte9"><![endif]-->
+<!--[if IE 8 ]><html dir="ltr" lang="zh-CN" class="no-js ie ie8 lte8 lte9"><![endif]-->
+<!--[if IE 9 ]><html dir="ltr" lang="zh-CN" class="no-js ie ie9 lte9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html dir="ltr" lang="zh-CN"><!--<![endif]-->
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand">
+
+    <title>成都马拉松</title>
+
+    <link href="<?php echo STATICSPATH;?>css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo STATICSPATH;?>css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo STATICSPATH;?>css/iconfont.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo STATICSPATH;?>css/icheck/yellow.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo STATICSPATH;?>css/swiper.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo STATICSPATH;?>css/style.css" rel="stylesheet" type="text/css">
+
+    <!--[if lte IE 9 ]>
+    <link href="<?php echo STATICSPATH;?>css/ie.css" rel="stylesheet" type="text/css"/>
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+    <script src="<?php echo STATICSPATH;?>scripts/lib/html5shiv.min.js"></script>
+    <script src="<?php echo STATICSPATH;?>scripts/lib/respond.min.js"></script>
+    <![endif]-->
+
+	<script src="<?php echo STATICSPATH;?>scripts/lib/jquery-1.12.4.min.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+
+<div class="wrapper">
+    <header class="container lg header">
+        <div id="countDown" class="count-down">
+            <span class="item"><span class="num day"></span><span class="txt">DAY</span></span>
+            <span class="item"><span class="num hour"></span><span class="txt">HRS</span></span>
+            <span class="item"><span class="num minute"></span><span class="txt">MIN</span></span>
+            <span class="item"><span class="num second"></span><span class="txt">SEC</span></span>
+        </div>
+
+        <div id="searchMain" class="search-mc">
+            <form id="searchMainForm">
+                <input type="text" name="key" class="form-control key" placeholder="Search">
+                <button type="button" class="btn btn-primary">搜 索</button>
+                <div class="notice-list">
+                    <a href="{:U('baoming/order_search')}">报名查询</a>
+                    <a href="{:U('service/result')}">成绩查询</a>
+                    <a href="{:U('service/photo')}">照片查询</a>
+                    <a href="{:U('service/reserve', array('id'=>1 ))}">赛事服务</a>
+                    <a href="{:U('guide/regulation')}">竞赛规程</a>
+                </div>
+            </form>
+        </div>
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <i class="icon-reorder"></i>
+            </button>
+        </div>
+
+        <div id="navbar" class="navbar-collapse collapse">
+            <a class="logo" href="#"></a>
+            <ul class="nav navbar-nav">
+                <!--手机端二级菜单-->
+                <li class="news">
+                    <a href="javascript:;">新闻公告<i class="iconfont icon-jiahao i-sub"></i><i class="iconfont icon-jianhao i-sub"></i></a>
+                    <div class="sub">
+                        <a href="{:U('information/news')}">新闻</a>
+                        <a href="{:U('information/notice')}">公告</a>
+                        <a href="{:U('information/picture')}">精彩图集</a>
+                        <a href="#">媒体中心</a>
+                        <a href="{:U('information/video')}">视频集锦</a>
+                    </div>
+                </li>
+                <li class="race-guide">
+                    <a href="javascript:;">参赛指南<i class="iconfont icon-jiahao i-sub"></i><i class="iconfont icon-jianhao i-sub"></i></a>
+                    <div class="sub">
+                        <a href="{:U('guide/regulation')}">竞赛规程</a>
+                        <a href="{:U('guide/route')}">比赛路线</a>
+                        <a href="{:U('guide/instruction')}">领物须知</a>
+                        <a href="{:U('guide/qa')}">常见问题</a>
+                    </div>
+                </li>
+                <li class="enroll">
+                    <a href="javascript:;">报名参赛<i class="iconfont icon-jiahao i-sub"></i><i class="iconfont icon-jianhao i-sub"></i></a>
+                    <div class="sub">
+                        <a href="{:U('baoming/rule')}">报名须知</a>
+                        <a href="{:U('baoming/order_search')}">报名查询</a>
+                    </div>
+                </li>
+                <li class="race-map">
+                    <a href="javascript:;">在成都<i class="iconfont icon-jiahao i-sub"></i><i class="iconfont icon-jianhao i-sub"></i></a>
+                    <div class="sub">
+                        <a href="{:U('inchengdu/index', array('id'=>1 ))}">吃在成都</a>
+                        <a href="{:U('inchengdu/index', array('id'=>2 ))}">住在成都</a>
+                        <a href="{:U('inchengdu/index', array('id'=>3 ))}">游在成都</a>
+                        <a href="{:U('inchengdu/index', array('id'=>4 ))}">行在成都</a>
+                    </div>
+                </li>
+                <li class="race-service">
+                    <a href="javascript:;">赛事服务<i class="iconfont icon-jiahao i-sub"></i><i class="iconfont icon-jianhao i-sub"></i></a>
+                    <div class="sub">
+                        <a href="{:U('service/reserve', array('id'=>1 ))}">酒店套餐预定</a>
+                        <a href="{:U('service/reserve', array('id'=>2 ))}">训练营产品预定</a>
+                        <a href="{:U('service/reserve', array('id'=>3 ))}">成都旅游预定</a>
+                        <a href="{:U('service/reserve', array('id'=>4 ))}">接、送机预定</a>
+                        <a href="{:U('service/reserve', array('id'=>5 ))}">接、送站预定</a>
+                        <a href="{:U('service/reserve', array('id'=>6 ))}">成马定制行程</a>
+                    </div>
+                </li>
+                <li class="expo"><a href="#">马博会EXPO<i class="icon-angle-right"></i></a></li>
+                <li class="keepsake">
+                    <a href="javascript:;">纪念品<i class="iconfont icon-jiahao i-sub"></i><i class="iconfont icon-jianhao i-sub"></i></a>
+                    <div class="sub">
+                        <a href="{:U('service/special', array('id'=>1 ))}">特许商品预定</a>
+                        <a href="{:U('service/special', array('id'=>2 ))}">特许装备购买</a>
+                    </div>
+                </li>
+                <li class="about">
+                    <a href="javascript:;">关于我们<i class="iconfont icon-jiahao i-sub"></i><i class="iconfont icon-jianhao i-sub"></i></a>
+                    <div class="sub">
+                        <a href="{:U('about/intro')}">赛事简介</a>
+                        <a href="{:U('about/contactus')}">联系我们</a>
+                        <a href="{:U('about/contact')}">信息反馈</a>
+                    </div>
+                </li>
+                <li class="search">
+                    <a href="javascript:;">赛后查询<i class="iconfont icon-jiahao i-sub"></i><i class="iconfont icon-jianhao i-sub"></i></a>
+                    <div class="sub">
+                        <a href="{:U('service/result')}">成绩查询</a>
+                        <a href="{:U('service/cert')}">证书下载</a>
+                        <a href="{:U('service/photo')}">照片查询</a>
+                    </div>
+                </li>
+                <!--手机端一级菜单
+                <li class="news"><a href="{:U('information/news')}">新闻公告<i class="icon-angle-right"></i></a></li>
+                <li class="race-guide"><a href="{:U('guide/regulation')}">参赛指南<i class="icon-angle-right"></i></a></li>
+                <li class="enroll"><a href="{:U('baoming/rule')}">报名参赛<i class="icon-angle-right"></i></a></li>
+                <li class="race-map"><a href="{:U('inchengdu/index', array('id'=>1 ))}">在成都<i class="icon-angle-right"></i></a></li>
+                <li class="race-service"><a href="{:U('service/reserve', array('id'=>1 ))}">赛事服务<i class="icon-angle-right"></i></a></li>
+                <li class="expo"><a href="#">马博会EXPO<i class="icon-angle-right"></i></a></li>
+                <li class="keepsake"><a href="{:U('service/special', array('id'=>1 ))}">纪念品<i class="icon-angle-right"></i></a></li>
+                -->
+            </ul>
+        </div>
+
+        <div class="nav-mc container">
+            <ul class="nav clearfix">
+                <li class="news"><a href="{:U('information/news')}">新闻公告</a></li>
+                <li class="race-guide"><a href="{:U('guide/regulation')}">参赛指南</a></li>
+                <li class="enroll"><a href="{:U('baoming/rule')}">报名参赛</a></li>
+                <li class="race-map"><a href="{:U('inchengdu/index', array('id'=>1 ))}">在成都</a></li>
+                <li class="race-service"><a href="{:U('service/reserve', array('id'=>1 ))}">赛事服务</a></li>
+                <li class="expo"><a href="#">马博会EXPO</a></li>
+                <li class="keepsake"><a href="{:U('service/special', array('id'=>1 ))}">纪念品</a></li>
+            </ul>
+        </div>
+
+        <IFRAME class="weather" id="tianqi8_wetherinfo" name="tianqi8_wetherinfo" src="http://www.uuuu.cc/weather/code/freeweather7.htm?id=101270101&fcolor=&imgurl=tb/tbb/tb2&bimg=&bcolor=&fsize=" frameBorder=0 width=140 height=60 ALIGN=CENTER MARGINWIDTH=0 MARGINHEIGHT=0 HSPACE=0 VSPACE=0 SCROLLING=NO allowtransparency=true></IFRAME>
+
+    </header>

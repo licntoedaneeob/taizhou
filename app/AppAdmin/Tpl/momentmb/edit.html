@@ -1,0 +1,205 @@
+<include file="public:header" />
+
+<form action="{:U('momentmb/edit')}" method="post" name="myform" id="myform" class="lkcmsform">
+
+<table width="100%" cellpadding="2" cellspacing="1" class="form-table">
+<tbody>
+    <tr>
+        <th width="60">{:L('标题')} :</th>
+        <td><input type="text" name="title" id="title" class="input-text" value="{$record.title}" size="25" maxlength="100"></td>
+    </tr>
+
+	
+	
+    <tr>
+        <th width="60">{:L('小图1(262*241)')} :</th>
+        <td><input type="text" name="pic_1_show" id="pic_1_show" value="{$record.pic_1_show}" size="25" class="input-text" maxlength="100"  ><a class="lk-pic-select button" href="javascript:LK_BrowseServer('pic_1_show','momentmb/');" >{:L('选择图片')}</a>
+        &nbsp;&nbsp;&nbsp;替换文本(ALT): <input type="text" name="pic_1_alt" id="pic_1_alt" value="{$record.pic_1_alt}" class="input-text" value="" size="25" maxlength="100">
+        </td>
+    </tr>
+    
+    
+    
+    <?php /*
+    <tr>
+        <th width="60">{:L('小图2(307*286)')} :</th>
+        <td><input type="text" name="pic_2_show" id="pic_2_show" value="{$record.pic_2_show}" size="25" class="input-text" maxlength="100"  ><a class="lk-pic-select button" href="javascript:LK_BrowseServer('pic_2_show','momentmb/');" >{:L('选择图片')}</a>
+        &nbsp;&nbsp;&nbsp;替换文本(ALT): <input type="text" name="pic_2_alt" id="pic_2_alt" value="{$record.pic_2_alt}" class="input-text" value="" size="25" maxlength="100">
+        </td>
+    </tr>
+    
+    <tr>
+        <th width="60">{:L('小图3(625*162)')} :</th>
+        <td><input type="text" name="pic_3_show" id="pic_3_show" value="{$record.pic_3_show}" size="25" class="input-text" maxlength="100"  ><a class="lk-pic-select button" href="javascript:LK_BrowseServer('pic_3_show','momentmb/');" >{:L('选择图片')}</a>
+        &nbsp;&nbsp;&nbsp;替换文本(ALT): <input type="text" name="pic_3_alt" id="pic_3_alt" value="{$record.pic_3_alt}" class="input-text" value="" size="25" maxlength="100">
+        </td>
+    </tr>
+    
+    <tr>
+        <th width="60">{:L('小图4(632*224)')} :</th>
+        <td><input type="text" name="pic_4_show" id="pic_4_show" value="{$record.pic_4_show}" size="25" class="input-text" maxlength="100"  ><a class="lk-pic-select button" href="javascript:LK_BrowseServer('pic_4_show','momentmb/');" >{:L('选择图片')}</a>
+        &nbsp;&nbsp;&nbsp;替换文本(ALT): <input type="text" name="pic_4_alt" id="pic_4_alt" value="{$record.pic_4_alt}" class="input-text" value="" size="25" maxlength="100">
+        </td>
+    </tr>
+    
+    <tr>
+        <th width="60">{:L('小图5(310*224)')} :</th>
+        <td><input type="text" name="pic_5_show" id="pic_5_show" value="{$record.pic_5_show}" size="25" class="input-text" maxlength="100"  ><a class="lk-pic-select button" href="javascript:LK_BrowseServer('pic_5_show','momentmb/');" >{:L('选择图片')}</a>
+        &nbsp;&nbsp;&nbsp;替换文本(ALT): <input type="text" name="pic_5_alt" id="pic_5_alt" value="{$record.pic_5_alt}" class="input-text" value="" size="25" maxlength="100">
+        </td>
+    </tr>
+    */ ?>
+    
+    
+    
+    <tr>
+        <th width="60">{:L('摘要')} :</th>
+        <td><textarea id="summary" name="summary" cols="70" rows="3">{$record.summary}</textarea></td>
+    </tr>
+
+
+	<?php /*
+    <tr>
+        <th width="60">{:L('视频文件')} :</th>
+        <td><input type="text" name="filepath" id="filepath" value="{$record.filepath}" size="25" class="input-text" maxlength="100"  ><a class="lk-pic-select button" href="javascript:LK_BrowseServer_Files('filepath','momentmb/');" >{:L('选择文件')}</a></td>
+    </tr>
+    
+    
+    <tr>
+        <th width="60">{:L('视频预览图(640*360)')} :</th>
+        <td><input type="text" name="video_pic_outer" id="video_pic_outer" value="{$record.video_pic_outer}" size="25" class="input-text" maxlength="100"  ><a class="lk-pic-select button" href="javascript:LK_BrowseServer('video_pic_outer','momentmb/');" >{:L('选择图片')}</a>
+        
+        </td>
+    </tr>
+    */ ?>
+    
+
+    <tr>
+        <th width="60">{:L('详细内容')} :<!--<br><br>在“源码”模式用&lt!--split--&gt;切割内容--></th>
+        <td>
+        进入“源码”模式编辑后，程序会通过识别每个div class="pCon"标签自动切割内容。<br>
+            <textarea name="content" id="content">{$record.content}</textarea>
+        </td>
+    </tr>
+
+
+    <tr>
+        <th>{:L('是否置顶')} :</th>
+        <td>
+            <input type="radio" name="is_top" class="radio_style" value="1" <if condition="$record.is_top eq '1'"> checked</if> /> &nbsp;{:L('是')}&nbsp;&nbsp;&nbsp;
+            <input type="radio" name="is_top" class="radio_style" value="0" <if condition="$record.is_top neq '1'"> checked</if> /> &nbsp;{:L('否')}
+        </td>
+    </tr>
+
+	
+	<tr>
+        <th width="60">{:L('发布时间')} :</th>
+        <td><input type="text" name="publishtime" id="publishtime" class="input-text" value="{$record.publishtime}" size="25" maxlength="100"></td>
+    </tr>
+    
+    
+    <tr>
+        <th width="60">{:L('顺序')} :</th>
+        <td><input type="text" name="sort" id="sort" class="input-text" value="{$record.sort}" size="25" maxlength="100" onkeyup="keyup_action3(this)"></td>
+    </tr>
+
+    <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+    <tr>
+      	<th>{:L('状态')} :</th>
+      	<td>
+      		<input type="radio" name="status" class="radio_style" value="1" <if condition="$record.status eq '1'"> checked</if> /> &nbsp;{:L('发布')}&nbsp;&nbsp;&nbsp;
+        	<input type="radio" name="status" class="radio_style" value="0" <if condition="$record.status neq '1'"> checked</if> /> &nbsp;{:L('隐藏')}
+      	</td>
+    </tr>
+    <?php }else{ ?>
+    <tr>
+      	<th>{:L('状态')} :</th>
+      	<td>
+      		<input type="hidden" name="status" value="0" /> 
+      		<if condition="$record.status eq '1'">发布</if>
+      		<if condition="$record.status neq '1'">隐藏</if>
+      		&nbsp;&nbsp;（改动后，将变为隐藏）
+      	</td>
+    </tr>
+    <?php } ?>
+</tbody>
+</table>
+<input type="hidden" name="id" value="{$record.id}" />
+
+<table width="100%" cellpadding="2" cellspacing="1" class="form-table">
+	<tfoot>
+	<tr><th>
+<input type="submit" name="dosubmit" id="dosubmit" class="button" value="确定">
+	</th></tr>
+	</tfoot>
+</table>
+</form>
+
+<script language="javascript" type="text/javascript" src="__ROOT__/scripts/ckeditor/ckeditor.js"></script>
+<script language="javascript" type="text/javascript" src="__ROOT__/scripts/ckfinder/ckfinder.js"></script>
+<script type="text/javascript">
+
+    function LK_BrowseServer(id, startupPath ) {
+        var finder = new CKFinder();
+        finder.BasePath = '__ROOT__/scripts/ckfinder/';
+        finder.startupPath  = "Images:/" +  startupPath;
+        finder.selectActionFunction = LK_SetFileField;
+        finder.selectActionData = new Array(id, startupPath);
+        finder.popup();
+    }
+
+
+    function LK_BrowseServer_Files(id, startupPath ) {
+        var finder = new CKFinder();
+        finder.BasePath = '__ROOT__/scripts/ckfinder/';
+        finder.startupPath  = "Files:/" +  startupPath;
+        finder.selectActionFunction = LK_SetFileField;
+        finder.selectActionData = new Array(id, startupPath);
+        finder.popup();
+    }
+    
+    
+    function LK_SetFileField(fileUrl, data) {
+        var id = data["selectActionData"][0];
+        jQuery("#" + id).val(fileUrl);
+        jQuery("#" + id + "Preview").html("<img src='" + fileUrl + "' />");
+    }
+
+
+    $(function(){
+        $(document).ready(function(){
+            if (typeof CKEDITOR == "undefined") {
+                //document.write("加载CKEditor失败");
+            }
+            else {
+                var editor = CKEDITOR.replace("content");
+                CKFinder.setupCKEditor(editor, "__ROOT__/scripts/ckfinder/"); //ckfinder总目录的相对路径.
+            }
+        });
+    });
+
+
+    $(function(){
+        var message_000 = "{:L('不能为空')}";
+        $.formValidator.initConfig($.extend(true, {}, JPLUGIN_FORMVALIDATOR_CONFIG, {formID: 'myform'}));
+        $("#title").formValidator({onShow:message_000,onFocus:message_000}).inputValidator({min:1,onError:"请输入标题"});
+    });
+
+</script>
+
+
+
+    <link href="__ROOT__/scripts/timefiles/style.css" rel="stylesheet" type="text/css" />
+    <link href="__ROOT__/scripts/timefiles/ui.datepicker.css" rel="stylesheet" type="text/css" />
+    <link href="__ROOT__/scripts/timefiles/ui.theme.css" rel="stylesheet" type="text/css" />
+    <link href="__ROOT__/scripts/timefiles/ui.core.css" rel="stylesheet" type="text/css" />
+    <script src="__ROOT__/scripts/timefiles/ui.datepicker.js" type="text/javascript"></script>
+    <script type="text/javascript">
+         $(function() {
+             $("#publishtime").datepicker();
+         });
+	</script>
+
+
+
+<include file="public:footer" />

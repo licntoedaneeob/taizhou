@@ -1,0 +1,162 @@
+<include file="public:header" />
+
+
+    <div id="loadCurPos" class="container content-nav-path">
+        <a href="{:U('/')}">首页</a> <span class="arrow">></span> <a href="#">报名赛事</a> <span class="arrow">></span> 状态查询
+    </div>
+
+    <div class="container main-content">
+
+        <h3 class="title-m v1">东风日产2017成都国际马拉松赛状态查询</h3>
+
+        <div class="content-block v2">
+            <div class="form-horizontal form-mc">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">手机 Mobile：</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" name="mobile" id="mobile" >
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">证件类型 ID Type：</label>
+                    <div class="col-sm-6">
+                        <select class="form-control" name="id_type" id="id_type">
+                             <option value="1">身份证 ID CARD</option>
+	                        <option value="2">军官证 Certificate Card</option>
+	                        <option value="3">护照 Passport</option>
+	                        <option value="4">台胞证 MTP</option>
+                       	     <option value="5">回乡证 Home Re-entry Permit</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">证件号 ID Number：</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" name="id_number" id="id_number">
+                    </div>
+                </div>
+                <!--
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">验证码 Identifying code：</label>
+                    <div class="col-sm-3 form-inline inline">
+                        <input type="text" class="form-control" size="8"  id="validate" name="validate"  onfocus="this.select();">
+                    	<img src="<?php echo __ROOT__;?>/validateimg.php" class="id-code-img" onclick="javascript:reloadVerificationCode();"  id="verifyImage">
+                    </div>
+                </div>
+                -->
+            </div>
+        </div>
+
+        <div class="btn-mc-center">
+            <button type="button" class="btn btn-default" onclick="javascript:do_submit();" >立即查询</button>
+        </div>
+
+    </div>
+
+
+<script  type="text/javascript">
+
+    function reloadVerificationCode(){
+        document.getElementById('verifyImage').src = '<?php echo __ROOT__;?>/validateimg.php?'+Math.random();
+        document.getElementById('validate').value = '';
+    }
+    
+	function show_error(v){
+		//alert(v);
+		$.com.alert.open(v);
+	}
+	
+	function do_submit(){
+		
+		var id_type=$("#id_type").val();
+		var id_number=$("#id_number").val();
+		var mobile=$("#mobile").val();
+		
+		//var validate=$("#validate").val();
+	        
+	        
+	        if (id_type==""){
+	            show_error("请输入证件类型 Please input ID Type");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        if (id_number==""){
+	            show_error("请输入证件号码 Please input ID Number");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        
+	        if (mobile==""){
+	            show_error("请输入手机 Please input Mobile");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        //if (validate==""){
+	        // 	show_error("请输入正确的验证码 Please input Identifying code");
+		     //  return false;
+	       // }
+	       //  else{
+		   //}
+	        
+	        
+	        
+              
+        $.ajax({
+            url: "<?php echo __ROOT__;?>/baoming/order_search_sub",
+            async: false,
+            type: "POST",
+            dataType: "json",
+            data: {
+            id_type:id_type,
+            id_number:id_number,
+            //validate:validate,
+            mobile:mobile
+            
+            },
+            success: function(ret){
+                if(ret.success=='success'){
+                	
+                	//alert(ret.order_id);return false;
+                    location.href="<?php echo __ROOT__;?>/baoming/order_search_finish/order_id/"+ret.order_id;
+                	//alert(123);return;
+                	//location.href="<?php echo __ROOT__;?>/baoming/apply_finish/order_id/"+ret.order_id;
+                	
+                	//alert(ret.order_id);
+                	
+                	//location.href="<?php echo __ROOT__;?>/baoming/index";
+                	
+					//$('.valid_error').html("注册成功。3秒后跳转到首页...");
+					//setTimeout('location.href="<?php echo __ROOT__;?>/baoming/index";', 3000);
+					
+                }
+                //else if(ret.success=='mobile_is_cunzai'){
+                //	$('.valid_error').html("相同手机号已存在。");
+                //    return false;
+                //}
+                else{
+                	
+                	 show_error(ret.success);
+	              return false;
+	              
+                }
+            }
+        });
+        
+        
+	}
+</script>
+
+
+
+
+
+<include file="public:footer" />

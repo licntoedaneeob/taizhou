@@ -1,0 +1,61 @@
+<include file="public:header" />
+
+<form action="{:U('keyword/create')}" method="post" name="myform" id="myform" class="lkcmsform">
+
+<table width="100%" cellpadding="2" cellspacing="1" class="form-table">
+<tbody>
+	<tr> 
+      <th width="60">{:L('标题')} :</th>
+      <td><input type="text" name="title" id="title" class="input-text" value="" size="25" maxlength="100"></td>
+    </tr>
+
+
+
+    <tr>
+        <th width="60">{:L('顺序')} :</th>
+        <td><input type="text" name="sort" id="sort" class="input-text" value="" size="25" maxlength="100" onkeyup="keyup_action3(this)"></td>
+    </tr>
+
+    
+    <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+    <tr>
+      	<th>{:L('状态')} :</th>
+      	<td>
+      		<input type="radio" name="status" class="radio_style" value="1" checked /> &nbsp;{:L('发布')}&nbsp;&nbsp;&nbsp;
+        	<input type="radio" name="status" class="radio_style" value="0" /> &nbsp;{:L('隐藏')}
+      	</td>
+    </tr>
+    <?php }else{ ?>
+    <tr>
+      	<th>{:L('状态')} :</th>
+      	<td>
+      		<input type="hidden" name="status" value="0" /> 隐藏
+      	</td>
+    </tr>
+    <?php } ?>
+    
+</tbody>
+</table>
+<table width="100%" cellpadding="2" cellspacing="1" class="form-table">
+	<tfoot>
+	<tr><th>
+<input type="submit" name="dosubmit" id="dosubmit" class="button" value="确定" >
+	</th></tr>
+	</tfoot>
+</table>
+</form>
+
+<script type="text/javascript">
+
+
+    $(function(){
+        var message_000 = "{:L('不能为空')}";
+        $.formValidator.initConfig($.extend(true, {}, JPLUGIN_FORMVALIDATOR_CONFIG, {formID: 'myform'}));
+        $("#title").formValidator({onShow:message_000,onFocus:message_000}).inputValidator({min:1,onError:"请输入标题"});
+    });
+
+
+
+</script>
+
+<include file="public:footer" />

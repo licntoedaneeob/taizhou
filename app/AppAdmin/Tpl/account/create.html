@@ -1,0 +1,100 @@
+<include file="public:header" />
+
+<form action="{:U('account/create')}" method="post" name="myform" id="myform" class="lkcmsform">
+
+<table width="100%" cellpadding="2" cellspacing="1" class="form-table">
+	<tr> 
+      <th width="60">{:L('用户名')} :</th>
+      <td><input type="text" name="username" id="username" class="input-text" value="" size="25"></td>
+    </tr>
+	<tr> 
+      <th width="60">{:L('密码')} :</th>
+      <td><input type="text" name="password" id="password" class="input-text" value="" size="25"></td>
+    </tr>
+	<tr> 
+      <th width="60">{:L('角色')} :</th>
+      <td><select name="role" id="role" class="" value="">
+		<volist name="Data_RoleList" id="val" >
+		<option value="{$val.role}">{$val.role_name}</option>
+		</volist>
+      </select></td>
+    </tr>
+    
+    <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+    <tr>
+      	<th>{:L('状态')} :</th>
+      	<td>
+      		<input type="radio" name="status" class="radio_style" value="1" checked /> &nbsp;{:L('发布')}&nbsp;&nbsp;&nbsp;
+        	<input type="radio" name="status" class="radio_style" value="0" /> &nbsp;{:L('隐藏')}
+      	</td>
+    </tr>
+    <?php }else{ ?>
+    <tr>
+      	<th>{:L('状态')} :</th>
+      	<td>
+      		<input type="hidden" name="status" value="0" /> 隐藏
+      	</td>
+    </tr>
+    <?php } ?>
+    
+</table>
+<input type="hidden" name="role_id" value="{$record.role_id}" />
+<table width="100%" cellpadding="2" cellspacing="1" class="form-table">
+	<tfoot>
+	<tr><th>
+<input type="submit" name="dosubmit" id="dosubmit" class="button" value="确定">
+	</th></tr>
+	</tfoot>
+</table>
+</form>
+<script language="javascript" type="text/javascript" src="__ROOT__/scripts/ckeditor/ckeditor.js"></script>
+<script language="javascript" type="text/javascript" src="__ROOT__/scripts/ckfinder/ckfinder.js"></script>
+<script type="text/javascript">
+    function LK_BrowseServer(id, startupPath ) {
+        var finder = new CKFinder();
+        finder.BasePath = '__ROOT__/scripts/ckfinder/';
+        finder.startupPath  = "Images:/" +  startupPath;
+        finder.selectActionFunction = LK_SetFileField;
+        finder.selectActionData = new Array(id, startupPath);
+        finder.popup();
+    }
+
+    function LK_SetFileField(fileUrl, data) {
+        var id = data["selectActionData"][0];
+        //var fieldName = data["selectActionData"][1];
+        jQuery("#" + id).val(fileUrl);
+        jQuery("#" + id + "Preview").html("<img src='" + fileUrl + "' />");
+//
+//        if (fileUrl.indexOf(".swf") > 0) {
+//            swfobject.embedSWF(fileUrl, id + "Preview", "972", "332", "9.0.0", "/uploads/flash/expressInstall.swf", {}, { menu: 'false', wmode: 'transparent', allowScriptAccess: 'always' });
+//        }
+//        else {
+//            jQuery("#" + id + "Preview").html("<img src='" + fileUrl + "' />");
+//            jQuery("#" + id + "Preview IMG").dblclick();
+//            //$("#" + id + "Preview IMG").resize({maxHeight: 180, maxWidth: 180});
+//        }
+    }
+
+;(function($){
+	$(document).ready(function(){
+	
+		$.formValidator.initConfig({formid:"myform",autotip:true,onerror:function(msg,obj){window.top.art.dialog({content:msg,lock:true,width:'250',height:'50'}, function(){this.close();$(obj).focus();})}});
+		$("#username").formValidator({onshow:"不能为空",onfocus:"不能为空"}).inputValidator({min:1,onerror:"请填写用户名"});
+		$("#password").formValidator({onshow:"不能为空",onfocus:"不能为空"}).inputValidator({min:1,onerror:"请填写密码"});
+		//$("#role").formValidator({onshow:"不能为空",onfocus:"不能为空"}).inputValidator({min:0,onerror:"请选择角色名称"});
+		
+//		
+//		if (typeof CKEDITOR == "undefined") {
+//			//document.write("加载CKEditor失败");
+//		}
+//		else {
+//			var editor = CKEDITOR.replace("descript");
+//			CKFinder.setupCKEditor(editor, "__ROOT__/scripts/ckfinder/");
+//		} 
+//		
+		
+	});
+})(jQuery);
+</script>
+
+<include file="public:footer" />

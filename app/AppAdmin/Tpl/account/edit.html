@@ -1,0 +1,47 @@
+<include file="public:header" />
+
+<form action="{:U('account/edit')}" method="post" name="myform" id="myform" class="lkcmsform">
+
+<table width="100%" cellpadding="2" cellspacing="1" class="form-table">
+	<tr> 
+      <th width="60">{:L('用户名')} :</th>
+      <td><input type="text" name="username" id="username" class="input-text" value="{$record.username}" size="25"></td>
+    </tr>
+	<tr> 
+      <th width="60">{:L('密码')} :</th>
+      <td><input type="text" name="password" id="password" class="input-text" value="" size="25"></td>
+    </tr>
+	<tr> 
+      <th width="60">{:L('角色')} :</th>
+      <td><select name="role" id="role" value="{$record.role}">
+		<volist name="Data_RoleList" id="val" >
+		<option value="{$val.role}" <if condition="$record['role'] eq $val['role']"> selected="selected"</if>>{$val.role_name}</option>
+		</volist>
+      </select></td>
+    </tr>
+    <tr>
+      	<th>{:L('状态')} :</th>
+      	<td>
+      		<input type="radio" name="status" class="radio_style" value="1" <if condition="$record.status eq '1'"> checked</if>> &nbsp;{:L('发布')}&nbsp;&nbsp;&nbsp;
+        	<input type="radio" name="status" class="radio_style" value="0" <if condition="$record.status neq '1'"> checked</if>> &nbsp;{:L('隐藏')}
+      	</td>
+    </tr>
+</table>
+<input type="hidden" name="id" value="{$record.id}" />
+<table width="100%" cellpadding="2" cellspacing="1" class="form-table">
+	<tfoot>
+	<tr><th>
+<input type="submit" name="dosubmit" id="dosubmit" class="button" value="确定">
+	</th></tr>
+	</tfoot>
+</table>
+</form>
+<script type="text/javascript">
+	$(function(){
+		//$.formValidator.initConfig({formid:"myform",autotip:true,onerror:function(msg,obj){window.top.art.dialog({content:msg,lock:true,width:'250',height:'50'}, function(){this.close();$(obj).focus();})}});
+		$.formValidator.initConfig(JPLUGIN_FORMVALIDATOR_CONFIG);
+		$("#username").formValidator({onshow:"不能为空",onfocus:"不能为空"}).inputValidator({min:1,onerror:"请填写用户名"});
+	})
+</script>
+
+<include file="public:footer" />

@@ -1,0 +1,450 @@
+<include file="public:header" />
+
+
+<link href="<?php echo STATICSPATH;?>scripts/lib/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css">
+
+
+    <div id="loadCurPos" class="container content-nav-path">
+        <a href="{:U('/')}">首页</a> <span class="arrow">></span> <a href="#">报名赛事</a>
+    </div>
+
+    <div class="title-main">
+        <div class="container">
+            <span class="text">2017成都国际马拉松<small>报名赛事</small></span>
+        </div>
+    </div>
+
+    <div class="container main-content">
+
+        <form class="form-horizontal form-mc" id="form_input" name="form_input" method="post">
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">报名类型：<span class="en">Registration type</span></label>
+                <div class="col-sm-6">
+                    <select class="form-control" name="cat_id" id="cat_id">
+                        <option value="">请选择报名类型 Please select the registration type</option>
+                        <option value="1">全程马拉松 Marathon</option>
+                        <option value="2">半程马拉松 Half Marathon</option>
+                        <option value="3">欢乐跑 Mini Marathon</option>
+                        <option value="4">公益全程马拉松 Public welfare Marathon</option>
+                        <option value="5">公益半程马拉松 Public welfare Half Marathon</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">姓名：<span class="en">Name</span></label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="realname" id="realname">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">性别：<span class="en">Sex</span></label>
+                <div class="col-sm-9">
+                    <div class="radio">
+                        <label><input type="radio" name="sex" id="sex" > 男 Male</label>
+                        <label><input type="radio" name="sex" id="sex" > 女 Female</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">证件类型：<span class="en">Type of ID</span></label>
+                <div class="col-sm-6">
+                    <select class="form-control" name="id_type" id="id_type">
+                        <option value="1">身份证 Credit Card</option>
+                        <option value="2">军官证 Certificate Card</option>
+                        <option value="3">护照 Passport</option>
+                        <option value="4">台胞证 MTP</option>
+                        <option value="5">回乡证 Home Re-entry Permit</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">证件号码：<span class="en">ID Number</span></label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="id_number" id="id_number" onkeyup="change_id_number(this.value)" >
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">出生日期：<span class="en">Birthday</span></label>
+                <div class="col-sm-6">
+                    <input type="text" id="birthday" name="birth_day" data-date="1990-01-01" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">现居住地：<span class="en">Current residence</span></label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" placeholder="请填写详细地址 Please fill in the  address"  name="address" id="address">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">手机：<span class="en">Mobile</span></label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="mobile" id="mobile">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">邮箱：<span class="en">Email</span></label>
+                <div class="col-sm-6">
+                    <input type="email" class="form-control" name="email" id="email">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">国家/地区：<span class="en">Country</span></label>
+                <div class="col-sm-6">
+                    <select class="form-control" name="cityarea" id="cityarea">
+                   	 <?php
+			    		if(!empty($guoji_list)){
+						foreach ($guoji_list as $k=>$v) {
+					?>
+                        <option value="<?php echo $v['guoji_name'];?>"><?php echo $v['guoji_name'];?></option>
+                       <?php
+				    }
+				}
+				?>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">血型：<span class="en">Blood type</span></label>
+                <div class="col-sm-9">
+                    <div class="radio">
+                        <label><input type="radio" name="blood"  id="blood" > A型</label>
+                        <label><input type="radio" name="blood"  id="blood" > B型</label>
+                        <label><input type="radio" name="blood"  id="blood" > O型</label>
+                        <label><input type="radio" name="blood"  id="blood" > AB型</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">是否需要中意人寿赠险：<span class="en">GENERALI CHINA free insurance</span></label>
+                <div class="col-sm-9">
+                    <div class="radio">
+                        <label><input type="radio" name="renshou_zengxian" id="renshou_zengxian" value="1" <?php if ($order_info['renshou_zengxian']==1){echo 'checked';}?>> 是 Yes</label>
+                        <label><input type="radio" name="renshou_zengxian" id="renshou_zengxian" value="2" <?php if ($order_info['renshou_zengxian']==2){echo 'checked';}?> > 否 No</label>
+                        <span class="en"><a href="#" data-toggle="modal" data-target="#myModal">成都马拉松比赛赠险方案</a></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">验证码：<span class="en">Identifying code</span></label>
+                <div class="col-sm-9 form-inline inline">
+                    <input type="text" class="form-control" size="8"  id="validate" name="validate"  onfocus="this.select();">
+                    <img src="<?php echo __ROOT__;?>/validateimg.php" class="id-code-img" onclick="javascript:reloadVerificationCode();"  id="verifyImage">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="btn-mc-center">
+                    <button type="button" class="btn btn-default" onclick="javascript:location.href='{:U('baoming/rule')}';" >上一步</button>
+                    <button type="button" class="btn btn-default" onclick="javascript:do_submit();">提交报名</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">成都马拉松比赛赠险方案</h4>
+            </div>
+            <div class="modal-body text-center">
+                <p>中意人寿温馨提示：您可免费获得一份10万交通意外、10万特定意外保险。</p>
+                <p>e路通---10万免费交通意外、10万特定意外保障（30天）</p>
+
+                <div class="table-mc1">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>保险责任</th>
+                                <th width="80">保额</th>
+                                <th width="80">保障期间</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>公共交通工具（公共汽车、班车、出租车、电车、列车、轮船、民航等）</td>
+                                <td>10万</td>
+                                <td rowspan="2">30天</td>
+                            </tr>
+                            <tr>
+                                <td>电梯或扶梯</td>
+                                <td>10万</td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+
+                <p>生效日期：填表或中签当日领取，次日生效</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script  type="text/javascript">
+	
+	
+    function reloadVerificationCode(){
+        document.getElementById('verifyImage').src = '<?php echo __ROOT__;?>/validateimg.php?'+Math.random();
+        document.getElementById('validate').value = '';
+    }
+    
+    
+	function show_error(v){
+		//alert(v);
+		$.com.alert.open(v);
+	}
+	
+	function do_submit(){
+		
+		var cat_id=$("#cat_id").val();
+		var realname=$("#realname").val();
+		var birthday=$("#birthday").val();
+		var id_type=$("#id_type").val();
+		var id_number=$("#id_number").val();
+		var address=$("#address").val();
+		var mobile=$("#mobile").val();
+		var email=$("#email").val();
+		var cityarea=$("#cityarea").val();
+		
+		var validate=$("#validate").val();
+		
+	        if (cat_id==""){
+	            show_error("请输入报名类型 Please input Registration type");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        if (realname==""){
+	            show_error("请输入姓名 Please input Name");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+		
+		var   sltSource=false;   
+          for   (var   i=0;i<document.form_input.sex.length;i++){   
+              if   (document.form_input.sex[i].checked==true)   sltSource=true;   
+          }   
+          if   (sltSource==false){   
+              show_error("请输入性别 Please input Sex");
+              document.form_input.sex[0].focus();   
+              return false;   
+          }
+		if (document.form_input.sex[0].checked==true){
+		var sex=1;
+		}
+		else{
+		var sex=2;
+		}
+
+
+	        
+	        
+	        
+	        
+	        if (id_type==""){
+	            show_error("请输入证件类型 Please input Type of ID");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        if (id_number==""){
+	            show_error("请输入证件号码 Please input ID Number");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        if (birthday==""){
+	            show_error("请输入出生日期 Please input Birthday");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        
+	        if (address==""){
+	            show_error("请输入现居住地 Please input Current residence");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        
+	        if (mobile==""){
+	            show_error("请输入手机 Please input Mobile");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        if (email==""){
+	            show_error("请输入邮箱 Please input Email");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        var reg = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
+	        if (reg.test(email) <= 0){
+	       	 show_error("邮箱有误 Email is error");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        
+	        if (cityarea==""){
+	            show_error("请输入国家/地区 Please input Country");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        
+	        if (blood==""){
+	            show_error("请输入血型 Please input Blood type");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+		var   sltSource=false;   
+          for   (var   i=0;i<document.form_input.blood.length;i++){   
+              if   (document.form_input.blood[i].checked==true)   sltSource=true;   
+          }   
+          if   (sltSource==false){   
+              show_error("请输入血型 Please input Blood type");
+              document.form_input.blood[0].focus();   
+              return false;   
+          }
+		if (document.form_input.blood[0].checked==true){
+		var blood='A';
+		}
+		if (document.form_input.blood[1].checked==true){
+		var blood='B';
+		}
+		if (document.form_input.blood[2].checked==true){
+		var blood='O';
+		}
+		if (document.form_input.blood[3].checked==true){
+		var blood='AB';
+		}
+		
+		
+		
+		
+		var   sltSource=false;   
+          for   (var   i=0;i<document.form_input.renshou_zengxian.length;i++){   
+              if   (document.form_input.renshou_zengxian[i].checked==true)   sltSource=true;   
+          }   
+          if   (sltSource==false){   
+              show_error("请输入是否需要中意人寿赠险 Please input GENERALI CHINA free insurance");
+              document.form_input.renshou_zengxian[0].focus();   
+              return false;   
+          }
+		if (document.form_input.renshou_zengxian[0].checked==true){
+		var renshou_zengxian='1';
+		}
+		if (document.form_input.renshou_zengxian[1].checked==true){
+		var renshou_zengxian='2';
+		}
+		
+		
+	        
+	        
+        if (validate==""){
+         	show_error("请输入正确的验证码 Please input Identifying code");
+	       return false;
+        }
+         else{
+	   }
+        
+        
+	        
+	        
+        
+        $.ajax({
+            url: "<?php echo __ROOT__;?>/baoming/apply_sub",
+            async: false,
+            type: "POST",
+            dataType: "json",
+            data: {
+            cat_id:cat_id,
+            realname:realname,
+            sex:sex,
+            birth_day:birthday,
+            id_type:id_type,
+            id_number:id_number,
+            address:address,
+            mobile:mobile,
+            email:email,
+            cityarea:cityarea,
+            blood:blood,
+            renshou_zengxian:renshou_zengxian,
+            validate:validate
+            
+            },
+            success: function(ret){
+                if(ret.success=='success'){
+                
+                	location.href="<?php echo __ROOT__;?>/baoming/apply_confirm/order_id/"+ret.order_id;
+                    //location.href="<?php echo __ROOT__;?>/baoming/apply_finish/order_id/"+ret.order_id;
+                	
+					
+                }
+                else{
+                	
+                	 show_error(ret.success);
+	              return false;
+	              
+                }
+            }
+        });
+        
+        
+	}
+	
+	//根据身份证，自动算出生日
+	function change_id_number(v){
+		if(v.length==18){
+			var y = v.substr(6, 4);
+			var m = v.substr(10, 2);
+			var d = v.substr(12, 2);
+			var bir=y+'-'+m+'-'+d;
+			//alert(bir);
+			$("#birthday").val(bir);
+		}
+	}
+	
+	
+
+</script>
+
+
+
+
+<script src="<?php echo STATICSPATH;?>scripts/lib/datetimepicker/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<script src="<?php echo STATICSPATH;?>scripts/lib/datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+<script src="<?php echo STATICSPATH;?>scripts/app/enroll/info1.js" type="text/javascript"></script>
+
+
+<include file="public:footer" />

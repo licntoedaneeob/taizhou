@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>后台登录</title>
+	<link rel="stylesheet" href="/statics/css/public.css">
+	<style>
+	
+	.amLogo{position: absolute; z-index: 111; left:35px; top:35px;}
+		.amLogin{position: absolute; width:100%; height:100%; background: url(/statics/images/login/bg.jpg) center center no-repeat;}
+		.amBox{width:354px; height:344px; background-color: #fff; box-shadow: 0px 0px 10px #000; position: absolute; left:50%; margin-left: -202px; top:50%; margin-top:-207px; padding-left:50px; padding-top:30px;}
+
+		.loginCon{}
+.loginCon .regM{ height:230px; font-size: 16px; padding-top:50px; }
+.loginCon .regM li{width:516px; height:40px; margin-bottom: 15px;}
+.loginCon .regM span{width:80px; height:35px; padding-right:10px; line-height: 35px; text-align: right; display: block; float: left; }
+.loginCon .backBtn{float: right; cursor: pointer;}
+
+
+.loginCon .regM .i_b{width:200px; height:30px;  float: left; background-color: #f3f3f3; border:1px solid #cdcdcd;
+border-radius: 5px;
+-webkit-border-radius: 5px;
+-ms-border-radius: 5px;
+-moz-border-radius: 5px;}
+
+.loginCon  .ts{padding-left:110px; padding-top:35px; line-height: 24px; color: #e5152e}
+.loginCon .submit{ background: url(/statics/images/login/enter.png) no-repeat; width:296px; height:48px; border: none; cursor: pointer; margin-left:5px; margin-top:0px; position: absolute; left:50%; margin-left:-148px; bottom:40px;}
+.loginCon .rBottom{ float: right; margin-right:30px;}
+.loginCon .rBottom a{margin:0 10px; color:#000; text-decoration: underline;}
+
+.loginCon .rBottom a:hover{color:#a10106;}
+	</style>
+</head>
+<body>
+	<div class="amLogo"><img src="/statics/images/login/logo.png" alt=""></div>
+	<div class="amLogin">
+		<div class="amBox">
+			<div class="amTitle"><img src="/statics/images/login/title.png" alt=""></div>
+
+			<div class="loginCon">
+					
+					<form action="{:U('public/login')}" method="post" id="myform">
+						<div class="regM">
+							<ul>
+								<li><span>管理员账号</span> <div class="r_b"><input class='i_b' name="username" id="username" maxlength="50"  type="text"  size="20" ></div></li>
+								
+								<li><span>管理员密码</span><div class="r_b"><input class='i_b'  name="password" id="password" maxlength="50"  type="password"  size="20" ></div></li>
+								
+								<if condition="$set.login_use_verify_code eq '1'">
+								<li><span>验证码</span><div class="r_b">
+								
+								<input class='i_b' id="verify" type="text" name="verify" class="captcha">
+								<img id="verify_img" class="captcha" src="{:U('public/captcha',array('rand'=>time()))}" title="看不清？点击刷新" onclick="javascript:this.src='{:U('public/captcha/')}&mt='+Math.random()" />
+								
+								</div></li>
+								</if>
+
+								<input class="submit"  type="submit" name="formSubmit" value="  ">
+							</ul>
+						</div>
+					</form>
+
+
+				</div><!--.registerCon end-->
+		</div>
+	</div>
+	
+
+<script language="javascript" type="text/javascript" src="__ROOT__/scripts/jQuery/jquery-1.9.1.min.js"></script>
+<script language="javascript" type="text/javascript" src="__ROOT__/scripts/jQuery/jquery.browser.js"></script>
+<script language="javascript" type="text/javascript" src="__ROOT__/scripts/jQueryUI/jquery-ui-1.10.2.all.min.js"></script>
+
+<script type="text/javascript">
+$(function(){
+	$(document).ready(function(){
+		$("#login").tabs();
+	
+	});
+
+})
+</script>
+
+</body>
+</html>

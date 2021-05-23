@@ -1,0 +1,121 @@
+<include file="public:header" />
+<script language="javascript" type="text/javascript" src="__ROOT__/statics/js/jquery/jquery.role.js"></script>
+<script language="javascript" type="text/javascript" src="__ROOT__/scripts/jQueryUI/jquery-ui-1.10.2.all.min.js"></script>
+
+<form id="myform" name="myform" action="{:U('role/delete')}" method="post" onsubmit="return form_check_submit();" class="lkcmsform">
+<style>
+.grid-table .col-id { width: 50px; }
+.grid-table .col-checkbox { width: 35px; }
+.grid-table .col-namecode { width: 120px; }
+.grid-table .col-name {   }
+.grid-table .col-status { width: 50px; }
+.grid-table .col-sort { width: 65px; }
+.grid-table .col-action { width: 120px; }
+</style>
+<table width="100%" cellspacing="0" class="grid-table">
+    <colgroup span="2" class="cgp-head">
+    	<col class="col-checkbox" />
+    	<col class="col-id" />
+    </colgroup>
+    <colgroup span="2" align="left" class="cgp-content">
+    	<col class="col-namecode" />
+    	<col class="col-name" />
+    </colgroup>
+    <colgroup span="2" class="cgp-property">
+    	<col class="col-status" style="width: 15px;" />
+    	<col class="col-sort" />
+    </colgroup>
+    <colgroup class="cgp-operation">
+    	<col class="col-action" />
+    </colgroup>
+    <thead>
+    <tr>
+        <th><input type="checkbox" value="" id="ckallid" name="ckallid" onclick="LkCmsForm.CheckBoxAll(this.form, 'name', 'role_id[]', 'ckallid');"></th>                
+    	<th>ID</th>
+        <th>{:L('角色代码')}</th>
+        <th>{:L('角色名称')}</th>
+        <th align="center">{:L('排序')}</th>
+		<th class="cell-action" nowrap="true">{:L('状态')}</th>
+        <th class="cell-action">{:L('操作')}</th>
+    </tr>
+    </thead>
+	<tbody id="table-sortable">
+    <volist name="dataset" id="rec" >
+	<if condition="$rec['role_id'] egt 1">
+    <tr data-id="{$rec.role_id}" class="sort-id-{$rec.role_id}">
+        <td class="cell-checkbox"><input type="checkbox" value="{$rec.role_id}" name="role_id[]"></td>            
+    	<td class="cell-id">{$rec.role_id}</td>
+        <td>{$rec.role}</td>
+        <td>{$rec.role_name}</td>
+        <td class="cell-sort"><input type="text" value="{$rec.sort}" name="sort[{$rec.role_id}]" size="2" class="status sort-id-{$rec.role_id}"></td>            
+        <td class="cell-status"><a onclick="table_change_status({$rec.role_id},'form_record_status')" id="form_record_status_{$rec.role_id}"><img src="__ROOT__/statics/images/status_{$rec.status}.gif"></a> </td>
+        <td class="cell-action"><if condition="$rec['role_id'] egt 2"><a href="{:U('role/auth', array('id'=>$rec['role_id']))}" class="action action-permission">{:L('权限')}</a> | <a href="{:U('role/edit', array('id'=>$rec['role_id']))}" class="action action-edit">{:L('编辑')}</a><a href="javascript:edit({$rec.role_id},'{$rec.role_name}')"></a></if></td>
+    </tr>
+    </if>
+    </volist>
+	</tbody>
+	<tfoot>
+	<tr><td colspan="7">
+	    <label for="ckallid" style="float:left;">{:L('全选_取消')}</label>
+	    <input type="submit" class="button" name="dosubmit" value="{:L('删除')}" onclick="return confirm('{:L('确定删除？')}\n\n{:L('因为关联权限，不建议删除角色。\n不需要的角色可是设置无效。')}')" style="margin-left:10px;"/>
+	    <div id="pages">{$page}</div>
+	</td></tr>
+	</tfoot>
+</table>
+
+</form>
+
+<script language="javascript">
+function form_check_submit(){
+	var ids='';
+	$("#table-sortable input[name='role_id[]']:checked").each(function(i, n){
+		ids += $(n).val() + ',';
+	});
+	var info = "{:L('请选择你需要操作的角色')}";
+	if(ids=='') {
+		window.top.art.dialog({content:info,lock:true,width:'200',height:'50',time:1.5},function(){});
+		return false;
+	}
+	return true;
+}
+function table_sort_update(){
+	var sort_id = '';
+	$('#table-sortable tr').each(function(index){
+		if(sort_id!=''){
+			sort_id += ",";
+		}
+		sort_id = sort_id +$(this).data('id');
+	});
+	var url = "{:U('role/ajax_sort_save')}";
+	$.get(url,{sort:sort_id},function(response){
+		if( response.status == 'true' ){
+			$.each(response.sort, function(i,n){
+				if( n.result ){
+					$('#table-sortable tr.sort-id-'+n.id+' input.sort-id-'+n.id).val(n.sort);
+				}
+			});
+		}
+		//console.log( response );
+	});
+}
+function table_change_status(id, type){
+    $.get("{:U('role/ajax_change_status')}", { id: id, type: type }, function(jsondata){
+//		var return_data  = eval("("+jsondata+")");
+    	var status = jsondata.status;
+    	var result = jsondata.result;
+    	if( status == 'true'){    	
+			$("#"+type+"_"+id+" img").attr('src', '__ROOT__/statics/images/status_'+ result +'.gif');
+		}
+	}); 
+}
+
+(function($){
+	$(document).ready(function(){
+		$('#table-sortable').sortable({ stop: function(event, ui) { table_sort_update(1);}});
+
+	});
+
+})(jQuery);
+</script>
+<include file="public:footer" />
+

@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>后台登录</title>
+<link href="__ROOT__/statics/css/style.css" rel="stylesheet" type="text/css"/>
+<link href="__ROOT__/statics/css/login.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+
+<div id="login">
+	<ul class="login-func" style="right: 127px;width: 123px;">
+		<li class="login-func-user" > <a href="#login-user">管理员登录</a> </li>
+		<li class="login-func-agent" style="display:none;"> <a href="#login-agent">代理商登录</a> </li>
+	</ul>
+	<div id="login-user">
+	<form action="{:U('public/login')}" method="post" id="myform">
+		<input type="hidden" name="ajaxlogin" id="ajaxlogin" />
+		<input type="hidden" name="ajaxcode" id="ajaxcode" />
+		<dl>
+			<dd>管理员帐号：<input class="text" type="text" name="username" id="username" /></dd>
+			<dd>管理员密码：<input class="text" type="password" name="password" id="password" /></dd>
+			<if condition="$set.login_use_verify_code eq '1'">
+				<dd>验　证　码：<input id="verify" type="text" name="verify" class="captcha">
+					<img id="verify_img" class="captcha" src="{:U('public/captcha',array('rand'=>time()))}" title="看不清？点击刷新" onclick="javascript:this.src='{:U('public/captcha/')}&mt='+Math.random()" />
+				</dd>	
+			</if>
+			<dd><input type="submit" class="submit" name="formSubmit" value="进入管理中心" /></dd>			
+		</dl>
+	</form>
+	</div>
+	<?php /*
+	<div id="login-agent">
+	<form action="{:U('public/login_agent')}" method="post" id="myform">
+		<input type="hidden" name="ajaxlogin" id="ajaxlogin_agent" />
+		<input type="hidden" name="ajaxcode" id="ajaxcode_agent" />
+		<dl>
+			<dd>代理商帐号：<input class="text" type="text" name="username" id="username_agent" /></dd>
+			<dd>代理商密码：<input class="text" type="password" name="password" id="password_agent" /></dd>
+			<if condition="$set.login_use_verify_code eq '1'">
+				<dd>验　证　码：<input id="verify_agent" type="text" name="verify" class="captcha">
+					<img id="verify_img_agent" class="captcha" src="{:U('public/captcha',array('rand'=>time()))}" title="看不清？点击刷新" onclick="javascript:this.src='{:U('public/captcha/')}&mt='+Math.random()" />
+				</dd>	
+			</if>
+			<dd><input type="submit" class="submit" name="formSubmit" value="进入管理中心" /></dd>			
+		</dl>
+	</form>
+	</div>
+	*/?>
+</div>
+
+<script language="javascript" type="text/javascript" src="__ROOT__/scripts/jQuery/jquery-1.9.1.min.js"></script>
+<script language="javascript" type="text/javascript" src="__ROOT__/scripts/jQuery/jquery.browser.js"></script>
+<script language="javascript" type="text/javascript" src="__ROOT__/scripts/jQueryUI/jquery-ui-1.10.2.all.min.js"></script>
+
+<script type="text/javascript">
+$(function(){
+	$(document).ready(function(){
+		$("#login").tabs();
+	
+	});
+
+})
+</script>
+
+</body>
+</html>

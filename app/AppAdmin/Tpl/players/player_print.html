@@ -1,0 +1,197 @@
+<include file="public:header" />
+
+
+<div id="PlayerDetail" class="PrintArea" style="width: 650px; margin: 0 auto;">
+
+<style>
+table.print-table {
+	border-top: solid black 2pt;
+	border-left: solid black 1pt;
+	border-right: 0;
+	border-bottom: 0;
+	margin-bottom: 1pt;
+}
+table.print-table td, table.print-table th {
+	border-top: 0;
+	border-left: 0;
+	border-right: solid black 1pt;
+	border-bottom: solid black 1pt;
+	padding: 2px;
+	height: 25px;
+	vertical-align: middle;
+}
+table.print-table tr.none td, table.print-table tr.none th{
+	padding: 0; margin: 0;
+	height: 0px;
+	border-right: 0pt;
+	border-bottom: solid black 0pt;
+}
+table.print-table tr.none td.last, table.print-table tr.none th.last{
+	border-right: solid black 1pt;
+}
+table.print-table td {
+	font-family: "SimSun";
+	font-size: 9pt;
+}
+table.print-table th {
+	font-family: "FangSong", "仿宋", "仿宋_GB2312";
+	font-size: 9pt;
+	font-weight: normal;
+	text-align: left;
+}
+* table.print-table td.avatar img {
+	width:expression(this.width>135?"135":width);
+	height:expression(this.height>500?"175":height);
+}
+</style>
+<table width="630" border="1" cellpadding="0" cellspacing="0" class="print-table">
+<tr>
+	<th style="font-family: 'Microsoft Yahei',tahoma,arial,SimSun,Sans-Serif; font-size: 24px; text-align: center;">{$CompetitionInfo['title']}</th>
+</tr>
+<tr>
+	<th style="font-family: 'Microsoft Yahei',tahoma,arial,SimSun,Sans-Serif; font-size: 20px; text-align: center;">{$CompetitionInfo['subtitle']}</th>
+</tr>
+<tr>
+	<th style="font-family: 'Microsoft Yahei',tahoma,arial,SimSun,Sans-Serif; font-size: 24px; text-align: center;">报名信息表({$record.playerid})</th>
+</tr>
+</table>
+<table width="630" border="1" cellpadding="0" cellspacing="0" class="print-table">
+   <tr class="none">
+    <td width="80"></td>
+    <td width="80"></td>
+    <td width="80"></td>
+    <td width="80"></td>
+    <td width="80"></td>
+    <td width="80"></td>
+    <td width="140" class="last"></td>
+  </tr>                 
+  <tr>
+    <th>中文姓名</th>
+    <td>{$record.name}&nbsp;</td>
+    <th>性别</th>
+    <td><if condition="$record.gender eq '1'">男<elseif condition="$record.gender eq '0'" />女<else />未知</if>&nbsp;</td>
+    <th>出生日期</th>
+    <td>{$record.birthday}&nbsp;</td>
+    <td rowspan="6" align="center" valign="middle" class="avatar"><if condition="$record.photo_normal neq ''"><img src="{$record.photo_normal}" style="max-width: 135px; max-height: 175px;" /></if>&nbsp;</td>
+  </tr>
+  <tr>
+    <th>身份证号</th>
+    <td colspan="3">{$record.idcno}&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <th>地址</th>
+    <td colspan="5">{$record.address}&nbsp;</td>
+  </tr>
+  <tr>
+    <th>电话</th>
+    <td colspan="2">{$record.phone}&nbsp;</td>
+    <th>传真</th>
+    <td colspan="2">{$record.fax}&nbsp;</td>
+  </tr>
+  <tr>
+    <th>学校</th>
+    <td colspan="5">{$record.school}&nbsp;</td>
+  </tr>
+    <tr>
+    <th>监护人</th>
+    <td>{$record.guardian_name}&nbsp;</td>
+    <th>关系</th>
+    <td>{$record.guardian_relation}&nbsp;</td>
+    <th>电话</th>
+    <td>{$record.guardian_phone}&nbsp;</td>
+  </tr>
+</table>
+<table width="630" border="1" cellpadding="0" cellspacing="0" class="print-table">
+   <tr class="none">
+    <td width="80"></td>
+    <td width="80"></td>
+    <td width="80"></td>
+    <td width="80"></td>
+    <td width="80"></td>
+    <td width="80"></td>
+    <td width="140" class="last"></td>
+  </tr>
+  <tr>
+    <th>学琴年资</th>
+    <td>{$record.piano_age}&nbsp;</td>
+    <th>导师姓名</th>
+    <td>{$record.piano_tutor}&nbsp;</td>
+    <th>导师电话</th>
+    <td colspan="2">{$record.piano_tutor_phone}</td>
+  </tr>
+  <tr>
+    <th>学琴院校</th>
+    <td colspan="3">{$record.piano_school}&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>  
+  <tr>
+    <th>钢琴级别</th>
+    <td>{$record.piano_level}&nbsp;</td>
+    <th>年份</th>
+    <td>{$record.piano_level_year}&nbsp;</td>
+    <th>音乐学院</th>
+    <td colspan="2">{$record.music_school}&nbsp;</td>
+  </tr>
+  <tr>
+    <th colspan="2">是否需要预约练琴？</th>
+    <td colspan="2"><if condition="$record.aop_piano eq '1'">是<else />否</if>&nbsp;</td>
+    <th colspan="2">需要预约的品牌选择</th>
+    <td>{$record.aop_piano_brand}&nbsp;</td>
+  </tr>  
+</table>
+
+<include file="$tplPlayerPrintTrackView" />
+
+<table width="630" border="1" cellpadding="0" cellspacing="0" class="print-table">
+<volist name="PlayerSurvey" id="Survey">
+  <tr>
+    <th>{$Survey.survey_name}</th>
+    <td>{$Survey.survey_value}</td>
+  </tr>
+</volist>
+</table>
+<table width="630" border="1" cellpadding="0" cellspacing="0" class="print-table">
+   <tr class="none">
+    <td width="80"></td>
+    <td width="80"></td>
+    <td width="80"></td>
+    <td width="80"></td>
+    <td width="80"></td>
+    <td width="80"></td>
+    <td width="140" class="last"></td>
+  </tr>
+</table>
+
+
+
+
+</div>
+
+
+
+<script language="javascript" type="text/javascript" src="__ROOT__/scripts/jPlugin/PrintArea/jquery.PrintArea.js"></script>
+<script type="text/javascript">
+function DooPrintContent(){
+	var title = "{:L('参赛者报名信息')}";
+	$("#PlayerDetail").printArea( {'mode': 'iframe', 'popTitle' : title} );
+}
+
+
+(function($){
+	$(document).ready(function(){
+
+
+	});
+
+})(jQuery);
+</script>
+
+
+
+
+<include file="public:footer" />
+

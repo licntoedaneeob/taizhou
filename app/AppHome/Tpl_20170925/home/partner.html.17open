@@ -1,0 +1,274 @@
+<include file="public:header" />
+
+
+   
+    <div id="loadCurPos" class="container content-nav-path">
+        <a href="{:U('/')}">首页</a> <span class="arrow">></span> <a href="{:U('home/partner')}">合作伙伴</a>
+    </div>
+
+	<div class="container main-content partner-content">
+
+
+<?php
+		if(!empty($media_class_list)){
+	?>
+	<?php
+		foreach ($media_class_list as $k_class=>$v_class) {
+			?>
+	<div class="item">
+            <h3><span><?php echo $v_class['title'];?></span></h3>
+            
+            
+	            <?php
+			if(!empty($v_class['pic_list'])){
+			?>
+			<?php
+				foreach ($v_class['pic_list'] as $k=>$v) {
+				?>
+				
+                       <a href="<?php echo $v['link_url'];?>" target="_blank"><div class="row">
+	                <div class="col-sm-3 pic"><img src="<?php echo STATICSCDN.$v['pic_show'];?>" alt=""></div>
+	                <div class="col-sm-9 con">
+	                    <h4><?php echo $v['title'];?></h4>
+	                    <div class="text"><?php echo $v['summary'];?></div>
+	                </div>
+	            </div></a>
+            
+	            
+			<?php
+				 }
+				?>
+				
+			<?php
+				 }
+				?>
+            
+        </div>
+
+
+<?php
+	 }
+	?>
+	
+<?php
+	 }
+	?>
+	
+    </div>
+    
+    
+    
+    
+<!--
+        <div class="item">
+            <h3><span>顶级冠名赞助商</span></h3>
+                       <a href="#1" target="_blank"><div class="row">
+                <div class="col-sm-3 pic"><img src="<?php echo STATICSPATH;?>images/partner-logo-2.png" alt=""></div>
+                <div class="col-sm-9 con">
+                    <h4>华夏幸福</h4>
+                    <div class="text">华夏幸福基业股份有限公司（股票代码：600340）创立于1998年，致力于成为全球领先的产业新城运营商。公司以“产业高度聚集、城市功能完善、生态环境优美”的产业新城、“产业鲜明、绿色生态、美丽宜居”的产业小镇为核心产品，秉持“以产兴城、以城带产、产城融合、城乡一体”的系统化发展理念，通过创新升级“政府主导、企业运作、合作共赢”的PPP市场化运作模式，接受合作区域政府的委托，在规划设计、土地整理、基</div>
+                </div>
+            </div></a>
+            
+            <a href="#1" target="_blank"><div class="row">
+                <div class="col-sm-3 pic"><img src="<?php echo STATICSPATH;?>images/partner-logo-2.png" alt=""></div>
+                <div class="col-sm-9 con">
+                    <h4>华夏幸福</h4>
+                    <div class="text">华夏幸福基业股份有限公司（股票代码：600340）创立于1998年，致力于成为全球领先的产业新城运营商。公司以“产业高度聚集、城市功能完善、生态环境优美”的产业新城、“产业鲜明、绿色生态、美丽宜居”的产业小镇为核心产品，秉持“以产兴城、以城带产、产城融合、城乡一体”的系统化发展理念，通过创新升级“政府主导、企业运作、合作共赢”的PPP市场化运作模式，接受合作区域政府的委托，在规划设计、土地整理、基</div>
+                </div>
+            </div></a>
+            
+        </div>
+
+        <div class="item">
+            <h3><span>顶级冠名赞助商</span></h3>
+           <a href="#" target="_blank"> <div class="row">
+                <div class="col-sm-3 pic"><img src="<?php echo STATICSPATH;?>images/partner-logo-2.png" alt=""></div>
+                <div class="col-sm-9 con">
+                    <h4>华夏幸福</h4>
+                    <div class="text">华夏幸福基业股份有限公司（股票代码：600340）创立于1998年，致力于成为全球领先的产业新城运营商。公司以“产业高度聚集、城市功能完善、生态环境优美”的产业新城、“产业鲜明、绿色生态、美丽宜居”的产业小镇为核心产品，秉持“以产兴城、以城带产、产城融合、城乡一体”的系统化发展理念，通过创新升级“政府主导、企业运作、合作共赢”的PPP市场化运作模式，接受合作区域政府的委托，在规划设计、土地整理、基</div>
+                </div>
+            </div></a>
+        </div>
+
+    </div>
+    -->
+    
+    
+    
+    
+    
+    <!--
+    <div class="container main-content partner-main">
+
+
+<h3>冠名赞助商</h3>
+<div class="item">
+<?php
+		if(!empty($news_list_1)){
+	?>
+
+<?php
+		foreach ($news_list_1 as $k=>$v) {
+			?>
+            <a href="<?php echo $v['link_url'];?>" target="_blank"><img src="<?php echo $v['pic_show'];?>" alt=""></a>
+        <?php
+        		}
+	?>
+	 
+    <?php
+		}
+	?>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+<h3>顶级合作伙伴</h3>
+<div class="item">
+<?php
+		if(!empty($news_list_2)){
+	?>
+
+<?php
+		foreach ($news_list_2 as $k=>$v) {
+			?>
+            <a href="<?php echo $v['link_url'];?>" target="_blank"><img src="<?php echo $v['pic_show'];?>" alt=""></a>
+        <?php
+        		}
+	?>
+	 
+    <?php
+		}
+	?>
+	</div>
+	
+	
+	
+	
+	
+	
+<h3>官方合作伙伴</h3>
+<div class="item">
+<?php
+		if(!empty($news_list_3)){
+	?>
+
+<?php
+		foreach ($news_list_3 as $k=>$v) {
+			?>
+            <a href="<?php echo $v['link_url'];?>" target="_blank"><img src="<?php echo $v['pic_show'];?>" alt=""></a>
+        <?php
+        		}
+	?>
+	 
+    <?php
+		}
+	?>
+	</div>
+	
+	
+	
+	
+	
+
+<h3>官方赞助商</h3>
+<div class="item">
+<?php
+		if(!empty($news_list_4)){
+	?>
+
+<?php
+		foreach ($news_list_4 as $k=>$v) {
+			?>
+            <a href="<?php echo $v['link_url'];?>" target="_blank"><img src="<?php echo $v['pic_show'];?>" alt=""></a>
+        <?php
+        		}
+	?>
+	 
+    <?php
+		}
+	?>
+</div>
+
+
+
+
+<h3>官方供应商</h3>
+<div class="item">
+<?php
+		if(!empty($news_list_5)){
+	?>
+
+<?php
+		foreach ($news_list_5 as $k=>$v) {
+			?>
+            <a href="<?php echo $v['link_url'];?>" target="_blank"><img src="<?php echo $v['pic_show'];?>" alt=""></a>
+        <?php
+        		}
+	?>
+	 
+    <?php
+		}
+	?>
+</div>
+
+
+
+
+
+
+<h3>官方支持商</h3>
+<div class="item">
+<?php
+		if(!empty($news_list_6)){
+	?>
+
+<?php
+		foreach ($news_list_6 as $k=>$v) {
+			?>
+            <a href="<?php echo $v['link_url'];?>" target="_blank"><img src="<?php echo $v['pic_show'];?>" alt=""></a>
+        <?php
+        		}
+	?>
+	 
+    <?php
+		}
+	?>
+</div>
+
+
+
+
+
+<h3>合作媒体</h3>
+<div class="item">
+<?php
+		if(!empty($news_list_7)){
+	?>
+
+<?php
+		foreach ($news_list_7 as $k=>$v) {
+			?>
+            <a href="<?php echo $v['link_url'];?>" target="_blank"><img src="<?php echo $v['pic_show'];?>" alt=""></a>
+        <?php
+        		}
+	?>
+	 
+    <?php
+		}
+	?>
+</div>
+
+
+-->
+
+
+
+
+
+<include file="public:footer" />

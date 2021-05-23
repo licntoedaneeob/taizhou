@@ -1,0 +1,39 @@
+<include file="public:header" />
+
+<form action="{:U('role/edit')}" method="post" name="myform" id="myform" class="lkcmsform">
+
+<table width="100%" cellpadding="2" cellspacing="1" class="form-table">
+	<tr> 
+      <th width="60">{:L('角色代码')} :</th>
+      <td><input type="text" name="role" id="role" class="input-text" value="{$record.role}" size="25"></td>
+    </tr>
+	<tr> 
+      <th width="60">{:L('角色名称')} :</th>
+      <td><input type="text" name="role_name" id="role_name" class="input-text" value="{$record.role_name}" size="25"></td>
+    </tr>
+    <tr>
+      	<th>{:L('状态')} :</th>
+      	<td>
+      		<input type="radio" name="status" class="radio_style" value="1" <if condition="$record.status eq '1'"> checked</if>> &nbsp;{:L('发布')}&nbsp;&nbsp;&nbsp;
+        	<input type="radio" name="status" class="radio_style" value="0" <if condition="$record.status neq '1'"> checked</if>> &nbsp;{:L('隐藏')}
+      	</td>
+    </tr>
+</table>
+<input type="hidden" name="role_id" value="{$record.role_id}" />
+<table width="100%" cellpadding="2" cellspacing="1" class="form-table">
+	<tfoot>
+	<tr><th>
+<input type="submit" name="dosubmit" id="dosubmit" class="button" value="确定">
+	</th></tr>
+	</tfoot>
+</table>
+</form>
+<script type="text/javascript">
+	$(function(){
+		$.formValidator.initConfig({formid:"myform",autotip:true,onerror:function(msg,obj){window.top.art.dialog({content:msg,lock:true,width:'250',height:'50'}, function(){this.close();$(obj).focus();})}});
+		$("#role").formValidator({onshow:"不能为空",onfocus:"不能为空"}).inputValidator({min:1,onerror:"请填写角色代码"});
+		$("#role_name").formValidator({onshow:"不能为空",onfocus:"不能为空"}).inputValidator({min:1,onerror:"请填写角色名称"});
+	})
+</script>
+
+<include file="public:footer" />

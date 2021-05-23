@@ -1,0 +1,149 @@
+<include file="public:header" />
+
+<link href="__ROOT__/scripts/jPlugin/powerFloat/powerFloat.css" rel="stylesheet" type="text/css" />
+
+<include file="inc/competition-select" />
+
+
+
+<tagLib name="cmscp" />
+
+<form id="lkform" name="lkform" method="post" class="lkcmsform" action="{:U(MODULE_NAME .'/'.ACTION_NAME)}"
+	 data-list  ="{:U(MODULE_NAME.'/list_a')}"
+	 data-print ="{:U(MODULE_NAME.'/list_a_print')}"
+	 data-export="{:U(MODULE_NAME.'/list_a_export')}"
+>
+<fieldset class="competition">
+	<legend class="competition">筛选条件</legend>
+<table id="grid-filter" width="100%" cellspacing="0" class="filter-table">
+<tbody>
+<tr>
+	<td style="width: 80px;">{:L('选择')}:</td>
+	<td nowrap="nowrap">
+		<!-- {:L('分区')}: --><select id="_filter_area" name="_filter_area" onchanges="form_list_submit();" class="form_filter_ele"><option value=""> - {:L('选择赛区')} - </option>
+		<volist name="Game_Areas" id="val" ><option value="{$val}" <if condition="$filter_area eq $val"> selected="selected"</if> >{$val}</option></volist></select>
+		<!-- {:L('组别')}: --><select id="_filter_group" name="_filter_group" onchanges="form_list_submit();" class="form_filter_ele"><option value=""> - {:L('选择组别')} - </option>
+		<volist name="Game_Groups" id="val" ><option value="{$val['name']}" <if condition="$filter_group eq $val['name']"> selected="selected"</if> >{$val['name']}</option></volist></select>
+		<!-- {:L('城市')}: --><select id="_filter_city" name="_filter_city" onchanges="form_list_submit();" class="form_filter_ele"><option value=""> - {:L('选择城市')} - </option>
+		<volist name="Game_Citys" id="val" ><option value="{$val['city']}" <if condition="$filter_city eq $val['city']"> selected="selected"</if> >{$val['city']}</option></volist></select>
+
+		<!-- {:L('是否预约练琴')}: -->
+		<select id="_filter_track_state" name="_filter_state_aoppiano" onchanges="form_state_submit();" class="form_filter_ele" data-value="{$filter_state_aoppiano}">
+		<option value=""> - {:L('预约练琴')} - </option>
+		<option value="1" <if condition="$filter_state_aoppiano eq '1'"> selected="selected"</if> > {:L('预约')} </option>
+		<option value="0" <if condition="$filter_state_aoppiano eq '0'"> selected="selected"</if> > {:L('未预约')} </option>
+		</select>
+
+		<!-- {:L('报名费状态')}: -->
+		<select id="_filter_state_payment_a" name="_filter_state_payment_a" onchanges="form_state_submit();" class="form_filter_ele" data-value="{$filter_state_payment_a}">
+		<option value=""> - {:L('预选赛缴费')} - </option>
+		<option value="1" <if condition="$filter_state_payment_a eq '1'"> selected="selected"</if> > {:L('已交')} </option>
+		<option value="0" <if condition="$filter_state_payment_a eq '0'"> selected="selected"</if> > {:L('未交')} </option>
+		</select>
+
+		<!-- {:L('报名费状态')}: -->
+		<select id="_filter_state_qualify_a" name="_filter_state_qualify_a" onchanges="form_state_submit();" class="form_filter_ele" data-value="{$filter_state_qualify_a}">
+		<option value=""> - {:L('晋级分赛区决赛')} - </option>
+		<option value="1" <if condition="$filter_state_qualify_a eq '1'"> selected="selected"</if> > {:L('晋级')} </option>
+		<option value="0" <if condition="$filter_state_qualify_a eq '0'"> selected="selected"</if> > {:L('未晋级')} </option>
+		</select>
+
+		<!-- {:L('数据状态')}: -->
+		<select id="_filter_state" name="_filter_state" onchanges="form_state_submit();" class="form_filter_ele" data-value="{$filter_state}">
+		<option value=""> - {:L('数据状态')} - </option>
+		<option value="1" <if condition="$filter_state eq '1'"> selected="selected"</if> > {:L('有效数据')} </option>
+		<option value="0" <if condition="$filter_state eq '0'"> selected="selected"</if> > {:L('无效数据')} </option>
+		</select>
+
+	</td>
+</tr>
+<tr>
+	<td width="">{:L('排序')}:</td>
+	<td width="" align="left">
+	
+	<select id="_f_order" name="_f_order" onchanges="form_list_submit();" class="form_filter_ele"><option value=""> - {:L('排序')} - </option>
+		<volist name="Excel_Fields" id="val" ><option value="{$key}" <if condition="$f_order eq $key"> selected="selected"</if> >{$val}</option></volist>
+	</select>
+	<select id="_f_direc" name="_f_direc" onchanges="form_list_submit();" class="form_filter_ele">
+		<option value="ASC" <if condition="$f_direc neq 'DESC'"> selected="selected"</if>>正序排列</option>
+		<option value="DESC" <if condition="$f_direc eq 'DESC'"> selected="selected"</if>>倒序排列</option>
+	</select>
+	</td>
+</tr>
+<tr>
+	<td width="">{:L('查询')}:</td>
+	<td width="" align="left">
+	
+	<input type="text" id="_f_search" name="_f_search" onchanges="form_list_submit();" class="form_filter_ele" value="{$f_search}">
+	<!--
+	<button onclick="form_list_submit();">{:L('开始')}</button>
+	<button onclick="form_clear_submit();">{:L('清空')}</button>
+	-->
+	</td>
+</tr>
+</tbody>
+</table>
+</fieldset>
+
+
+<fieldset class="competition">
+	<legend class="competition">选择字段</legend>
+<table id="grid-filter" width="100%" cellspacing="0" class="grid-table style-joomla2">
+<tbody id="table-sortable">
+	<volist name="Excel_Fields" id="fld" >
+	<tr style="cursor: move;">
+		<td style="width: 70px;"><span class="no">{$i}</span></td>
+		<td style="font-family: 'Microsoft YaHei'; font-size: 16px; ">
+		<input type="checkbox" name="excel_fields[]" id="excel_field_{$i}" value="{$key}" checked="checked" onclick="table_sort_update()" />
+		&nbsp;
+		<label for="excel_field_{$i}" >{$fld}</label>
+		</td>
+		<td style=""></td>
+	</tr>
+	</volist>
+
+</tbody>
+</table>
+</fieldset>
+
+
+<input type="hidden" name="competition" value="{$competition}" />
+<input type="hidden" name="_action" value="export" />
+
+<table width="100%" cellpadding="2" cellspacing="1" class="form-table">
+	<tfoot>
+	<tr>
+		<th width="80"> </th>
+		<th>
+			<input type="submit" name="dosubmit" id="dosubmit" class="button" value="确定">
+		</th>
+	</tr>
+	</tfoot>
+</table>
+
+</form>
+
+<script language="javascript" type="text/javascript" src="__ROOT__/scripts/jQueryUI/jquery-ui-1.10.2.all.min.js"></script>
+<script>
+function table_sort_update(){
+	var sort_id = '';
+	var sort_no = 0;
+	$('#table-sortable tr').each(function(index){
+		var yes = $(this).find('input:checkbox').prop('checked');
+		if( yes ){
+			sort_no++;
+			$(this).find('span.no').html(sort_no);
+		}else{
+			$(this).find('span.no').html("");
+		}
+	});
+}
+(function($){
+	$(document).ready(function(){
+		$('#table-sortable').sortable({ stop: function(event, ui) { table_sort_update(1);}});
+	});
+
+})(jQuery);
+</script>
+<include file="public:footer" />
+

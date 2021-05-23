@@ -1,0 +1,150 @@
+<include file="public:header" />
+
+
+   
+    <div id="loadCurPos" class="container content-nav-path">
+        <a href="{:U('/')}">首页</a> <span class="arrow">></span> <a href="{:U('home/partner')}">合作伙伴</a>
+    </div>
+
+    <div class="container main-content partner-main">
+
+
+<h3>冠名赞助商</h3>
+<?php
+		if(!empty($news_list_1)){
+	?>
+<div class="item">
+<?php
+		foreach ($news_list_1 as $k=>$v) {
+			?>
+            <a href="<?php echo $v['link_url'];?>" target="_blank"><img src="<?php echo $v['pic_show'];?>" alt=""></a>
+        <?php
+        		}
+	?>
+	 </div>
+    <?php
+		}
+	?>
+	
+	
+	
+<h3>顶级合作伙伴</h3>
+<?php
+		if(!empty($news_list_2)){
+	?>
+<div class="item">
+<?php
+		foreach ($news_list_2 as $k=>$v) {
+			?>
+            <a href="<?php echo $v['link_url'];?>" target="_blank"><img src="<?php echo $v['pic_show'];?>" alt=""></a>
+        <?php
+        		}
+	?>
+	 </div>
+    <?php
+		}
+	?>
+	
+	
+	
+<h3>官方合作伙伴</h3>
+<?php
+		if(!empty($news_list_3)){
+	?>
+<div class="item">
+<?php
+		foreach ($news_list_3 as $k=>$v) {
+			?>
+            <a href="<?php echo $v['link_url'];?>" target="_blank"><img src="<?php echo $v['pic_show'];?>" alt=""></a>
+        <?php
+        		}
+	?>
+	 </div>
+    <?php
+		}
+	?>
+	
+	
+<h3>官方赞助商</h3>
+<?php
+		if(!empty($news_list_4)){
+	?>
+<div class="item">
+<?php
+		foreach ($news_list_4 as $k=>$v) {
+			?>
+            <a href="<?php echo $v['link_url'];?>" target="_blank"><img src="<?php echo $v['pic_show'];?>" alt=""></a>
+        <?php
+        		}
+	?>
+	 </div>
+    <?php
+		}
+	?>
+
+
+
+<h3>官方供应商</h3>
+<?php
+		if(!empty($news_list_5)){
+	?>
+<div class="item">
+<?php
+		foreach ($news_list_5 as $k=>$v) {
+			?>
+            <a href="<?php echo $v['link_url'];?>" target="_blank"><img src="<?php echo $v['pic_show'];?>" alt=""></a>
+        <?php
+        		}
+	?>
+	 </div>
+    <?php
+		}
+	?>
+
+
+
+
+<h3>官方支持商</h3>
+<?php
+		if(!empty($news_list_6)){
+	?>
+<div class="item">
+<?php
+		foreach ($news_list_6 as $k=>$v) {
+			?>
+            <a href="<?php echo $v['link_url'];?>" target="_blank"><img src="<?php echo $v['pic_show'];?>" alt=""></a>
+        <?php
+        		}
+	?>
+	 </div>
+    <?php
+		}
+	?>
+
+	
+<h3>合作媒体</h3>
+<?php
+		if(!empty($news_list_7)){
+	?>
+<div class="item">
+<?php
+		foreach ($news_list_7 as $k=>$v) {
+			?>
+            <a href="<?php echo $v['link_url'];?>" target="_blank"><img src="<?php echo $v['pic_show'];?>" alt=""></a>
+        <?php
+        		}
+	?>
+	 </div>
+    <?php
+		}
+	?>
+	
+	
+        
+        
+
+
+    </div>
+
+
+<include file="public:footer" />

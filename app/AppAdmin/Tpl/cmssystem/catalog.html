@@ -1,0 +1,182 @@
+<include file="public:header" />
+<style>
+.grid-table .col-id { width: 50px; }
+.grid-table .col-checkbox { width: 35px; }
+.grid-table .col-namecode { width: 170px; }
+.grid-table .col-name {   }
+.grid-table .col-status { width: 50px; }
+.grid-table .col-status-new { width: 130px; }
+.grid-table .col-sort { width: 65px; }
+.grid-table .col-action { width: 120px; }
+</style>
+
+本页功能未完,纯界面
+<!--
+<fieldset class="node">
+	<legend style="background-color:#3A6EA5; color: #fff;">添加分类</legend>
+-->
+<h3 class="group-caption">添加分类</h3>
+<form action="{:U('cmssystem/catalog')}" method="post" name="myformajax" id="myformajax" class="lkcmsform">
+<table width="100%" cellspacing="0" class="grid-table">
+    <colgroup span="2" class="cgp-head">
+    	<col class="col-checkbox" />
+    	<col class="col-id" />
+    </colgroup>
+    <colgroup span="2" align="left" class="cgp-content">
+    	<col class="col-namecode" />
+    	<col class="col-name" />
+    </colgroup>
+    <colgroup span="2" class="cgp-property">
+    	<col class="col-status-new" style="" />
+    	<col class="col-sort" />
+    </colgroup>
+    <colgroup class="cgp-operation">
+    	<col class="col-action" />
+    </colgroup>
+    <thead>
+    <tr>
+        <th> &nbsp; </th>                
+    	<th>ID</th>
+        <th align="left">{:L('分类代码')}</th>
+        <th align="left">{:L('分类名称')}</th>
+		<th align="right" nowrap="true">{:L('状态')}</th>
+        <th align="center">{:L('排序')}</th>
+        <th>{:L('操作')}</th>
+    </tr>
+    </thead>
+	<tbody>
+    <tr data-id="0" class="">
+        <td class="cell-checkbox">&nbsp;</td>            
+    	<td class="cell-id"> &nbsp;</td>
+        <td><input type="text" name="catalog" value="" /></td>
+        <td><input type="text" name="title" value="" /></td>
+        <td class="cell-status"><input type="radio" name="status" class="radio_style" value="1" checked /> &nbsp;{:L('发布')}&nbsp;&nbsp;&nbsp;<input type="radio" name="status" class="radio_style" value="0" /> &nbsp;{:L('隐藏')}</td>
+        <td class="cell-sort"><input type="text" value="" name="sort" size="2" class="status"></td>            
+        <td class="cell-action"><input type="submit" class="button" name="dosubmit" value="{:L('添加')}" style="margin-left:10px;"/></td>
+    </tr>
+	</tbody>
+</table>
+<input type="hidden" name="operation" value="add" />
+</form>
+<!--
+</fieldset>
+-->
+<h3 class="group-caption">分类列表</h3>
+<form action="{:U('cmssystem/catalog')}" method="post" name="myform" id="myform" class="lkcmsform">
+<table width="100%" cellspacing="0" class="grid-table">
+    <colgroup span="2" class="cgp-head">
+    	<col class="col-checkbox" />
+    	<col class="col-id" />
+    </colgroup>
+    <colgroup span="2" align="left" class="cgp-content">
+    	<col class="col-namecode" />
+    	<col class="col-name" />
+    </colgroup>
+    <colgroup span="2" class="cgp-property">
+    	<col class="col-status" style="width: 15px;" />
+    	<col class="col-sort" />
+    </colgroup>
+    <colgroup class="cgp-operation">
+    	<col class="col-action" />
+    </colgroup>
+    <thead>
+    <tr>
+        <th><input type="checkbox" value="" id="ckallid" name="ckallid" onclick="LkCmsForm.CheckBoxAll(this.form, 'name', 'id[]', 'ckallid');"></th>                
+    	<th>ID</th>
+        <th align="left">{:L('分类代码')}</th>
+        <th align="left">{:L('分类名称')}</th>
+		<th nowrap="true">{:L('状态')}</th>
+        <th align="center">{:L('排序')}</th>
+        <th>{:L('操作')}</th>
+    </tr>
+    </thead>
+	<tbody id="table-sortable">
+    <volist name="dataset" id="rec" >
+	<if condition="$rec['id'] egt 1">
+    <tr data-id="{$rec.id}" class="sort-id-{$rec.id}">
+        <td class="cell-checkbox"><input type="checkbox" value="{$rec.id}" name="id[]"></td>            
+    	<td class="cell-id">{$rec.id}</td>
+        <td>{$rec.catalog}</td>
+        <td>{$rec.title}</td>
+        <td class="cell-status"><a onclick="table_change_status({$rec.id},'form_record_status')" id="form_record_status_{$rec.id}"><img src="__ROOT__/statics/images/status_{$rec.status}.gif"></a> </td>
+        <td class="cell-sort"><input type="text" value="{$rec.sort}" name="sort[{$rec.id}]" size="2" class="status sort-id-{$rec.id}"></td>            
+        <td class="cell-action"><a href="#" class="action action-edit">{:L('编辑')}</a><a href="javascript:edit({$rec.id},'{$rec.role_name}')"></a></if></td>
+    </tr>
+    </if>
+    </volist>
+	</tbody>
+	<tfoot>
+	<tr><td colspan="7">
+	    <label for="ckallid" style="float:left;">{:L('全选_取消')}</label>
+	    <input type="submit" class="button" name="dosubmit" value="{:L('删除')}" onclick="return confirm('{:L('确定删除？')}\n\n{:L('因为关联模块及权限，不建议删除分类。\n不需要的分类可是设置无效。')}')" style="margin-left:10px;"/>
+	    <div id="pages">{$page}</div>
+	</td></tr>
+	</tfoot>
+</table>
+<input type="hidden" name="operation" value="delete" />
+</form>
+
+
+
+
+
+<script language="javascript" type="text/javascript" src="__ROOT__/scripts/jQueryUI/jquery-ui-1.10.2.all.min.js"></script>
+<script type="text/javascript">
+function form_check_submit(){
+	var ids='';
+	$("#table-sortable input[name='id[]']:checked").each(function(i, n){
+		ids += $(n).val() + ',';
+	});
+	var info = "{:L('请选择你需要删除的分类')}";
+	if(ids=='') {
+		window.top.art.dialog({content:info,lock:true,width:'200',height:'50',time:1.5},function(){});
+		return false;
+	}
+	return true;
+}
+function table_change_status(id, type){
+    $.get("{:U('role/ajax_catalog_change_status')}", { id: id, type: type }, function(jsondata){
+//		var return_data  = eval("("+jsondata+")");
+    	var status = jsondata.status;
+    	var result = jsondata.result;
+    	if( status == 'true'){    	
+			$("#"+type+"_"+id+" img").attr('src', '__ROOT__/statics/images/status_'+ result +'.gif');
+		}
+	}); 
+}
+function table_sort_update(){
+	var sort_id = '';
+	$('#table-sortable tr').each(function(index){
+		if(sort_id!=''){
+			sort_id += ",";
+		}
+		sort_id = sort_id +$(this).data('id');
+	});
+	//console.log( sort_id );
+	var url = "{:U('cmssystem/ajax_catalog_sort_save')}";
+	$.get(url,{sort:sort_id},function(response){
+		if( response.status == 'true' ){
+			$.each(response.sort, function(i,n){
+				if( n.result ){
+					$('#table-sortable tr.sort-id-'+n.id+' input.sort-id-'+n.id).val(n.sort);
+				}
+			});
+		}
+		//console.log( response );
+	});
+}
+
+$(function(){
+	$(document).ready(function(){
+		$('#table-sortable').sortable({ stop: function(event, ui) { table_sort_update(1);}});
+
+//		$.formValidator.initConfig({formid:"myform",autotip:true,onerror:function(msg,obj){window.top.art.dialog({content:msg,lock:true,width:'250',height:'50'}, function(){this.close();$(obj).focus();})}});
+//		$("#username").formValidator({onshow:"不能为空",onfocus:"不能为空"}).inputValidator({min:1,onerror:"请填写用户名"});
+
+
+	});
+
+})
+</script>
+
+<include file="public:footer" />

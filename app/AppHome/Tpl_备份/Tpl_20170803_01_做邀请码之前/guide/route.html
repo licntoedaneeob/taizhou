@@ -1,0 +1,37 @@
+<include file="public:header" />
+
+
+    <div id="loadCurPos" class="container content-nav-path">
+        <a href="{:U('/')}">首页</a> <span class="arrow">></span> <a href="#">赛事指南</a> <span class="arrow">></span> <?php echo $record['title_sub'];?>
+    </div>
+
+    <div class="container main-content">
+    
+    
+        <div class="content-block v3">
+            <h2 class="title"><?php echo $record['title'];?></h2>
+            <div class="content">
+                <?php echo $record['content'];?>
+                
+            </div>
+        </div>
+        
+        
+<!--
+        <div class="content-block v4 text-center">
+
+            <img src="<?php echo STATICSPATH;?>images/race-path-pic.jpg" alt="比赛线路图">
+
+        </div>
+
+        <div class="text-center mt30"><a href="#" class="text-white f16" data-toggle="modal" data-target="#myModal"><i class="icon-search"></i> 点击查看大图</a></div>
+-->
+
+    </div>
+    
+    
+    
+    
+    
+
+<include file="public:footer" />

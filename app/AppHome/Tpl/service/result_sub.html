@@ -1,0 +1,104 @@
+
+<include file="public:header" />
+
+
+
+
+<div class="main-container container">
+    <!-- <div class="row">
+        <div class="tools-bar">
+            <div class="countdown pull-left">
+                <strong>赛事倒计时<span>COUNTDOWN</span></strong>
+                <div class="bd time">
+                    
+                </div>
+            </div>
+            <div class="pull-left rlink">
+                <a href="#"><i class="icon-user"></i>注册</a>丨<a href="#">登录</a>
+            </div>
+        </div>
+    </div> -->
+    <div class="row">
+        <ol class="breadcrumb">
+          <li><a href="{:U('/')}">首页</a></li>
+          <li class="active">成绩查询</li>
+        </ol>
+        <div class="member-mc">
+                <h3 class="title-m v2"><span>2017台州国际马拉松赛成绩查询</span></h3>
+        <div class="content-block v2 col-main">
+            
+            
+            
+            <div class="enroll-success-info">
+                
+                <?php
+		if(empty($order_info)){
+		?>
+		<p class="no-data">暂无内容</p>
+		<?php
+		}
+		else{
+		?>
+		<div><table width="60%" border="0" align="center" cellpadding="10" cellspacing="1" style=" background-color:#d6d6d6; border-collapse: inherit; border-spacing:1px;" >
+		  <tr>
+		    <td width="40%" height="40" align="center" bgcolor="#f4f4f4">排名 Rank</td>
+		    <td width="60%" align="center" bgcolor="#FFFFFF"><?php echo $order_info['net_rank'];?></td>
+		  </tr>
+		  <tr>
+		    <td height="40" align="center" bgcolor="#f4f4f4">姓名 Name</td>
+		    <td align="center" bgcolor="#FFFFFF"><?php echo $order_info['name'];?></td>
+		  </tr>
+		  <tr>
+		    <td height="40" align="center" bgcolor="#f4f4f4">国籍 National</td>
+		    <td align="center" bgcolor="#FFFFFF"><?php echo $order_info['nationality'];?></td>
+		  </tr>
+		  <tr>
+		    <td height="40" align="center" bgcolor="#f4f4f4">项目 Group</td>
+		    <td align="center" bgcolor="#FFFFFF">
+		      <?php echo $order_info['course_name'];?></td>
+		  </tr>
+		  <tr>
+		    <td height="40" align="center" bgcolor="#f4f4f4">枪成绩 GunTime</td>
+		    <td align="center" bgcolor="#FFFFFF"><?php echo $order_info['gun_time'];?></td>
+		  </tr>
+		  <tr>
+		    <td height="40" align="center" bgcolor="#f4f4f4">净成绩 ChipTime</td>
+		    <td align="center" bgcolor="#FFFFFF"><?php echo $order_info['net_time'];?></td>
+		  </tr>
+		            </table>
+		</div>
+		
+		
+	<?php
+		}
+		?>
+		
+		
+        
+        
+		
+            </div>
+            <div class="btn-list tac mt30">
+                <a href="{:U('/')}" class="btn btn-danger">返回首页</a>
+                <a  href="javascript:history.back();"  class="btn btn-danger">返回</a>
+           <?php if(!empty($order_info)){ ?>
+	          <a  href="<?php echo U('service/result_download_pic', array('id_number'=>$order_info['bib_no'] ,'realname'=>$order_info['name'] ));?>" class="btn btn-danger">下载证书</a>
+            <?php } ?>
+	            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    
+    
+    
+
+<include file="public:footer" />

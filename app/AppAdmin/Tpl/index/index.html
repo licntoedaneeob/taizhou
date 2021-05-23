@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" class="off">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!--<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />-->
+<link href="__ROOT__/statics/css/style.css" rel="stylesheet" type="text/css"/>
+<link href="__ROOT__/scripts/artDialog4/skins/default.css" rel="stylesheet" type="text/css" />
+<link href="__ROOT__/statics/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+<!--[if IE 7]>
+<link rel="stylesheet" href="__ROOT__/statics/css/font-awesome-ie7.min.css">
+<![endif]-->
+<script language="javascript" type="text/javascript" src="__ROOT__/scripts/jQuery/jquery-1.9.1.min.js"></script>
+<script language="javascript" type="text/javascript" src="__ROOT__/scripts/artDialog4/jquery.artDialog.js"></script>
+<script language="javascript" type="text/javascript" src="__ROOT__/scripts/artDialog4/plugins/iframeTools.js"></script>
+<!--<script language="javascript" type="text/javascript" src="__ROOT__/statics/js/dialog.js"></script>-->
+<title>管理中心</title>
+</head>
+<body scroll="no">
+<div id="header">
+    <div class="logo"><a href="__APP__" title="管理中心"></a></div>
+    <div class="fr">
+        <div class="style_but"></div>
+    </div>
+    <div class="col-auto" style="overflow: visible">
+        <div class="log white cut_line"> 欢迎您！<if condition="$CurrAccount['Account-Name'] neq ''">{$CurrAccount['Account-Name']}<else />{$CurrAccount['Account-User']}</if> [{$CurrAccount['Role']['role_name']}]
+
+
+        </div>
+		<div class="log_right white cut_line">
+	        <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin' || $CurrAccount['Account-Role']=='editor'){ ?>
+	        <!--<a target="_blank" href="/admincore/preview">[预览网站隐藏内容]</a>-->
+	        <!--<a target="_blank" href="{:U('public/clearCache')}">[更新前台缓存]</a>-->
+	        <?php } ?>
+	        <a href="{:U('public/logout')}">[退出]</a>
+        </div>
+    </div>
+    <ul class="nav white" id="top_menu">
+
+
+        <?php /*
+        <volist name="Menus" id="val" >
+            <li id="_mcat_{$key}" class="top_menu">
+            	<a href="javascript:toggleMenu('{$key}');" class="{$key}"  hidefocus="true" style="outline:none;">{$val['title']}</a>
+         	</li>
+        </volist>
+        */ ?>
+
+
+        <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin' || $CurrAccount['Account-Role']=='editor'){ ?>
+        <li id="_mcat_cmsindex" class="top_menu">
+        	<a href="javascript:toggleMenu('cmsindex');" class="cmsindex"  hidefocus="true" style="outline:none;">起始页</a>
+     	</li>
+
+     	<?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+     	<li id="_mcat_cmssystem" class="top_menu">
+        	<a href="javascript:toggleMenu('cmssystem');" class="cmssystem"  hidefocus="true" style="outline:none;">系统管理</a>
+     	</li>
+     	<?php }?>
+
+     	<!--
+     	<li id="_mcat_cmsen6" class="top_menu">
+        	<a href="javascript:toggleMenu('cmsen6');" class="cmsen6"  hidefocus="true" style="outline:none;">全局管理</a>
+     	</li>
+     	<li id="_mcat_cmsen3" class="top_menu">
+        	<a href="javascript:toggleMenu('cmsen3');" class="cmsen3"  hidefocus="true" style="outline:none;">首页管理</a>
+     	</li>
+     	<li id="_mcat_cmsen5" class="top_menu">
+        	<a href="javascript:toggleMenu('cmsen5');" class="cmsen5"  hidefocus="true" style="outline:none;">行程定制</a>
+     	</li>
+     	-->
+     	<!--不确定还要不要
+     	<li id="_mcat_cmsen" class="top_menu">
+        	<a href="javascript:toggleMenu('cmsen');" class="cmsen"  hidefocus="true" style="outline:none;">在线订购</a>
+     	</li>
+     	-->
+     	<li id="_mcat_cmsen4" class="top_menu">
+        	<a href="javascript:toggleMenu('cmsen4');" class="cmsen4"  hidefocus="true" style="outline:none;">内容管理</a>
+     	</li>
+        <!--
+        <li id="_mcat_cmsen2" class="top_menu">
+        	<a href="javascript:toggleMenu('cmsen2');" class="cmsen2"  hidefocus="true" style="outline:none;">顾问</a>
+     	</li>
+     	<li id="_mcat_cmsen7" class="top_menu">
+        	<a href="javascript:toggleMenu('cmsen7');" class="cmsen7"  hidefocus="true" style="outline:none;">手机端</a>
+     	</li>
+     	-->
+     	<?php } ?>
+
+
+
+
+     	<?php if($CurrAccount['Account-Role']=='sales' ){ ?>
+	     	<li id="_mcat_cmsindex" class="top_menu">
+	        	<a href="javascript:toggleMenu('cmsindex');" class="cmsindex"  hidefocus="true" style="outline:none;">起始页</a>
+	     	</li>
+
+	     	<li id="_mcat_cmsen4" class="top_menu">
+	        	<a href="javascript:toggleMenu('cmsen4');" class="cmsen4"  hidefocus="true" style="outline:none;">内容管理</a>
+	     	</li>
+
+
+
+	        	<!--
+	     	<li id="_mcat_cmsqmwxf" class="top_menu">
+	        	<a href="javascript:toggleMenu('cmsqmwxf');" class="cmsqmwxf"  hidefocus="true" style="outline:none;">城市巡访</a>
+	     	</li>
+	     	-->
+     	<?php } ?>
+
+
+
+    </ul>
+</div>
+<div id="content">
+    <div class="left_menu fl">
+        <div id="leftMain">
+
+
+		<?php /*
+        <volist name="Menus" id="Cat" >
+            <div id="_menu_{$key}" class="menu" style="display:none;" data-title="{$Cat['title']}">
+            	<volist name="Cat['-links']" id="Grp" >
+            	<h3 class="f14 grp {$Grp['class']}">{$Grp['title']}</h3><ul class="{$Grp['class']}">
+            	<volist name="Grp['-links']" id="Val" >
+            	<li class="sub_menu"><a href="{$Val['link']}" class="{$Val['class']}" target="right">{$Val['title']}</a></li>
+            	</volist>
+            	</ul>
+            	</volist>
+         	</div>
+        </volist>
+		*/ ?>
+
+
+
+		<?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin' || $CurrAccount['Account-Role']=='editor'){ ?>
+		<div id="_menu_cmsindex" class="menu" style="display:none;" data-title="起始页">
+            	<h3 class="f14 grp cmssystem">起始页</h3>
+            	<ul class="cmsindex">
+            	<li class="sub_menu"><a href="{:U('public/main')}" class="cmsindex-listing" target="right">后台首页</a></li>
+            	</ul>
+        </div>
+
+        <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+		<div id="_menu_cmssystem" class="menu" style="display:none;" data-title="系统管理">
+            	<h3 class="f14 grp cmssystem">系统管理</h3>
+            	<ul class="cmssystem">
+            	<li class="sub_menu"><a href="{:U('account/listing')}" class="cmssystem-listing" target="right">管理员列表</a></li>
+            	</ul>
+        </div>
+        <?php } ?>
+
+        <!--
+        <div id="_menu_cmsen6" class="menu" style="display:none;" data-title="全局管理">
+            	<h3 class="f14 grp cmsen6">全局管理</h3>
+            	<ul class="cmsen6">
+
+            	<li class="sub_menu"><a href="{:U('product_class/listing')}" class="cmsen6-listing" target="right">国家</a></li>
+
+
+
+
+            	</ul>
+        </div>
+
+
+        <div id="_menu_cmsen3" class="menu" style="display:none;" data-title="首页管理">
+            	<h3 class="f14 grp cmsen3">首页管理</h3>
+            	<ul class="cmsen3">
+
+
+
+
+            	<li class="sub_menu"><a href="{:U('setting/edit')}" class="cmsen3-listing" target="right">人数路线数</a></li>
+				<li class="sub_menu"><a href="{:U('product_index_ad/edit')}" class="cmsen3-listing" target="right">重点国家</a></li>
+
+
+            	</ul>
+        </div>
+
+
+        <div id="_menu_cmsen" class="menu" style="display:none;" data-title="在线订购">
+            	<h3 class="f14 grp cmsen">在线订购</h3>
+            	<ul class="cmsen">
+            	<li class="sub_menu"><a href="{:U('product_class/listing')}" class="cmsen6-listing" target="right">产品分类</a></li>
+            	<li class="sub_menu"><a href="{:U('product_list/listing')}" class="cmsen-listing" target="right">产品</a></li>
+            	<li class="sub_menu"><a href="{:U('product_banner_ad/listing')}" class="cmsen-listing" target="right">路线主推</a></li>
+            	<li class="sub_menu"><a href="{:U('product_list/listing')}" class="cmsen-listing" target="right">路线</a></li>
+            	<li class="sub_menu"><a href="{:U('product_trip/listing')}" class="cmsen-listing" target="right">路线行程安排</a></li>
+
+            	</ul>
+        </div>
+
+
+        <div id="_menu_cmsen5" class="menu" style="display:none;" data-title="行程定制">
+            	<h3 class="f14 grp cmsen5">行程定制</h3>
+            	<ul class="cmsen5">
+
+            	<li class="sub_menu"><a href="{:U('join/listing')}" class="cmsen5-listing" target="right">行程定制</a></li>
+				<li class="sub_menu"><a href="{:U('index_share_comment/listing')}" class="cmsen3-listing" target="right">热门评论</a></li>
+
+            	</ul>
+        </div>
+        -->
+
+
+        <!--不确定还要不要
+        <div id="_menu_cmsen" class="menu" style="display:none;" data-title="在线订购">
+            	<h3 class="f14 grp cmsen">在线订购</h3>
+            	<ul class="cmsen">
+            	<li class="sub_menu"><a href="{:U('product_class/listing')}" class="cmsen6-listing" target="right">产品分类</a></li>
+            	<li class="sub_menu"><a href="{:U('product_list/listing')}" class="cmsen-listing" target="right">产品</a></li>
+
+            	</ul>
+        </div>
+        -->
+
+        <div id="_menu_cmsen4" class="menu" style="display:none;" data-title="内容管理">
+            	<h3 class="f14 grp cmsen4">内容管理</h3>
+            	<ul class="cmsen4">
+
+            	<li class="sub_menu"><a href="{:U('order/listing')}" class="mobilesite-listing" target="right">报名人员</a></li>
+
+            	<?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+
+            	<li class="sub_menu"><a href="{:U('news/listing')}" class="cmsregion-listing" target="right">新闻公告</a></li>
+            	<!--<li class="sub_menu"><a href="{:U('event_attend/listing')}" class="cmsregion-listing" target="right">活动参与者</a></li>-->
+            	<!--<li class="sub_menu"><a href="{:U('store/listing')}" class="cmsregion-listing" target="right">店铺</a></li>-->
+
+
+
+            	<li class="sub_menu"><a href="{:U('picture/listing')}" class="cmsregion-listing" target="right">精彩图集</a></li>
+            	<li class="sub_menu"><a href="{:U('video/listing')}" class="cmsregion-listing" target="right">视频集锦</a></li>
+
+            	<!--<li class="sub_menu"><a href="{:U('trade/listing')}" class="mobilesite-listing" target="right">交易管理</a></li>-->
+
+            	<!--<li class="sub_menu"><a href="{:U('user/listing')}" class="cmsregion-listing" target="right">用户</a></li>-->
+
+            	<!--<li class="sub_menu"><a href="{:U('rule/listing')}" class="cmsregion-listing" target="right">参赛指南</a></li>-->
+
+            	<!--<li class="sub_menu"><a href="{:U('inchengdu/listing')}" class="cmsregion-listing" target="right">在成都</a></li>-->
+            	<!--<li class="sub_menu"><a href="{:U('service/listing')}" class="cmsregion-listing" target="right">赛事服务</a></li>-->
+
+            	<!--<li class="sub_menu"><a href="{:U('partner/listing')}" class="cmsregion-listing" target="right">合作伙伴</a></li>(编辑器做法)-->
+            	<li class="sub_menu"><a href="{:U('media/listing')}" class="cmsregion-listing" target="right">合作伙伴</a></li><!--(列表做法)-->
+            	<li class="sub_menu"><a href="{:U('about/listing')}" class="cmsregion-listing" target="right">图文管理</a></li>
+            	<!--<li class="sub_menu"><a href="{:U('contact/listing')}" class="mobilesite-listing" target="right">信息反馈</a></li>-->
+
+            	<!--<li class="sub_menu"><a href="{:U('expo/listing')}" class="cmsregion-listing" target="right">马博会EXPO</a></li>-->
+            	<!--已经做了但是又不要了，暂且隐藏<li class="sub_menu"><a href="{:U('special/listing')}" class="cmsregion-listing" target="right">纪念品</a></li>-->
+
+            	<li class="sub_menu"><a href="{:U('index_banner/listing')}" class="cmsregion-listing" target="right">首页Banner</a></li>
+            	<li class="sub_menu"><a href="{:U('special/listing')}" class="cmsregion-listing" target="right">首页信息</a></li>
+            	<!--<li class="sub_menu"><a href="{:U('order_orient/listing')}" class="mobilesite-listing" target="right">报名定向赛</a></li>-->
+
+            	<?php } ?>
+
+            	<?php if($_SERVER["HTTP_HOST"]=='cdmalasong.loc'){ ?>
+            	<?php } ?>
+
+            	</ul>
+        </div>
+
+        <!--
+        <div id="_menu_cmsen2" class="menu" style="display:none;" data-title="顾问">
+            	<h3 class="f14 grp cmsen2">顾问</h3>
+            	<ul class="cmsen2">
+            	<li class="sub_menu"><a href="{:U('consultant_list/listing')}" class="cmsen2-listing" target="right">顾问</a></li>
+            	<li class="sub_menu"><a href="{:U('consultant_trip/listing')}" class="cmsen2-listing" target="right">顾问文章</a></li>
+
+            	</ul>
+        </div>
+
+
+
+
+
+        <div id="_menu_cmsen7" class="menu" style="display:none;" data-title="手机端">
+            	<h3 class="f14 grp cmsen7">手机端</h3>
+            	<ul class="cmsen7">
+
+            	<li class="sub_menu"><a href="{:U('mobile_join_banner/listing')}" class="cmsen-listing" target="right">行程定制Banner图</a></li>
+            	<li class="sub_menu"><a href="{:U('mobile_join_tuijian/listing')}" class="cmsen-listing" target="right">推荐路线</a></li>
+            	</ul>
+        </div>
+
+        -->
+
+
+        <?php } ?>
+
+
+
+
+		<?php if($CurrAccount['Account-Role']=='sales' ){ ?>
+		<div id="_menu_cmsindex" class="menu" style="display:none;" data-title="起始页">
+            	<h3 class="f14 grp cmssystem">起始页</h3>
+            	<ul class="cmsindex">
+            	<li class="sub_menu"><a href="{:U('public/main')}" class="cmsindex-listing" target="right">后台首页</a></li>
+            	</ul>
+        </div>
+
+        <div id="_menu_cmsen4" class="menu" style="display:none;" data-title="内容管理">
+            	<h3 class="f14 grp cmsen4">内容管理</h3>
+            	<ul class="cmsen4">
+
+            	<li class="sub_menu"><a href="{:U('store/listing')}" class="cmsregion-listing" target="right">店铺</a></li>
+
+            	<li class="sub_menu"><a href="{:U('order/listing')}" class="mobilesite-listing" target="right">订单管理</a></li>
+
+            	</ul>
+        </div>
+     	<?php } ?>
+
+
+
+        </div>
+        <a href="javascript:;" id="openClose" style="outline-style: none; outline-color: invert; outline-width: medium;" hideFocus="hidefocus" class="open" title="{$lang.expand_or_contract}"></a>
+
+
+
+
+	 </div>
+<div id="nav_scrolllink" style="display: none">
+	<span onclick="menuScroll(1)"><img src="__ROOT__/statics/images/scrollu.gif" /></span><span onclick="menuScroll(2)"><img src="__ROOT__/statics/images/scrolld.gif" /></span>
+</div>
+<div id="nav_copyright" class="copyright">
+	<?php
+	/* 隐藏
+	<p>&copy; 2006-2016</p>
+	*/ ?>
+</div>
+    <div class="right_main">
+        <div class="crumbs">
+            <!--<div class="shortcut cu-span">
+				<a href="{$SiteHome}" target="_blank">
+               	 	<span>{$Think.lang.site_home}</span>
+                </a>
+				<a href="{:U('system/flushcache')}" target="right">
+               		 <span>{$Think.lang.flush_cache}</span>
+                </a></div>-->
+            <span id="current_pos"></span>
+        </div>
+        <div class="rmc">
+            <div class="content" style="position:relative; overflow:hidden">
+                <iframe name="right" id="rightMain" src="{$DefaultPage}" frameborder="false" scrolling="auto" style="overflow-x:hidden;border:none;" width="100%" height="auto" allowtransparency="true"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+	function $$$(id) {
+		return !id ? null : document.getElementById(id);
+	}
+
+	var menukey = '';
+
+	function setMenuScroll() {
+		///$$$('frametable').style.width = document.body.offsetWidth < 1000 ? '1000px' : '100%';
+		//var obj = $$$('menu_' + menukey);
+		var obj = $$$('leftMain');
+		if(!obj) {
+			return;
+		}
+		var scrollh = document.body.offsetHeight - 110;
+		obj.style.overflow = 'visible';
+		obj.style.height = '';
+		$$$('nav_scrolllink').style.display = 'none';
+		if(obj.offsetHeight + 110 > document.body.offsetHeight && scrollh > 0) {
+			obj.style.overflow = 'hidden';
+			obj.style.height = scrollh + 'px';
+			$$$('nav_scrolllink').style.display = '';
+		}
+	}
+
+	function menuScroll(op, e) {
+		///var obj = $$$('menu_' + menukey);
+		var obj = $$$('leftMain');
+		var scrollh = document.body.offsetHeight - 110;
+		if(op == 1) {
+			obj.scrollTop = obj.scrollTop - scrollh;
+		} else if(op == 2) {
+			obj.scrollTop = obj.scrollTop + scrollh;
+		} else if(op == 3) {
+			if(!e) e = window.event;
+			if(e.wheelDelta <= 0 || e.detail > 0) {
+				obj.scrollTop = obj.scrollTop + 20;
+			} else {
+				obj.scrollTop = obj.scrollTop - 20;
+			}
+		}
+	}
+
+	var msie = /MSIE/.test(navigator.userAgent);
+	if(msie){
+		$$$('leftMain').onmousewheel = function(e) { menuScroll(3, e) };
+	} else {
+		$$$('leftMain').addEventListener("DOMMouseScroll", function(e) { menuScroll(3, e) }, false);
+	}
+
+(function($){
+
+	$(window).resize(function(){
+		setMenuScroll();
+	});
+
+	$(document).ready(function(){
+		setMenuScroll();
+		$('.left_menu div.menu').first().css('display', 'block');
+	});
+
+}(jQuery));
+
+function toggleMenu(tag){
+	$ = jQuery;
+	//console.log('#_menu_'+tag+'.display:'+	$('#_menu_'+tag).css('display'));
+	$('.left_menu div.menu').css('display', 'none');
+	$('#_menu_'+tag).css('display', 'block');
+	$('.top_menu').removeClass("on");
+	$('#_mcat_'+tag).addClass("on");
+	//显示左侧菜单，当点击顶部时，展开左侧
+	$(".left_menu").removeClass("left_menu_on");
+	$("#openClose").removeClass("close");
+	$("html").removeClass("on");
+	$("#openClose").data('clicknum', 0);
+	$("#current_pos").data('clicknum', 1);
+}
+
+</script>
+<script type="text/javascript">
+function windowW(){
+	if($(window).width()<980){
+			$('#header').css('width',980+'px');
+			$('#content').css('width',980+'px');
+			$('body').attr('scroll','');
+			$('body').css('overflow','');
+	}
+}
+windowW();
+$(window).resize(function(){
+	if($(window).width()<980){
+		windowW();
+	}else{
+		$('#header').css('width','auto');
+		$('#content').css('width','auto');
+		$('body').attr('scroll','no');
+		$('body').css('overflow','hidden');
+
+	}
+});
+window.onresize = function(){
+	var heights = document.documentElement.clientHeight-110;
+	document.getElementById('rightMain').height = heights;
+	var openClose = $("#rightMain").height()+9;
+	$('#center_frame').height(openClose+9);
+	$("#openClose").height(openClose+30);
+}
+window.onresize();
+
+$(function(){
+	//默认载入左侧菜单
+//	$("#leftMain").load("{:u('public/menu', array('tag'=>'0'))}");
+//	$.get("{:u('index/current_pos', array('tag'=>'0'))}", function(data){
+//		$("#current_pos").html(data);
+//	});
+	$('#top_menu li').first().addClass('on');
+})
+
+//左侧开关
+$("#openClose").click(function(){
+	if($(this).data('clicknum')==1) {
+		$("html").removeClass("on");
+		$(".left_menu").removeClass("left_menu_on");
+		$(this).removeClass("close");
+		$(this).data('clicknum', 0);
+	} else {
+		$(".left_menu").addClass("left_menu_on");
+		$(this).addClass("close");
+		$("html").addClass("on");
+		$(this).data('clicknum', 1);
+	}
+	return false;
+});
+
+function _M(tag,targetUrl) {
+//	$.get("{:U('public/menu')}", {tag:tag}, function(data){
+//		$("#leftMain").html(data);
+//	});
+
+	//$("#rightMain").attr('src', targetUrl);
+	$('.top_menu').removeClass("on");
+	$('#_M'+tag).addClass("on");
+
+//	$.get("{:u('index/current_pos')}", {tag:tag}, function(data){
+//		$("#current_pos").html(data);
+//	});
+
+	//显示左侧菜单，当点击顶部时，展开左侧
+	$(".left_menu").removeClass("left_menu_on");
+	$("#openClose").removeClass("close");
+	$("html").removeClass("on");
+	$("#openClose").data('clicknum', 0);
+	$("#current_pos").data('clicknum', 1);
+}
+
+function _MP(menuid,targetUrl) {
+	$("#rightMain").attr('src', targetUrl);
+	$('.sub_menu').removeClass("on fb blue");
+	$('#_MP'+menuid).addClass("on fb blue");
+	$("#current_pos").data('clicknum', 1);
+//	$.get("{:U('index/current_pos')}", {menuid:menuid}, function(data){
+//		$("#current_pos").html(data);
+//	});
+}
+
+function Refresh() {
+	var src = $("#rightMain").attr('src');
+	$("#rightMain").attr('src',src);
+}
+</script>
+</body>
+</html>

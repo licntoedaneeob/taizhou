@@ -1,0 +1,38 @@
+<include file="public:header" />
+
+
+
+
+
+    <div id="loadCurPos" class="container content-nav-path">
+        <a href="{:U('/')}">首页</a> <span class="arrow">></span> <a href="#">报名赛事</a> <span class="arrow">></span> 报名查询
+    </div>
+
+    
+    <div class="container main-content">
+
+        <h3 class="title-m v1">2017成都国际马拉松赛审核</h3>
+
+        <div class="content-block v2 notice-content">
+            <div class="text-center">
+                <div class="m-icon m-icon-warning"></div>
+                <h2>2017成都国际马拉松</h2>
+                <p>您提交的资料正在等待审核。</p>
+                <p>姓名：<?php echo $order_info['realname'];?></p>
+                <p>手机：<?php echo $order_info['mobile'];?></p>
+                <p>项目：<?php if($order_info['cat_id']==1){echo '全程马拉松 Marathon';}elseif($order_info['cat_id']==2){echo '半程马拉松 Half Marathon';}elseif($order_info['cat_id']==3){echo '欢乐跑 Mini Marathon';}elseif($order_info['cat_id']==4){echo '公益全程马拉松 Public welfare Marathon';}elseif($order_info['cat_id']==5){echo '公益半程马拉松 Public welfare Half Marathon';}else{} ?></p>
+                <!--<p class="strong1">审核状态：<?php echo $order_info['status_attach_reason'];?></p>-->
+            </div>
+        </div>
+        
+        <div class="btn-mc-center">
+            <a href="{:U('/')}" class="btn btn-default">返回首页</a>
+            <!--<button type="button" class="btn btn-default" onclick="javascript:location.href='{:U('baoming/attach', array('order_id'=>$order_info['id'] )   )}';" >修改详细资料</button>-->
+        </div>
+
+    </div>
+    
+    
+
+
+<include file="public:footer" />

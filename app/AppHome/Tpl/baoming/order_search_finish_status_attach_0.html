@@ -1,0 +1,75 @@
+<include file="public:header" />
+
+
+
+<div class="main-container container">
+    <!-- <div class="row">
+        <div class="tools-bar">
+            <div class="countdown pull-left">
+                <strong>赛事倒计时<span>COUNTDOWN</span></strong>
+                <div class="bd time">
+                    
+                </div>
+            </div>
+            <div class="pull-left rlink">
+                <a href="#"><i class="icon-user"></i>注册</a>丨<a href="#">登录</a>
+            </div>
+        </div>
+    </div> -->
+    <div class="row">
+        <ol class="breadcrumb">
+          <li><a href="{:U('/')}">首页</a></li>
+          <li class="active">报名赛事</li>
+        </ol>
+        <div class="content-block v2 col-main">
+            <div class="text-center">
+                <!--<div class="m-icon m-icon-warning"></div>-->
+                <h2>您提交的资料正在等待审核！</h2>
+                
+            </div>
+            
+            
+            <div class="enroll-success-info">
+                <div class="row">
+                    <div class="col-sm-6 col-xs-5 text-right">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</div>
+                    <div class="col-sm-6 col-xs-7"><?php echo $order_info['realname'];?></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-xs-5 text-right">手机号码：</div>
+                    <div class="col-sm-6 col-xs-7"><?php echo $order_info['mobile'];?></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-xs-5 text-right">项&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;目：</div>
+                    <div class="col-sm-6 col-xs-7"><?php if($order_info['cat_id']==1){echo '马拉松 Marathon';}elseif($order_info['cat_id']==2){echo '半程马拉松 Half Marathon';}elseif($order_info['cat_id']==3){echo '迷你马拉松 Happy Run';}elseif($order_info['cat_id']==4){echo '公益马拉松 Public welfare Marathon';}elseif($order_info['cat_id']==5){echo '公益半程马拉松 Public welfare Half Marathon';}else{} ?></div>
+                </div>
+            </div>
+            <div class="btn-list tac mt30">
+                <a href="{:U('/')}" class="btn btn-danger">返回首页</a>
+                
+	                
+	            <?php if( !empty($order_info['invit_code']) ){?>
+	            	<?php if(date('YmdHis')<'20170911180000' ){?>
+	            <button type="button" class="btn btn-default" onclick="javascript:location.href='<?php echo U('baoming/apply', array('order_id'=>$order_info['id'] )   );?>';" >修改报名资料</button>
+	            <button type="button" class="btn btn-default" onclick="javascript:location.href='<?php echo U('baoming/attach', array('order_id'=>$order_info['id'] )   );?>';" >修改参赛资料</button>
+	            	<?php } ?>
+	            <?php } ?>
+	            
+	            <?php if( empty($order_info['invit_code']) ){?>
+	            	<?php if(date('YmdHis')<'20170825200000' ){?>
+	            <button type="button" class="btn btn-default" onclick="javascript:location.href='<?php echo U('baoming/attach', array('order_id'=>$order_info['id'] )   );?>';" >修改参赛资料</button>
+	            	<?php } ?>
+	            <?php } ?>
+	            
+	            
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<include file="public:footer" />

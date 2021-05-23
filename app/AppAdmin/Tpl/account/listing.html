@@ -1,0 +1,182 @@
+<include file="public:header" />
+
+<style>
+.grid-table .col-id { width: 50px; }
+.grid-table .col-checkbox { text-align: center; width: 35px; }
+.grid-table .col-role { text-align: left; width: 120px; }
+.grid-table .col-name { text-align: left;  }
+.grid-table .col-status { width: 50px;  }
+.grid-table .col-time { width: 140px; }
+.grid-table .col-action { text-align: center; width: 120px; }
+</style>
+
+   <form id="lkform" name="lkform" action="" data-list="{:U('account/listing')}" data-delete="{:U('account/delete')}" method="post" class="lkcmsform">
+
+<table width="100%" cellspacing="0" class="filter-table">
+<tbody>
+<tr>
+	<td width="100%" align="left">
+	{:L('筛选')}:
+	<input type="text" id="_f_search" name="_f_search" onchanges="form_list_submit(lkform);" class="" value="{$f_search}">
+	<button onclick="form_list_submit(lkform);">{:L('开始')}</button>
+	<button onclick="
+		document.getElementById('_f_order').value='';
+		document.getElementById('_f_direc').value='';
+		document.getElementById('_f_search').value='';
+		document.getElementById('_filter_role').value='';
+		document.getElementById('_filter_state').value='';
+		form_list_submit(this.form);">{:L('清空')}</button>
+	</td>
+	<td nowrap="nowrap">
+		<!-- {:L('角色')}: --><select id="_filter_role" name="_filter_role" onchange="form_list_submit(lkform);"><option value=""> - {:L('选择角色')} - </option>
+		<volist name="Data_RoleList" id="val" ><option value="{$val.role}" <if condition="$filter_role eq $val['role']"> selected="selected"</if> >{$val.role_name}</option></volist></select>
+		<!-- {:L('状态')}: -->
+		<select id="_filter_state" name="_filter_state" onchange="form_list_submit(lkform);" data-value="{$filter_state}">
+		<option value=""> - {:L('选择状态')} - </option>
+		<option value="1" <if condition="$filter_state eq '1'"> selected="selected"</if> > {:L('发布')} </option>
+		<option value="0" <if condition="$filter_state eq '0'"> selected="selected"</if> > {:L('隐藏')} </option>
+		</select>
+	</td>
+</tr>
+</tbody>
+</table>
+
+<table width="100%" cellspacing="0" class="grid-table style-joomla2">
+    <colgroup span="2" class="cgp-head">
+    	<col class="col-checkbox" />
+    	<col class="col-id" />
+    </colgroup>
+    <colgroup span="2" align="left" class="cgp-content">
+    	<col class="col-name" />
+    	<col class="col-role" />
+    </colgroup>
+    <colgroup span="2" align="left" class="cgp-time">
+    	<col class="col-time" />
+		<col class="col-time" />    	
+    </colgroup>	
+    <colgroup span="1" class="cgp-property">
+    	<col class="col-status" style="width: 15px;" />
+    </colgroup>
+    <colgroup class="cgp-operation">
+    	<col class="col-action" />
+    </colgroup>
+
+<thead>
+<tr>
+	<th><input type="checkbox" value="" id="chkallid" name="chkallid" onclick="form_checkbox_selectall(this.form);"></th>
+	<th><!-- {:L('id')} --> <php>echo LkHTML::ListSort( L('id'), 'id', $f_order, $f_direc, 'form_ordering', L('按此列排序'));  </php></th>
+	<th><!-- {:L('用户名')} --> <php>echo LkHTML::ListSort( L('用户名'), 'username', $f_order, $f_direc, 'form_ordering', L('按此列排序'));  </php></th>
+	<th>{:L('角色')}</th>
+	<th>{:L('创建时间')}</th>
+	<th>{:L('修改时间')}</th>
+	<th class="cell-action" nowrap="nowrap">{:L('状态')}</th>
+	<th class="cell-action">操作</th>
+</tr>
+</thead>
+<tbody>
+<volist name="dataset" id="rec" >
+<tr>
+	<td class="cell-checkbox"><input type="checkbox" value="{$rec['id']}" name="id[]" <if condition="$rec['role'] eq 'administrator' || $rec['id'] eq '2'">disabled="disabled"</if> /></td>
+	<td class="cell-id">{$rec['id']}</td>
+	<td>{$rec['username']}</td>
+	<td>{$Data_RoleList[$rec['role']]['role_name']}</td>
+	<td class="cell-time">{$rec.create_time|date='Y-m-d H:i:s',###}</td>
+	<td class="cell-time">{$rec.modify_time|date='Y-m-d H:i:s',###}</td>
+	<td class="cell-status"><if condition="$rec['role'] neq 'administrator'"><a <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>href="javascript:table_change_status({$rec['id']},'form_record_status')"<?php }?> id="form_record_status_{$rec['id']}"><img src="__ROOT__/statics/images/status_{$rec['status']}.gif" /></a></if></td>
+	<td class="cell-action"><if condition="$rec['role'] neq 'administrator'"><a href="{:U('account/edit', array('id'=>$rec['id']))}" class="action action-edit">{:L('编辑')}</a></if></td>
+</tr>
+</volist>
+</tbody>
+<tfoot>
+<tr><td colspan="8">
+	<!--<label for="check_box" style="float:left;">全选/取消</label>-->
+	<?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?><input type="submit" class="button" name="dosubmit" value="删除" onclick="return confirm('你确定要删除吗？')" style="float:left;margin-left:10px;"/><?php }?>
+	<div id="pages">{$page}</div>
+</td></tr>
+</tfoot>
+</table>
+
+<input type="hidden" name="_f_order" value="{$f_order}" />
+<input type="hidden" name="_f_direc" value="{$f_direc}" />
+
+</form>
+
+
+<script language="javascript">
+function form_ordering( order, dir, task ) {
+	var form = document.lkform;
+	form._f_order.value = order;
+	form._f_direc.value = dir;
+	form.submit( task );
+}
+function form_checkbox_selectall(form){
+	LkCmsForm.CheckBoxAll(form, 'name', 'id[]', 'chkallid');
+}
+function form_list_submit(form){
+	$ = jQuery;
+	$(form).prop('action', $(form).data('list'));
+/*
+	var ids='';
+	$("#table-sortable input[name='id[]']:checked").each(function(i, n){
+		ids += $(n).val() + ',';
+	});
+	var info = "{:L('请选择你需要操作的管理员账号')}";
+	if(ids=='') {
+		window.top.art.dialog({content:info,lock:true,width:'200',height:'50',time:1.5},function(){});
+		return false;
+	}
+*/
+	$(form).submit();
+
+}
+function form_delete_submit(form){
+	$ = jQuery;
+	$(form).prop('action', $(form).data('delete'));	
+	var ids='';
+	$(form).find("input[name='id[]']:checked").each(function(i, n){
+		ids += $(n).val() + ',';
+	});
+	var title = "{:L('删除操作')}";
+	var info = "{:L('请选择你需要删除的管理者账号')}";
+	if(ids == '') {
+		jQuery.dialog({
+			"title": title,
+			"content":info, "lock":true,
+			"ok":  function(){
+		
+			}
+		});
+		return false;
+	}
+	var title2 = "{:L('删除确认')}";
+	var info2 = "{:L('确定要删除管理者账号嘛？删除将无法恢复！')}";
+	jQuery.dialog({title: title2, content:info2, lock:true,
+		ok: function(){
+			form.submit();
+		},
+		cancel: function(){
+		
+		}
+	});
+}
+function table_change_status(id, type){
+    $.get("{:U('account/ajax_change_status')}", { id: id, type: type }, function(jsondata){
+//		var return_data  = eval("("+jsondata+")");
+    	var status = jsondata.status;
+    	var result = jsondata.result;
+    	if( status == 'true'){
+			$("#"+type+"_"+id+" img").attr('src', '__ROOT__/statics/images/status_'+ result +'.gif');
+    	}
+	}); 
+}
+
+;(function($){
+	$(document).ready(function(){
+		
+
+	});
+
+})(jQuery);
+</script>
+
+<include file="public:footer" />

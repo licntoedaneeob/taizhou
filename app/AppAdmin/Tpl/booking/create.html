@@ -1,0 +1,117 @@
+<include file="public:header" />
+
+<script language="javascript" type="text/javascript" src="__ROOT__/scripts/jPlugin/chinaregion/jquery.chinaregion.js"></script>
+
+<form action="{:U('booking/create')}" method="post" name="myform" id="myform" class="lkcmsform">
+
+<table width="100%" cellpadding="2" cellspacing="1" class="form-table">
+<tbody>
+	<tr> 
+      <th width="60">{:L('用户名')} :</th>
+      <td><input type="text" name="bookingname" id="bookingname" class="input-text" value="" size="25" maxlength="100"></td>
+    </tr>
+	<tr> 
+      <th width="60">{:L('密码')} :</th>
+      <td><input type="password" name="password" id="password" class="input-text" value="" size="25" maxlength="100"></td>
+    </tr>
+	<tr> 
+      <th width="60">{:L('邮箱')} :</th>
+      <td><input type="text" name="email" id="email" class="input-text" value="" size="25" maxlength="100"></td>
+    </tr>
+
+	<tr> 
+      <th width="60">{:L('性别')} :</th>
+      <td>
+      		<input type="radio" name="gender" class="radio_style" value="1" checked /> &nbsp;{:L('男')}&nbsp;&nbsp;&nbsp;
+        	<input type="radio" name="gender" class="radio_style" value="0" /> &nbsp;{:L('女')}
+      </td>
+    </tr>
+	<tr> 
+      <th width="60">{:L('手机')} :</th>
+      <td><input type="text" name="mobile" id="mobile" class="input-text" value="" size="25" maxlength="100"></td>
+    </tr>
+
+    <tr> 
+      <th width="60">{:L('地区')} :</th>
+      <td>
+
+          <select name="prov" id="prov">
+              <option value="">请选择...</option>
+              <volist name="area_list" id="rec" >
+                  <option value="{$rec['a_name']}">{$rec['a_name']}</option>
+              </volist>
+          </select>
+      
+      </td>
+    </tr>
+	<tr> 
+      <th width="60">{:L('生日')}(1978-05-07):</th>
+      <td>
+      
+      <input type="text" name="birthday" id="birthday" class="input-text" value="" size="25" maxlength="100">
+      
+      </td>
+    </tr>
+
+    <tr>
+        <th width="60">{:L('同意接受促销邮件')} :</th>
+        <td>
+            <input type="radio" name="is_agree" class="radio_style" value="1" checked /> &nbsp;{:L('是')}&nbsp;&nbsp;&nbsp;
+            <input type="radio" name="is_agree" class="radio_style" value="0" /> &nbsp;{:L('否')}
+        </td>
+    </tr>
+
+
+    
+    <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+    <tr>
+      	<th>{:L('状态')} :</th>
+      	<td>
+      		<input type="radio" name="status" class="radio_style" value="1" checked /> &nbsp;{:L('发布')}&nbsp;&nbsp;&nbsp;
+        	<input type="radio" name="status" class="radio_style" value="0" /> &nbsp;{:L('隐藏')}
+      	</td>
+    </tr>
+    <?php }else{ ?>
+    <tr>
+      	<th>{:L('状态')} :</th>
+      	<td>
+      		<input type="hidden" name="status" value="0" /> 隐藏
+      	</td>
+    </tr>
+    <?php } ?>
+    
+</tbody>
+</table>
+<table width="100%" cellpadding="2" cellspacing="1" class="form-table">
+	<tfoot>
+	<tr><th>
+<input type="submit" name="dosubmit" id="dosubmit" class="button" value="确定" >
+	</th></tr>
+	</tfoot>
+</table>
+</form>
+
+<script type="text/javascript">
+
+	$(function(){
+	
+	
+	//$("#city_1").ChinaRegionSelector({});
+	
+	
+		var message_000 = "{:L('不能为空')}";
+
+		$.formValidator.initConfig($.extend(true, {}, JPLUGIN_FORMVALIDATOR_CONFIG, {formID: 'myform'}));
+
+		$("#bookingname").formValidator({onShow:message_000,onFocus:message_000}).inputValidator({min:1,onError:"请输入用户名"}).inputValidator({min:3,onError:"用户名请至少输入3位"}).inputValidator({max:50,onError:"用户名请不要超过50位"});
+		$("#password").formValidator({onShow:message_000,onFocus:message_000}).inputValidator({min:1,onError:"请输入密码"}).inputValidator({min:3,onError:"密码请至少输入3位"}).inputValidator({max:50,onError:"密码请不要超过50位"});
+		$("#email").formValidator({onShow:message_000,onFocus:message_000}).inputValidator({min:1,onError:"请输入邮箱"}).regexValidator({regexp:"^([\\w-.]+)@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.)|(([\\w-]+.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(]?)$",onError:"您输入的邮箱格式不正确"});
+		$("#mobile").formValidator({onShow:message_000,onFocus:message_000}).inputValidator({min:1,onError:"请输入手机"});
+		$("#prov").formValidator({onShow:message_000,onFocus:message_000}).inputValidator({min:1,onError:"请输入地区"});
+		
+	});
+
+
+</script>
+
+<include file="public:footer" />

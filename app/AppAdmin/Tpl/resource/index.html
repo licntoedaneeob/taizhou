@@ -1,0 +1,25 @@
+<include file="public:header" />
+
+
+<div id="resource_ckfinder" class="resource-panel ckfinder-panel" style="height: 100%;"></div>
+
+
+
+
+<script language="javascript" type="text/javascript" src="__ROOT__/scripts/ckfinder/ckfinder.js"></script>
+<script language="javascript">
+ckfinder = null;
+
+;(function($){
+	$(document).ready(function(){
+		ckfinder = new CKFinder();
+		//ckfinder.basePath = Drupal.settings.basePath + Drupal.settings.ckfinderPath + '/';
+		ckfinder.height = '600px';
+		var div = $('#resource_ckfinder').get(0);
+		ckfinder.appendTo(div); 
+	});
+
+})(jQuery);
+</script>
+
+<include file="public:footer" />

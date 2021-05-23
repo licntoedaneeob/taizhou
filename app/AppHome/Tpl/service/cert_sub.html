@@ -1,0 +1,92 @@
+<include file="public:header" />
+
+
+
+
+<div class="main-container container">
+    <!-- <div class="row">
+        <div class="tools-bar">
+            <div class="countdown pull-left">
+                <strong>赛事倒计时<span>COUNTDOWN</span></strong>
+                <div class="bd time">
+                    
+                </div>
+            </div>
+            <div class="pull-left rlink">
+                <a href="#"><i class="icon-user"></i>注册</a>丨<a href="#">登录</a>
+            </div>
+        </div>
+    </div> -->
+    <div class="row">
+        <ol class="breadcrumb">
+          <li><a href="{:U('/')}">首页</a></li>
+          <li class="active">报名赛事</li>
+        </ol>
+           <div class="member-mc">
+                <h3 class="title-m v2"><span>2016台州国际马拉松赛证书查询</span></h3>
+        <div class="content-block v2 col-main">
+            <div class="text-center">
+                <!--<div class="m-icon m-icon-warning"></div>-->
+              <!--  <h2>您的资料正在等待审核</h2>-->
+                <!--<p>您提交的资料正在等待审核。</p>-->
+                
+                
+                <?php
+		if(empty($order_info['cert_url'])){
+		?>
+		<h2>暂无内容</h2>
+		<?php
+		}
+		?>
+		
+		
+            </div>
+            
+            <!--
+            <div class="enroll-success-info">
+                <div class="row">
+                    <div class="col-sm-6 col-xs-5 text-right">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</div>
+                    <div class="col-sm-6 col-xs-7"><?php echo $order_info['realname'];?></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-xs-5 text-right">手机号码：</div>
+                    <div class="col-sm-6 col-xs-7"><?php echo $order_info['mobile'];?></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-xs-5 text-right">项&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;目：</div>
+                    <div class="col-sm-6 col-xs-7"><?php if($order_info['cat_id']==1){echo '马拉松 Marathon';}elseif($order_info['cat_id']==2){echo '半程马拉松 Half Marathon';}elseif($order_info['cat_id']==3){echo '迷你马拉松 Happy Run';}elseif($order_info['cat_id']==4){echo '公益马拉松 Public welfare Marathon';}elseif($order_info['cat_id']==5){echo '公益半程马拉松 Public welfare Half Marathon';}else{} ?></div>
+                </div>
+            </div>
+            -->
+            <div class="btn-list tac mt30">
+            
+             <?php
+		if(!empty($order_info['cert_url'])){
+		?>
+            <a  class="btn btn-danger" href="<?php echo $order_info['cert_url'];?>" >下载证书</a>
+		 <?php
+		}
+		?>
+		
+                <a href="javascript:history.back();" class="btn btn-danger">返回</a>
+                
+            
+
+            <!--<a  class="btn btn-danger" href="{:U('order/pay', array('order_id'=>$order_info['id'] , 'order_no'=>$order_info['order_no'] )   )}">立即缴费</a>-->
+	               
+	            
+	            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+<include file="public:footer" />

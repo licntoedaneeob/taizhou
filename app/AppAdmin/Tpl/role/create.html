@@ -1,0 +1,88 @@
+<include file="public:header" />
+
+<form action="{:U('role/create')}" method="post" name="myform" id="myform" class="lkcmsform">
+<table width="100%" cellpadding="2" cellspacing="1" class="table_form1 form-table">
+	<tbody>
+	<tr> 
+      <th width="60">{:L('角色代码')} :</th>
+      <td><input type="text" name="role" id="role" class="input-text" value="" size="25"></td>
+    </tr>
+	<tr> 
+      <th width="60">{:L('角色名称')} :</th>
+      <td><input type="text" name="role_name" id="role_name" class="input-text" value="" size="25"></td>
+    </tr>
+    <tr>
+      <th>{:L('状态')} :</th>
+      <td><input type="radio" name="status" class="radio_style" value="1" checked> &nbsp;{:L('发布')}&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="status" class="radio_style" value="0"> &nbsp;{:L('隐藏')}</td>
+    </tr>
+	</tbody>
+</table>
+<table width="100%" cellpadding="2" cellspacing="1" class="form-table">
+	<tfoot>
+	<tr><th>
+<input type="submit" name="dosubmit" id="dosubmit" class="button" value="确定">
+	</th></tr>
+	</tfoot>
+</table>
+
+</form>
+
+<script type="text/javascript">
+(function($){
+	var msg0 = "{:L('不能为空')}";
+	var msg10 = "{:L('角色代码只能用英文字母、数字、下划线')}";
+	var msg19 = "{:L('请填写角色代码')}";
+	var msg29 = "{:L('请填写角色名称')}";
+	
+	$.formValidator.initConfig(JPLUGIN_FORMVALIDATOR_CONFIG);
+	//$("#role").formValidator({onshow:msg0,onfocus:msg10}).inputValidator({min:1,onerror:msg19});
+	$("#role").formValidator({onshow:msg0,onfocus:msg10}).regexValidator({regExp:"username",dataType:"enum",onError:msg10});
+	$("#role_name").formValidator({onshow:msg0,onfocus:msg0}).inputValidator({min:1,onerror:msg29});
+	$.formValidator.reloadAutoTip();
+	
+	/*
+	$.formValidator.initConfig({formID:"form1",theme:'ArrowSolidBox',mode:'AutoTip',onError:function(msg){alert(msg)},inIframe:true});
+
+	$("#us").formValidator({
+		onShow:"请输入用户名,只有输入\"maodong\"才是对的",
+		onFocus:"用户名至少6个字符,最多10个字符",
+		onCorrect:"该用户名可以注册"
+	})
+	.inputValidator({
+		min:6,max:10,
+		onError:"你输入的用户名非法,请确认"
+	})
+	.regexValidator({
+		regExp:"username",
+		dataType:"enum",
+		onError:"用户名格式不正确"
+	})
+    .ajaxValidator({
+		dataType : "json",
+		async : true,
+		url : "http://www.yhuan.com/Handler.ashx",
+		success : function(data){
+        	if( data == "0" ) return true;
+			return "该用户名不可用，请更换用户名";
+		},
+		buttons: $("#button"),
+		error: function(jqXHR, textStatus, errorThrown){
+			alert("服务器没有返回数据，可能服务器忙，请重试"+errorThrown);
+		},
+		onError : "该用户名不可用，请更换用户名",
+		onWait : "正在对用户名进行合法性校验，请稍候..."
+	})
+	.defaultPassed();
+	
+	$("#password1").formValidator({onShow:"请输入密码",onFocus:"密码不能为空",onCorrect:"密码合法"}).inputValidator({min:1,onError:"密码不能为空,请确认"});
+	$("#password2").formValidator({onShow:"请输入重复密码",onFocus:"两次密码必须一致哦",onCorrect:"密码一致"}).inputValidator({min:1,onError:"重复密码不能为空,请确认"}).compareValidator({desid:"password1",operateor:"=",onError:"2次密码不一致,请确认"});
+
+	$.formValidator.reloadAutoTip();
+
+	*/
+	
+})(jQuery);
+</script>
+
+<include file="public:footer" />

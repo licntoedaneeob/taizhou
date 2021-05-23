@@ -1,0 +1,39 @@
+<table border="1" cellpadding="0" cellspacing="0" class="print-table">
+<tr>
+	<th colspan="11" style="font-family: 'Microsoft Yahei',tahoma,arial,SimSun,Sans-Serif; font-size: 24px; text-align: center;">{$CompetitionInfo['title']}</th>
+</tr>
+<tr>
+	<th colspan="11" style="font-family: 'Microsoft Yahei',tahoma,arial,SimSun,Sans-Serif; font-size: 20px; text-align: center;">{$CompetitionInfo['subtitle']}</th>
+</tr>
+<tr>
+	<th colspan="11" style="font-family: 'Microsoft Yahei',tahoma,arial,SimSun,Sans-Serif; font-size: 24px; text-align: center;">预选赛报名名单</th>
+</tr>
+   <tr class="">
+    <th width="">参赛号</th>
+    <th width="">姓名</th>
+    <th width="">性别</th>
+    <th width="">身份证号</th>
+    <th width="">电话</th>
+    <th width="">居住城市</th>
+    <th width="">参赛城市</th>
+    <th width="">组别</th>
+    <th width="">练琴预约</th>
+    <th width="">晋级状态</th>
+    <th width="">缴费状态</th>
+  </tr>
+<volist name="dataset" id="record">
+  <tr>
+    <td>{$record.playerid}&nbsp;</td>
+    <td>{$record.name}&nbsp;</td>
+    <td><if condition="$record['gender'] eq '1'">男<elseif condition="$record['gender'] eq '0'" />女<else />未知</if>&nbsp;</td>
+    <td>{$record.idcno}&nbsp;</td>
+    <th>{$record.phone}</th>
+    <td><!--{$record.user_prov} -->{$record.user_city}&nbsp;</td>
+    <td><!--{$record.game_prov} -->{$record.game_city}&nbsp;</td>
+    <td>{$record.game_group}&nbsp;</td>
+    <td><if condition="$record['aop_piano'] eq '1'">预约<elseif condition="$record['aop_piano'] eq '0'" />未预约<else />未知</if>&nbsp;</td>
+    <td><if condition="$record['state_b_qualify'] eq '1'">晋级<elseif condition="$record['state_b_qualify'] eq '0'" />未晋级<else />未知</if>&nbsp;</td>
+    <td><if condition="$record['state_a_payment'] eq '1'">缴费<elseif condition="$record['state_a_payment'] eq '0'" />未缴费<else />未知</if>&nbsp;</td>
+  </tr>
+</volist>
+</table>

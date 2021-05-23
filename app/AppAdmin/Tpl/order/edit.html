@@ -1,0 +1,1214 @@
+<include file="public:header" />
+
+<script language="javascript" type="text/javascript" src="__ROOT__/scripts/jPlugin/chinaregion/jquery.chinaregion.js"></script>
+
+
+
+<style>
+table.form-table tbody th{
+text-align: left;
+}
+</style>
+<form action="{:U('order/edit')}" method="post" name="myform" id="myform" class="lkcmsform">
+
+<table width="100%" cellpadding="2" cellspacing="1" class="form-table">
+<tbody>
+
+	<tr> 
+      <th width="20%">{:L('流水ID编号')} :</th>
+      <td width="20%">{$info.id}</td>
+      <td width="60%">&nbsp;</td>
+    </tr>
+    
+    
+    
+    
+    
+    
+    
+    
+    <tr> 
+      <th>{:L('报名类型(1代表全程马拉松，2代表半程马拉松，3代表迷你马拉松')} :</th>
+      <td>{$info.cat_id}
+      </td>
+      
+      <td>
+      <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+      &nbsp;&nbsp;&nbsp;&nbsp;改为：
+      <input type="radio" name="cat_id" class="radio_style" value="1" <if condition="$record.cat_id eq '1'">checked</if> />&nbsp;全程马拉松&nbsp;&nbsp;&nbsp;
+      <input type="radio" name="cat_id" class="radio_style" value="2" <if condition="$record.cat_id eq '2'">checked</if> />&nbsp;半程马拉松&nbsp;&nbsp;&nbsp;
+      <input type="radio" name="cat_id" class="radio_style" value="3" <if condition="$record.cat_id eq '3'">checked</if> />&nbsp;迷你马拉松&nbsp;&nbsp;&nbsp;
+  	<!--  <input type="radio" name="cat_id" class="radio_style" value="4" <if condition="$record.cat_id eq '4'">checked</if> />&nbsp;全程公益&nbsp;&nbsp;&nbsp; -->
+     <!--  <input type="radio" name="cat_id" class="radio_style" value="5" <if condition="$record.cat_id eq '5'">checked</if> />&nbsp;半程公益&nbsp;&nbsp;&nbsp;-->
+  	  <?php } ?>
+  	  
+      </td>
+    </tr>
+    
+    
+    <tr> 
+      <th>{:L('姓名')} :</th>
+      <td>{$info.realname}
+      </td>
+      
+      <td>
+      <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+      &nbsp;&nbsp;&nbsp;&nbsp;改为：
+      <input type="text" name="realname" id="realname" class="input-text" value="{$record.realname}" size="25" maxlength="100">
+      <?php } ?>
+      </td>
+    </tr>
+    
+    
+    
+    <tr> 
+      <th>{:L('性别(1代表男，2代表女)')} :</th>
+      <td>{$info.sex}
+      </td>
+      
+      <td>
+      <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+      &nbsp;&nbsp;&nbsp;&nbsp;改为：
+      <input type="radio" name="sex" class="radio_style" value="1" <if condition="$record.sex eq '1'">checked</if> />&nbsp;男&nbsp;&nbsp;&nbsp;
+      <input type="radio" name="sex" class="radio_style" value="2" <if condition="$record.sex eq '2'">checked</if> />&nbsp;女&nbsp;&nbsp;&nbsp;
+      <?php } ?>
+      </td>
+    </tr>
+    
+    
+    <tr> 
+      <th>{:L('生日')} :</th>
+      <td>{$info.birth_day}
+      </td>
+      
+      <td>
+      <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+      &nbsp;&nbsp;&nbsp;&nbsp;改为：
+      <input type="text" name="birth_day" id="birth_day" class="input-text" value="{$record.birth_day}" size="25" maxlength="100">
+      <?php } ?>
+      
+      </td>
+    </tr>
+    
+    
+    
+    <tr> 
+      <th>{:L('证件类型(1身份证，2军官证，3护照，4台胞证，5回乡证)')} :</th>
+      <td>{$info.id_type}
+      </td>
+      
+      <td>
+      <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+      &nbsp;&nbsp;&nbsp;&nbsp;改为：
+      <input type="radio" name="id_type" class="radio_style" value="1" <if condition="$record.id_type eq '1'">checked</if> />&nbsp;身份证&nbsp;&nbsp;&nbsp;
+      <input type="radio" name="id_type" class="radio_style" value="2" <if condition="$record.id_type eq '2'">checked</if> />&nbsp;军官证&nbsp;&nbsp;&nbsp;
+      <input type="radio" name="id_type" class="radio_style" value="3" <if condition="$record.id_type eq '3'">checked</if> />&nbsp;护照&nbsp;&nbsp;&nbsp;
+  	  <input type="radio" name="id_type" class="radio_style" value="4" <if condition="$record.id_type eq '4'">checked</if> />&nbsp;台胞证&nbsp;&nbsp;&nbsp;
+      <input type="radio" name="id_type" class="radio_style" value="5" <if condition="$record.id_type eq '5'">checked</if> />&nbsp;回乡证&nbsp;&nbsp;&nbsp;
+   <?php } ?>
+  
+  </td>
+    </tr>
+    
+    <tr> 
+      <th>{:L('证件号码')} :</th>
+      <td>{$info.id_number}
+      </td>
+      
+      <td>
+      <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+      &nbsp;&nbsp;&nbsp;&nbsp;改为：
+      <input type="text" name="id_number" id="id_number" class="input-text" value="{$record.id_number}" size="25" maxlength="100">
+      
+      <?php } ?>
+      </td>
+    </tr>
+    
+    
+    
+    
+    
+    <tr> 
+      <th>{:L('通讯地址')} :</th>
+      <td>{$info.address}
+      </td>
+      
+      <td>
+      <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+      &nbsp;&nbsp;&nbsp;&nbsp;改为：
+      <input type="text" name="address" id="address" class="input-text" value="{$record.address}" size="25" maxlength="100">
+      <?php } ?>
+      </td>
+    </tr>
+    
+    
+    <tr> 
+      <th>{:L('手机')} :</th>
+      <td>{$info.mobile}
+      </td>
+      
+      <td>
+      <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+      &nbsp;&nbsp;&nbsp;&nbsp;改为：
+      <input type="text" name="mobile" id="mobile" class="input-text" value="{$record.mobile}" size="25" maxlength="100">
+      <?php } ?>
+      </td>
+    </tr>
+    
+    
+    
+    <tr> 
+      <th>{:L('邮箱地址')} :</th>
+      <td>{$info.email}
+      </td>
+      
+      <td>
+      <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+      &nbsp;&nbsp;&nbsp;&nbsp;改为：
+      <input type="text" name="email" id="email" class="input-text" value="{$record.email}" size="25" maxlength="100">
+      <?php } ?>
+      
+      </td>
+    </tr>
+    
+    
+    <tr> 
+      <th>{:L('国家/地区')} :</th>
+      <td>{$info.cityarea}
+      </td>
+      
+      <td>
+      <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+      
+      &nbsp;&nbsp;&nbsp;&nbsp;改为：
+      <select id="cityarea" name="cityarea" >
+		<option value=""> - 未选择 - </option>
+		<?php
+		foreach($cityarea_list as $k=>$v){
+		?>
+		<option value="<?php echo $v['guoji_name'];?>" <?php if($info['cityarea']==$v['guoji_name']){echo 'selected';}?> ><?php echo $v['guoji_name'];?></option>
+		<?php
+		}
+		?>
+	</select>
+	
+	<?php } ?>
+      </td>
+    </tr>
+    
+    
+    
+    <tr> 
+      <th>{:L('血型')} :</th>
+      <td>{$info.blood}
+      </td>
+      
+      <td>
+      <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+      &nbsp;&nbsp;&nbsp;&nbsp;改为：
+      <input type="radio" name="blood" class="radio_style" value="A" <if condition="$record.blood eq 'A'">checked</if> />&nbsp;A&nbsp;&nbsp;&nbsp;
+      <input type="radio" name="blood" class="radio_style" value="B" <if condition="$record.blood eq 'B'">checked</if> />&nbsp;B&nbsp;&nbsp;&nbsp;
+  	  <input type="radio" name="blood" class="radio_style" value="O" <if condition="$record.blood eq 'O'">checked</if> />&nbsp;O&nbsp;&nbsp;&nbsp;
+      <input type="radio" name="blood" class="radio_style" value="AB" <if condition="$record.blood eq 'AB'">checked</if> />&nbsp;AB&nbsp;&nbsp;&nbsp;
+  <?php } ?>
+  
+      </td>
+    </tr>
+    
+    
+    <tr> 
+      <th>{:L('衣服尺码')} :</th>
+      <td>{$info.cloth_size}
+      </td>
+      
+      <td>
+      <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+      &nbsp;&nbsp;&nbsp;&nbsp;改为：
+      <input type="radio" name="cloth_size" class="radio_style" value="XS:160" <if condition="$record.cloth_size eq 'XS:160'">checked</if> />&nbsp;XS:160&nbsp;&nbsp;&nbsp;
+      <input type="radio" name="cloth_size" class="radio_style" value="S:165" <if condition="$record.cloth_size eq 'S:165'">checked</if> />&nbsp;S:165&nbsp;&nbsp;&nbsp;
+  	  <input type="radio" name="cloth_size" class="radio_style" value="M:170" <if condition="$record.cloth_size eq 'M:170'">checked</if> />&nbsp;M:170&nbsp;&nbsp;&nbsp;
+      <input type="radio" name="cloth_size" class="radio_style" value="L:175" <if condition="$record.cloth_size eq 'L:175'">checked</if> />&nbsp;L:175&nbsp;&nbsp;&nbsp;
+  	  <input type="radio" name="cloth_size" class="radio_style" value="XL:180" <if condition="$record.cloth_size eq 'XL:180'">checked</if> />&nbsp;XL:180&nbsp;&nbsp;&nbsp;
+  	  <input type="radio" name="cloth_size" class="radio_style" value="XXL:185" <if condition="$record.cloth_size eq 'XXL:185'">checked</if> />&nbsp;XXL:185&nbsp;&nbsp;&nbsp;
+      <input type="radio" name="cloth_size" class="radio_style" value="3XL:190" <if condition="$record.cloth_size eq '3XL:190'">checked</if> />&nbsp;3XL:190&nbsp;&nbsp;&nbsp;
+  <?php } ?>
+  
+  </td>
+    </tr>
+    
+    <!--
+    <tr> 
+      <th>{:L('是否医护跑者(1是，2否)')} :</th>
+      <td>{$info.medical_runner}</td>
+    </tr>
+    -->
+    
+    <tr> 
+      <th>{:L('跑团名称')} :</th>
+      <td>{$info.running_group_name}
+      </td>
+      
+      <td>
+      
+      <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+      &nbsp;&nbsp;&nbsp;&nbsp;改为：
+      <input type="text" name="running_group_name" id="running_group_name" class="input-text" value="{$record.running_group_name}" size="25" maxlength="100">
+      <?php } ?>
+      
+      </td>
+    </tr>
+    
+    
+    
+    
+    <tr> 
+      <th>{:L('紧急联系人')} :</th>
+      <td>{$info.ec_name}
+      </td>
+      
+      <td>
+      <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+      &nbsp;&nbsp;&nbsp;&nbsp;改为：
+      <input type="text" name="ec_name" id="ec_name" class="input-text" value="{$record.ec_name}" size="25" maxlength="100">
+      <?php } ?>
+      </td>
+    </tr>
+    
+     <!--
+    <tr> 
+      <th>{:L('紧急联系人关系')} :</th>
+      <td>{$info.ec_relation}</td>
+      
+      <td></td>
+    </tr>
+    -->
+    
+    
+    
+    <tr> 
+      <th>{:L('紧急联系人电话')} :</th>
+      <td>{$info.ec_phone}
+      </td>
+      
+      <td>
+        <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+      &nbsp;&nbsp;&nbsp;&nbsp;改为：
+      <input type="text" name="ec_phone" id="ec_phone" class="input-text" value="{$record.ec_phone}" size="25" maxlength="100">
+      <?php } ?>
+      </td>
+    </tr>
+    
+     <!--
+    <tr> 
+      <th>{:L('紧急联系人地址')} :</th>
+      <td>{$info.ec_address}</td>
+      
+      <td></td>
+    </tr>
+    -->
+    
+    <!--
+    <tr> 
+      <th>{:L('是否需要人寿赠险(1是，2否)')} :</th>
+      <td>{$info.renshou_zengxian}
+      </td>
+      
+      <td>
+      <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+      &nbsp;&nbsp;&nbsp;&nbsp;改为：
+      <input type="radio" name="renshou_zengxian" class="radio_style" value="1" <if condition="$record.renshou_zengxian eq '1'">checked</if> />&nbsp;是&nbsp;&nbsp;&nbsp;
+      <input type="radio" name="renshou_zengxian" class="radio_style" value="2" <if condition="$record.renshou_zengxian eq '2'">checked</if> />&nbsp;否&nbsp;&nbsp;&nbsp;
+  	   <?php } ?>
+  	  </td>
+    </tr>
+    -->
+    
+    <!--
+    <tr> 
+      <th>{:L('邀请码')} :</th>
+      <td>{$info.invit_code}</td>
+      
+      <td></td>
+    </tr>
+    -->
+    
+    <!--
+    <tr> 
+      <th>{:L('邀请码是否免费(1免费，2收费)')} :</th>
+      <td>{$info.is_free}</td>
+      
+      <td></td>
+    </tr>
+    -->
+    
+    
+    
+    <tr> 
+      <th>{:L('是否台州户籍(1是，2否)')} :</th>
+      <td>{$info.renshou_zengxian}
+      </td>
+      
+      <td>
+      <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+      &nbsp;&nbsp;&nbsp;&nbsp;改为：
+      <input type="radio" name="renshou_zengxian" class="radio_style" value="1" <if condition="$record.renshou_zengxian eq '1'">checked</if> />&nbsp;是&nbsp;&nbsp;&nbsp;
+      <input type="radio" name="renshou_zengxian" class="radio_style" value="2" <if condition="$record.renshou_zengxian eq '2'">checked</if> />&nbsp;否&nbsp;&nbsp;&nbsp;
+  	   <?php } ?>
+  	  </td>
+    </tr>
+    
+    
+    <tr> 
+      <th>{:L('报名申请时间')} :</th>
+      <td>{$info.addtime_apply}</td>
+      
+      <td></td>
+    </tr>
+    
+    
+    
+    
+    <tr> 
+      <th>{:L('体检证明')} :</th>
+      <!--<td><?php if(!empty($info['cert_medical'])){ ?><a href="__ROOT__/public/cert_medical/<?php echo $info['cert_medical']; ?>">下载</a><?php } ?></td>-->
+      <td><?php if(!empty($info['cert_medical'])){ ?><a href="<?php echo $info['cert_medical']; ?>" target="_blank">下载</a><?php } ?></td>
+      
+      <td></td>
+    </tr>
+    
+    
+    <!--
+    <tr> 
+      <th>{:L('最好成绩项目')} :</th>
+      <td>{$info.best_chengji_item}</td>
+      
+      <td></td>
+    </tr>
+    -->
+    
+    
+    <tr> 
+      <th>{:L('完赛证书成绩')} :</th>
+      <td>{$info.best_chengji_score}
+      </td>
+      
+      <td>
+      <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+      &nbsp;&nbsp;&nbsp;&nbsp;改为：
+      <input type="text" name="best_chengji_score" id="best_chengji_score" class="input-text" value="{$record.best_chengji_score}" size="25" maxlength="100">
+      <?php } ?>
+      </td>
+    </tr>
+    
+    
+    
+    <tr> 
+      <th>{:L('成绩证明')} :</th>
+      <!--<td><?php if(!empty($info['cert_chengji'])){ ?><a href="__ROOT__/public/cert_chengji/<?php echo $info['cert_chengji']; ?>">下载</a><?php } ?></td>-->
+      <td><?php if(!empty($info['cert_chengji'])){ ?><a href="<?php echo $info['cert_chengji']; ?>" target="_blank">下载</a><?php } ?></td>
+      
+      <td></td>
+    </tr>
+    
+    
+    
+    <!--
+	<tr> 
+      <th>{:L('摆渡点')} :</th>
+      <td>{$info.bus_point}
+      </td>
+      
+      <td>
+      <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+      &nbsp;&nbsp;&nbsp;&nbsp;改为：
+      <select id="bus_point" name="bus_point" >
+		<option value=""> - 未选择 - </option>
+		<?php
+		foreach($bus_point_list as $k=>$v){
+		?>
+		<option value="<?php echo $v['title'];?>" <?php if($info['bus_point']==$v['title']){echo 'selected';}?> ><?php echo $v['title'];?></option>
+		<?php
+		}
+		?>
+	</select>
+	 <?php } ?>
+	</td>
+    </tr>
+	-->
+    
+    
+    
+    <!--
+    <tr> 
+      <th>{:L('详细资料时间')} :</th>
+      <td>{$info.addtime_attach}</td>
+      
+      <td></td>
+    </tr>
+    -->
+    
+    
+    
+    
+    <tr> 
+      <th>{:L('订单号')} :</th>
+      <td>{$info.order_no}</td>
+      
+      <td></td>
+    </tr>
+    
+    <tr> 
+      <th>{:L('交易号')} :</th>
+      <td>{$info.trade_no}</td>
+      
+      <td></td>
+    </tr>
+    
+    <tr> 
+      <th>{:L('总金额')} :</th>
+      <td>{$info.amount_total}</td>
+      
+      <td></td>
+    </tr>
+    
+    <tr> 
+      <th>{:L('支付方式(0代表未定义，1代表支付宝，2代表微信，9代表线下支付)')} :</th>
+      <td>{$info.payMode}</td>
+      
+      <td></td>
+    </tr>
+    
+    <tr> 
+      <th>{:L('支付状态(0代表未支付，1代表已支付，2代表待确认)')} :</th>
+      <td>{$info.isPay}</td>
+      
+      <td>
+      
+      <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+       &nbsp;&nbsp;&nbsp;&nbsp;改为：
+            <input type="radio" name="isPay" class="radio_style" value="0" <if condition="$record.isPay eq '0'">checked</if> /> &nbsp;{:L('未支付')}&nbsp;&nbsp;&nbsp;
+            <input type="radio" name="isPay" class="radio_style" value="1" <if condition="$record.isPay eq '1'">checked</if> /> &nbsp;{:L('已支付')}&nbsp;&nbsp;&nbsp;
+            <input type="radio" name="isPay" class="radio_style" value="2" <if condition="$record.isPay eq '2'">checked</if> /> &nbsp;{:L('待确认')}&nbsp;&nbsp;&nbsp;
+        
+        	 <?php } ?>
+        </td>
+    </tr>
+    
+    <tr> 
+      <th>{:L('支付时间')} :</th>
+      <td>{$info.payDateTime}</td>
+      
+      <td></td>
+    </tr>
+    
+    
+    <!--
+    <tr> 
+      <th>{:L('报名渠道')} :</th>
+      <td>{$info.reg_channel}</td>
+      
+      <td></td>
+    </tr>
+    -->
+    
+    
+    
+    <tr> 
+      <th width="60">{:L('参赛号')} :</th>
+      <td>{$record.match_code}</td>
+      
+      <td>
+      <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+      &nbsp;&nbsp;&nbsp;&nbsp;改为：
+      <input type="text" name="match_code" id="match_code" class="input-text" value="{$record.match_code}" size="25">
+      <?php } ?>
+      </td>
+    </tr>
+    
+    <!--
+    <tr>
+        <th width="60">{:L('抽签状态(0待抽签，1已中签，2未中签)')} :</th>
+        <td>{$info.status_apply}</td>
+        <td>
+        <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+        &nbsp;&nbsp;&nbsp;&nbsp;改为：
+            <input type="radio" name="status_apply" class="radio_style" value="0" <if condition="$record.status_apply eq '0'">checked</if> /> &nbsp;{:L('待抽签')}&nbsp;&nbsp;&nbsp;
+            <input type="radio" name="status_apply" class="radio_style" value="1" <if condition="$record.status_apply eq '1'">checked</if> /> &nbsp;{:L('已中签')}&nbsp;&nbsp;&nbsp;
+            <input type="radio" name="status_apply" class="radio_style" value="2" <if condition="$record.status_apply eq '2'">checked</if> /> &nbsp;{:L('未中签')}&nbsp;&nbsp;&nbsp;
+             <?php } ?>
+        </td>
+    </tr>
+    -->
+    
+    
+    <tr>
+        <th width="60">{:L('审核状态(0待审核，1审核通过，2审核拒绝)')} :</th>
+        <td>{$info.status_attach}</td>
+        <td>
+        &nbsp;&nbsp;&nbsp;&nbsp;改为：
+            <input type="radio" name="status_attach" class="radio_style" value="0" <if condition="$record.status_attach eq '0'">checked</if> /> &nbsp;{:L('待审核')}&nbsp;&nbsp;&nbsp;
+            <input type="radio" name="status_attach" class="radio_style" value="1" <if condition="$record.status_attach eq '1'">checked</if> /> &nbsp;{:L('审核通过')}&nbsp;&nbsp;&nbsp;
+            <input type="radio" name="status_attach" class="radio_style" value="2" <if condition="$record.status_attach eq '2'">checked</if> /> &nbsp;{:L('审核拒绝')}&nbsp;&nbsp;&nbsp;
+        </td>
+    </tr>
+    
+    
+    <tr>
+        <th width="60">{:L('审核备注')} :</th>
+        <td>{$info.status_attach_reason}</td>
+        <td>
+        &nbsp;&nbsp;&nbsp;&nbsp;改为：
+        <textarea id="status_attach_reason" name="status_attach_reason" cols="70" rows="3">{$record.status_attach_reason}</textarea>
+        </td>
+    </tr>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <tr>
+        <th width="60">报名模式:</th>
+        <td><if condition="$record.team_id gt '0'">团队</if><if condition="$record.team_id eq '0'">个人</if></td>
+        <td>
+        &nbsp;
+        </td>
+    </tr>
+    
+    
+    <tr> 
+      <th width="60">{:L('领队姓名')} :</th>
+      <td>{$record.team_realname}</td>
+      
+      <td>
+      <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+      &nbsp;&nbsp;&nbsp;&nbsp;改为：
+      <input type="text" name="team_realname" id="team_realname" class="input-text" value="{$record.team_realname}" size="25">
+      <?php } ?>
+      </td>
+    </tr>
+    
+    
+    <tr> 
+      <th width="60">{:L('领队证件号')} :</th>
+      <td>{$record.team_id_number}</td>
+      
+      <td>
+      <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+      &nbsp;&nbsp;&nbsp;&nbsp;改为：
+      <input type="text" name="team_id_number" id="team_id_number" class="input-text" value="{$record.team_id_number}" size="25">
+      <?php } ?>
+      </td>
+    </tr>
+    
+    
+    <tr> 
+      <th width="60">{:L('领队手机号')} :</th>
+      <td>{$record.team_mobile}</td>
+      
+      <td>
+      <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+      &nbsp;&nbsp;&nbsp;&nbsp;改为：
+      <input type="text" name="team_mobile" id="team_mobile" class="input-text" value="{$record.team_mobile}" size="25">
+      <?php } ?>
+      </td>
+    </tr>
+    
+    
+    <tr> 
+      <th width="60">{:L('团队名称')} :</th>
+      <td>{$record.team_running_group_name}</td>
+      
+      <td>
+      <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+      &nbsp;&nbsp;&nbsp;&nbsp;改为：
+      <input type="text" name="team_running_group_name" id="team_running_group_name" class="input-text" value="{$record.team_running_group_name}" size="25">
+      <?php } ?>
+      </td>
+    </tr>
+    
+    
+    <tr> 
+      <th width="60">{:L('领队email')} :</th>
+      <td>{$record.team_email}</td>
+      
+      <td>
+      <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+      &nbsp;&nbsp;&nbsp;&nbsp;改为：
+      <input type="text" name="team_email" id="team_email" class="input-text" value="{$record.team_email}" size="25">
+      <?php } ?>
+      </td>
+    </tr>
+    
+    
+    <tr> 
+      <th width="60">{:L('领队联系地址')} :</th>
+      <td>{$record.team_address}</td>
+      
+      <td>
+      <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+      &nbsp;&nbsp;&nbsp;&nbsp;改为：
+      <input type="text" name="team_address" id="team_address" class="input-text" value="{$record.team_address}" size="25">
+      <?php } ?>
+      </td>
+    </tr>
+    
+    <tr> 
+      <th width="60">{:L('参队人数')} :</th>
+      <td>{$record.team_renshu}</td>
+      
+      <td>
+      <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+      &nbsp;&nbsp;&nbsp;&nbsp;改为：
+      <input type="text" name="team_renshu" id="team_renshu" class="input-text" value="{$record.team_renshu}" size="25">
+      <?php } ?>
+      </td>
+    </tr>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <tr> 
+      <th width="60">{:L('民族')} :</th>
+      <td>{$record.minzu}</td>
+      <td>
+      <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+      &nbsp;&nbsp;&nbsp;&nbsp;改为：
+      <input type="text" name="minzu" id="minzu" class="input-text" value="{$record.minzu}" size="25">
+      <?php } ?>
+      </td>
+    </tr>
+    
+    
+    
+    <tr> 
+      <th width="60">{:L('工作单位')} :</th>
+      <td>{$record.danwei}</td>
+      <td>
+      <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+      &nbsp;&nbsp;&nbsp;&nbsp;改为：
+      <input type="text" name="danwei" id="danwei" class="input-text" value="{$record.danwei}" size="25">
+      <?php } ?>
+      </td>
+    </tr>
+    
+    
+    <tr> 
+      <th width="60">{:L('单位性质')} :</th>
+      <td>{$record.danwei_xingzhi}</td>
+      <td>
+      <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+      &nbsp;&nbsp;&nbsp;&nbsp;改为：
+      <input type="text" name="danwei_xingzhi" id="danwei_xingzhi" class="input-text" value="{$record.danwei_xingzhi}" size="25">
+      <?php } ?>
+      </td>
+    </tr>
+    
+    
+    
+    <tr> 
+      <th width="60">{:L('职位')} :</th>
+      <td>{$record.zhiwei}</td>
+      <td>
+      <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+      &nbsp;&nbsp;&nbsp;&nbsp;改为：
+      <input type="text" name="zhiwei" id="zhiwei" class="input-text" value="{$record.zhiwei}" size="25">
+      <?php } ?>
+      </td>
+    </tr>
+    
+    
+    <tr> 
+      <th width="60">{:L('学历')} :</th>
+      <td>{$record.xueli}</td>
+      <td>
+      <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+      &nbsp;&nbsp;&nbsp;&nbsp;改为：
+      <input type="text" name="xueli" id="xueli" class="input-text" value="{$record.xueli}" size="25">
+      <?php } ?>
+      </td>
+    </tr>
+    
+    
+    
+    <tr> 
+      <th width="60">{:L('月收入水平')} :</th>
+      <td>{$record.yueshouru}</td>
+      <td>
+      <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+      &nbsp;&nbsp;&nbsp;&nbsp;改为：
+      <input type="text" name="yueshouru" id="yueshouru" class="input-text" value="{$record.yueshouru}" size="25">
+      <?php } ?>
+      </td>
+    </tr>
+    
+    
+    
+    <tr> 
+      <th width="60">{:L('身高(cm)')} :</th>
+      <td>{$record.shengao}</td>
+      <td>
+      <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+      &nbsp;&nbsp;&nbsp;&nbsp;改为：
+      <input type="text" name="shengao" id="shengao" class="input-text" value="{$record.shengao}" size="25">
+      <?php } ?>
+      </td>
+    </tr>
+    
+    
+    
+    <tr> 
+      <th width="60">{:L('体重(Kg)')} :</th>
+      <td>{$record.tizhong}</td>
+      <td>
+      <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+      &nbsp;&nbsp;&nbsp;&nbsp;改为：
+      <input type="text" name="tizhong" id="tizhong" class="input-text" value="{$record.tizhong}" size="25">
+      <?php } ?>
+      </td>
+    </tr>
+    
+    
+    
+    
+    
+    
+    
+    <tr> 
+      <th>{:L('监护人证件类型(1身份证，2军官证，3护照，4台胞证，5回乡证)')} :</th>
+      <td>{$info.id_type_guard}
+      </td>
+      
+      <td>
+      <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+      &nbsp;&nbsp;&nbsp;&nbsp;改为：
+      <input type="radio" name="id_type_guard" class="radio_style" value="1" <if condition="$record.id_type_guard eq '1'">checked</if> />&nbsp;身份证&nbsp;&nbsp;&nbsp;
+      <input type="radio" name="id_type_guard" class="radio_style" value="2" <if condition="$record.id_type_guard eq '2'">checked</if> />&nbsp;军官证&nbsp;&nbsp;&nbsp;
+      <input type="radio" name="id_type_guard" class="radio_style" value="3" <if condition="$record.id_type_guard eq '3'">checked</if> />&nbsp;护照&nbsp;&nbsp;&nbsp;
+      <input type="radio" name="id_type_guard" class="radio_style" value="4" <if condition="$record.id_type_guard eq '4'">checked</if> />&nbsp;台胞证&nbsp;&nbsp;&nbsp;
+      <input type="radio" name="id_type_guard" class="radio_style" value="5" <if condition="$record.id_type_guard eq '5'">checked</if> />&nbsp;回乡证&nbsp;&nbsp;&nbsp;
+   <?php } ?>
+  
+  </td>
+    </tr>
+    
+    <tr> 
+      <th>{:L('监护人证件号码')} :</th>
+      <td>{$info.id_number_guard}
+      </td>
+      
+      <td>
+      <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+      &nbsp;&nbsp;&nbsp;&nbsp;改为：
+      <input type="text" name="id_number_guard" id="id_number_guard" class="input-text" value="{$record.id_number_guard}" size="25" maxlength="100">
+      
+      <?php } ?>
+      </td>
+    </tr>
+    
+    
+    
+    
+    <!--
+	<tr> 
+      <th width="60">{:L('手机')} :</th>
+      <td><input type="text" name="ordername" id="ordername" class="input-text" value="{$record.ordername}" size="25"></td>
+    </tr>
+	<tr> 
+      <th width="60">{:L('密码')} :</th>
+      <td><input type="text" name="password" id="password" class="input-text" value="" size="25" maxlength="100">({:L('留空则不修改')})</td>
+    </tr>
+    
+    
+    
+    
+    
+    
+    <tr> 
+      <th width="60">{:L('姓名')} :</th>
+      <td><input type="text" name="realname" id="realname" class="input-text" value="{$record.realname}" size="25"></td>
+    </tr>
+    
+    
+    <tr> 
+      <th width="60">{:L('性别')} :</th>
+      <td><input type="text" name="gender" id="gender" class="input-text" value="{$record.gender}" size="25"></td>
+    </tr>
+    
+    
+    
+    <tr> 
+      <th width="60">{:L('生日')} :</th>
+      <td><input type="text" name="birthday" id="birthday" class="input-text" value="{$record.birthday}" size="25"></td>
+    </tr>
+    
+    
+    
+    
+    
+    <tr> 
+      <th width="60">{:L('地址')} :</th>
+      <td><input type="text" name="address" id="address" class="input-text" value="{$record.address}" size="25"></td>
+    </tr>
+    
+    
+    
+    
+    
+    <tr> 
+      <th width="60">{:L('兴趣')} :</th>
+      <td><input type="text" name="xingqu" id="xingqu" class="input-text" value="{$record.xingqu}" size="25"></td>
+    </tr>
+    
+    
+    
+    
+    
+    <tr> 
+      <th width="60">{:L('卡号')} :</th>
+      <td><input type="text" name="kahao" id="kahao" class="input-text" value="{$record.kahao}" size="25"></td>
+    </tr>
+    
+    
+    
+    <tr> 
+      <th width="60">{:L('等级')} :</th>
+      <td>
+      		<input type="radio" name="level" class="radio_style" value="0" <if condition="$record.status eq '0'"> checked</if> /> &nbsp;{:L('普通')}&nbsp;&nbsp;&nbsp;
+        	<input type="radio" name="level" class="radio_style" value="1" <if condition="$record.status eq '1'"> checked</if> /> &nbsp;{:L('VIP')}
+      </td>
+    </tr>
+    
+    -->
+    
+    
+    <!--
+	<tr> 
+      <th width="60">{:L('昵称')} :</th>
+      <td><input type="text" name="nickname" id="nickname" class="input-text" value="{$record.nickname}" size="25" maxlength="100"></td>
+    </tr>
+    <tr> 
+      <th width="60">{:L('姓名')} :</th>
+      <td><input type="text" name="realname" id="realname" class="input-text" value="{$record.realname}" size="25" maxlength="100"></td>
+    </tr>
+
+
+	<tr> 
+      <th width="60">{:L('性别')} :</th>
+      <td>
+          <input type="radio" name="gender" class="radio_style" value="1" <if condition="$record.gender eq '1'">checked</if> /> &nbsp;{:L('男')}&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="gender" class="radio_style" value="2" <if condition="$record.gender neq '1'">checked</if>/> &nbsp;{:L('女')}
+      </td>
+    </tr>
+    
+    <tr> 
+      <th width="60">{:L('出生年')}(如：1978):</th>
+      <td><input type="text" name="birth_year" id="birth_year" class="input-text" value="{$record.birth_year}" size="25" maxlength="100"></td>
+    </tr>
+    
+    
+	<tr> 
+      <th width="60">{:L('手机')} :</th>
+      <td><input type="text" name="mobile" id="mobile" class="input-text" value="{$record.mobile}" size="25" maxlength="100"></td>
+    </tr>
+    
+    
+	<tr> 
+      <th width="60">{:L('所处行业')} :</th>
+      <td>
+
+          <select name="hangye" id="hangye">
+              <option value="">请选择...</option>
+              <volist name="hangye_list" id="rec" >
+                  <option  <if condition="$record.hangye eq $rec['title']">selected</if> value="{$rec['title']}">{$rec['title']}</option>
+              </volist>
+          </select>
+
+      </td>
+    </tr>
+
+   <tr> 
+      <th width="60">{:L('地址')} :</th>
+      <td><input type="text" name="address" id="address" class="input-text" value="{$record.address}" size="25" maxlength="100"></td>
+    </tr>
+
+    <tr>
+        <th width="60">{:L('同意接受邮件')} :</th>
+        <td>
+            <input type="radio" name="is_agree" class="radio_style" value="1" <if condition="$record.is_agree eq '1'">checked</if> /> &nbsp;{:L('是')}&nbsp;&nbsp;&nbsp;
+            <input type="radio" name="is_agree" class="radio_style" value="0" <if condition="$record.is_agree neq '1'">checked</if> /> &nbsp;{:L('否')}
+        </td>
+    </tr>
+	-->
+	
+	<!--
+    <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+    <tr>
+      	<th>{:L('状态')} :</th>
+      	<td>
+      		<input type="radio" name="status" class="radio_style" value="1" <if condition="$record.status eq '1'"> checked</if> /> &nbsp;{:L('发布')}&nbsp;&nbsp;&nbsp;
+        	<input type="radio" name="status" class="radio_style" value="0" <if condition="$record.status neq '1'"> checked</if> /> &nbsp;{:L('隐藏')}
+      	</td>
+    </tr>
+    <?php }else{ ?>
+    <tr>
+      	<th>{:L('状态')} :</th>
+      	<td>
+      		<input type="hidden" name="status" value="0" /> 
+      		<if condition="$record.status eq '1'">发布</if>
+      		<if condition="$record.status neq '1'">隐藏</if>
+      		&nbsp;&nbsp;（改动后，将变为隐藏）
+      	</td>
+    </tr>
+    <?php } ?>
+    -->
+    
+    
+    
+</tbody>
+</table>
+<input type="hidden" name="id" value="{$record.id}" />
+
+<table width="100%" cellpadding="2" cellspacing="1" class="form-table">
+	<tfoot>
+	<tr><th>
+	<td class="cell-action">
+<input type="submit" name="dosubmit" id="dosubmit" class="button" value="确定">
+<input type="button" name="dosubmit" id="dosubmit" class="button" value="返回" onclick="javascript:history.back();">
+	</th></tr>
+	</tfoot>
+</table>
+</form>
+
+
+
+
+
+
+<!--
+<form id="lkform" name="lkform" action="" method="post" class="lkcmsform">
+
+<table width="100%" cellpadding="2" cellspacing="1" class="form-table">
+<tbody>
+	
+    
+    
+    <tr> 
+      <th width="60">{:L('好友圈')} :</th>
+      
+       <td>
+      
+       &nbsp;&nbsp;共<?php
+	    echo $orderinfo_level_01_count;
+	    ?>人
+      
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="{:U('order/edit_export_level_01', array('id'=>$record['id']))}" class="action" >{:L('导出')}</a>
+      
+      </td>
+      
+    </tr>
+    
+    
+    <tr> 
+      <th width="60"></th>
+      <td>
+      
+      		<table width="40%" >
+				<tfoot>
+				<tr>
+				<td style="border-bottom: 0px solid #EEE;">用户id</td>
+				<td style="border-bottom: 0px solid #EEE;">手机</td>
+				<td style="border-bottom: 0px solid #EEE;">昵称</td>
+				<td style="border-bottom: 0px solid #EEE;">真实姓名</td>
+				<td style="border-bottom: 0px solid #EEE;">上层用户id</td>
+				</tr>
+				<?php
+			    foreach ($orderinfo_level_01 as $k=>$v) {
+			    ?>
+				<tr>
+				<td style="border-bottom: 0px solid #EEE;"><?php echo $v['id'];?></td>
+				<td style="border-bottom: 0px solid #EEE;"><?php echo $v['ordername'];?></td>
+				<td style="border-bottom: 0px solid #EEE;"><?php echo $v['nickname'];?></td>
+				<td style="border-bottom: 0px solid #EEE;"><?php echo $v['realname'];?></td>
+				<td style="border-bottom: 0px solid #EEE;"><?php echo $v['fuid'];?></td>
+				</tr>
+				<?php
+			    }
+			    ?>
+				</tfoot>
+			</table>
+
+
+      
+      </td>
+    </tr>
+    
+    
+    
+     <tr> 
+      <th width="60">{:L('朋友圈')} :</th>
+      <td>
+      
+       &nbsp;&nbsp;共<?php
+	    echo $orderinfo_level_02_count;
+	    ?>人
+      
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="{:U('order/edit_export_level_02', array('id'=>$record['id']))}" class="action" >{:L('导出')}</a>
+      
+      </td>
+    </tr>
+    
+    
+    
+    
+     <tr> 
+      <th width="60"></th>
+      <td>
+      
+      		<table width="40%" >
+				<tfoot>
+				<tr>
+				<td style="border-bottom: 0px solid #EEE;">用户id</td>
+				<td style="border-bottom: 0px solid #EEE;">手机</td>
+				<td style="border-bottom: 0px solid #EEE;">昵称</td>
+				<td style="border-bottom: 0px solid #EEE;">真实姓名</td>
+				<td style="border-bottom: 0px solid #EEE;">上层用户id</td>
+				</tr>
+				<?php
+			    foreach ($orderinfo_level_02 as $k=>$v) {
+			    ?>
+				<tr>
+				<td style="border-bottom: 0px solid #EEE;"><?php echo $v['id'];?></td>
+				<td style="border-bottom: 0px solid #EEE;"><?php echo $v['ordername'];?></td>
+				<td style="border-bottom: 0px solid #EEE;"><?php echo $v['nickname'];?></td>
+				<td style="border-bottom: 0px solid #EEE;"><?php echo $v['realname'];?></td>
+				<td style="border-bottom: 0px solid #EEE;"><?php echo $v['fuid'];?></td>
+				</tr>
+				<?php
+			    }
+			    ?>
+				</tfoot>
+			</table>
+
+
+      
+      
+      </td>
+    </tr>
+    
+    
+    
+    
+    
+    
+     <tr> 
+      <th width="60">{:L('人脉圈')} :</th>
+      <td>
+      
+      &nbsp;&nbsp;共<?php
+	    echo $orderinfo_level_03_count;
+	    ?>人
+      
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="{:U('order/edit_export_level_03', array('id'=>$record['id']))}" class="action" >{:L('导出')}</a>
+      
+      </td>
+    </tr>
+    
+    
+    
+    
+     <tr> 
+      <th width="60"></th>
+      <td>
+      
+      		<table width="40%" >
+				<tfoot>
+				<tr>
+				<td style="border-bottom: 0px solid #EEE;">用户id</td>
+				<td style="border-bottom: 0px solid #EEE;">手机</td>
+				<td style="border-bottom: 0px solid #EEE;">昵称</td>
+				<td style="border-bottom: 0px solid #EEE;">真实姓名</td>
+				<td style="border-bottom: 0px solid #EEE;">上层用户id</td>
+				</tr>
+				<?php
+			    foreach ($orderinfo_level_03 as $k=>$v) {
+			    ?>
+				<tr>
+				<td style="border-bottom: 0px solid #EEE;"><?php echo $v['id'];?></td>
+				<td style="border-bottom: 0px solid #EEE;"><?php echo $v['ordername'];?></td>
+				<td style="border-bottom: 0px solid #EEE;"><?php echo $v['nickname'];?></td>
+				<td style="border-bottom: 0px solid #EEE;"><?php echo $v['realname'];?></td>
+				<td style="border-bottom: 0px solid #EEE;"><?php echo $v['fuid'];?></td>
+				</tr>
+				<?php
+			    }
+			    ?>
+				</tfoot>
+			</table>
+
+
+      
+      
+      </td>
+    </tr>
+    
+    
+    
+    
+</tbody>
+</table>
+</form>
+-->
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+    $(function(){
+        var message_000 = "{:L('不能为空')}";
+        $.formValidator.initConfig($.extend(true, {}, JPLUGIN_FORMVALIDATOR_CONFIG, {formID: 'myform'}));
+        //$("#ordername").formValidator({onShow:message_000,onFocus:message_000}).inputValidator({min:1,onError:"请输入邮箱"}).regexValidator({regexp:"^([\\w-.]+)@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.)|(([\\w-]+.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(]?)$",onError:"您输入的邮箱格式不正确"});
+        
+        //$("#email").formValidator({onShow:message_000,onFocus:message_000}).inputValidator({min:1,onError:"请输入邮箱"}).regexValidator({regexp:"^([\\w-.]+)@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.)|(([\\w-]+.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(]?)$",onError:"您输入的邮箱格式不正确"});
+        //$("#ordername").formValidator({onShow:message_000,onFocus:message_000}).inputValidator({min:1,onError:"请输入手机"});
+        //$("#prov").formValidator({onShow:message_000,onFocus:message_000}).inputValidator({min:1,onError:"请输入地区"});
+
+    });
+
+</script>
+
+
+<script type="text/javascript">
+//$("#city_3").ChinaRegionSelector({
+//    	provValue:"湖南省", 
+//    	cityValue:"长沙市"
+//	});
+</script>
+
+<!--
+<php>
+echo '<script type="text/javascript">';
+echo '$("#city_3").ChinaRegionSelector({';
+echo 'provValue:"'.$record['prov'].'",';
+echo 'cityValue:"'.$record['city'].'",';
+echo '});';
+echo '</script>';
+</php>
+-->
+
+<include file="public:footer" />

@@ -1,0 +1,87 @@
+<include file="public:header" />
+
+
+
+
+
+    <div id="loadCurPos" class="container content-nav-path">
+        <a href="{:U('/')}">首页</a> <span class="arrow">></span> <a href="#">报名赛事</a> <span class="arrow">></span> 状态查询
+    </div>
+
+    
+    <div class="container main-content">
+
+        <h3 class="title-m v1">东风日产2017成都国际马拉松赛状态查询</h3>
+
+        <div class="content-block v2 notice-content">
+            <div class="text-center">
+                <!--<div class="m-icon m-icon-warning"></div>-->
+                <h2>很遗憾，您未通过资料审核！</h2>
+                
+            </div>
+            
+            
+            
+            <div class="enroll-success-info">
+                <div class="row">
+                    <div class="col-sm-6 col-xs-5 text-right">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</div>
+                    <div class="col-sm-6 col-xs-7"><?php echo $order_info['realname'];?></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-xs-5 text-right">审核状态：</div>
+                    <div class="col-sm-6 col-xs-7">未通过</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-xs-5 text-right">备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：</div>
+                    <div class="col-sm-6 col-xs-7"><?php echo $order_info['status_attach_reason'];?></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-xs-5 text-right">项&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;目：</div>
+                    <div class="col-sm-6 col-xs-7"><?php if($order_info['cat_id']==1){echo '马拉松 Marathon';}elseif($order_info['cat_id']==2){echo '半程马拉松 Half Marathon';}elseif($order_info['cat_id']==3){echo '欢乐跑 Happy Run';}elseif($order_info['cat_id']==4){echo '公益马拉松 Public welfare Marathon';}elseif($order_info['cat_id']==5){echo '公益半程马拉松 Public welfare Half Marathon';}else{} ?></div>
+                </div>
+            </div>
+            
+            
+            
+        </div>
+        
+        <div class="btn-mc-center">
+            <a href="{:U('/')}" class="btn btn-default">返回首页</a>
+            <!--<button type="button" class="btn btn-default" onclick="javascript:location.href='{:U('baoming/apply', array('order_id'=>$order_info['id'] )   )}';" >修改报名资料</button>-->
+            <!--<button type="button" class="btn btn-default" onclick="javascript:location.href='{:U('baoming/attach', array('order_id'=>$order_info['id'] )   )}';" >修改参赛资料</button>-->
+            
+        </div>
+
+    </div>
+    
+    
+<div class="container">
+  <div class=" chxun_logo">
+   <div class="con">
+     <p>冠名赞助商</p>
+     <span><img src="<?php echo STATICSPATH;?>images/chxun_logo_1.jpg" alt=""/></span> 
+    </div>
+    <div class="con con_long">
+     <p>顶级合作伙伴</p>
+     <span><img src="<?php echo STATICSPATH;?>images/chxun_logo_2.jpg" alt=""/></span> 
+     <span><img src="<?php echo STATICSPATH;?>images/chxun_logo_3.jpg" alt=""/></span> 
+    </div>
+      <div class="con con_long_two">
+     <p>官方合作伙伴</p>
+     <span><img src="<?php echo STATICSPATH;?>images/chxun_logo_4.jpg" alt=""/></span> 
+     <span><img src="<?php echo STATICSPATH;?>images/chxun_logo_5.jpg" alt=""/></span> 
+    </div>
+      <div class="con con_long_three">
+     <p>官方赞助商</p>
+
+     <span><img src="<?php echo STATICSPATH;?>images/chxun_logo_6.jpg" alt=""/></span> 
+    </div>
+      <div class="con con_long_two">
+     <p>官方支持商</p>
+     <span><img src="<?php echo STATICSPATH;?>images/chxun_logo_7.jpg" alt=""/></span> 
+     <span><img src="<?php echo STATICSPATH;?>images/chxun_logo_8.jpg" alt=""/></span> 
+    </div>
+  </div>
+</div>
+
+<include file="public:footer" />

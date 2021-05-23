@@ -1,0 +1,134 @@
+<include file="public:header" />
+
+<form action="{:U('campaign/create_campaignphoto')}" method="post" name="myform" id="myform" class="lkcmsform">
+
+<table width="100%" cellpadding="2" cellspacing="1" class="form-table">
+<tbody>
+
+
+
+
+    <tr>
+        <th width="60">{:L('附近活动')} :</th>
+        <td>
+            <select name="class_id" id="class_id"   >
+                <foreach name="allclasslist" item="rec">
+                    <option value="{$rec['id']}" >{$rec['title']}</option>
+                </foreach>
+            </select>
+
+        </td>
+    </tr>
+
+    <tr>
+        <th width="60">{:L('姓名')} :</th>
+        <td><input type="text" name="title" id="title" class="input-text" value="" size="85" maxlength="100"></td>
+    </tr>
+
+	
+	<tr> 
+      <th width="60">{:L('性别')} :</th>
+      <td>
+      		<input type="radio" name="gender" class="radio_style" value="1" checked /> &nbsp;{:L('男')}&nbsp;&nbsp;&nbsp;
+        	<input type="radio" name="gender" class="radio_style" value="2" /> &nbsp;{:L('女')}
+      </td>
+    </tr>
+    
+
+    <tr>
+        <th width="60">{:L('年龄')} :</th>
+        <td><input type="text" name="age" id="age" class="input-text" value="" size="85" maxlength="100"></td>
+    </tr>
+    
+    
+    <tr>
+        <th width="60">{:L('联系方式')} :</th>
+        <td><input type="text" name="phone" id="phone" class="input-text" value="" size="85" maxlength="100"></td>
+    </tr>
+    
+    
+    <tr>
+        <th width="60">{:L('申请理由及其他')} :</th>
+        <td><textarea id="summary" name="summary" cols="70" rows="3"></textarea></td>
+    </tr>
+    
+
+    <tr>
+        <th width="60">{:L('顺序')} :</th>
+        <td><input type="text" name="sort" id="sort" class="input-text" value="" size="25" maxlength="100" onkeyup="keyup_action3(this)"></td>
+    </tr>
+
+    
+    <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+    <tr>
+      	<th>{:L('状态')} :</th>
+      	<td>
+      		<input type="radio" name="status" class="radio_style" value="1" checked /> &nbsp;{:L('发布')}&nbsp;&nbsp;&nbsp;
+        	<input type="radio" name="status" class="radio_style" value="0" /> &nbsp;{:L('隐藏')}
+      	</td>
+    </tr>
+    <?php }else{ ?>
+    <tr>
+      	<th>{:L('状态')} :</th>
+      	<td>
+      		<input type="hidden" name="status" value="0" /> 隐藏
+      	</td>
+    </tr>
+    <?php } ?>
+    
+</tbody>
+</table>
+<table width="100%" cellpadding="2" cellspacing="1" class="form-table">
+	<tfoot>
+	<tr><th>
+<input type="submit" name="dosubmit" id="dosubmit" class="button" value="确定" >
+	</th></tr>
+	</tfoot>
+</table>
+</form>
+<script language="javascript" type="text/javascript" src="__ROOT__/scripts/ckeditor/ckeditor.js"></script>
+<script language="javascript" type="text/javascript" src="__ROOT__/scripts/ckfinder/ckfinder.js"></script>
+<script type="text/javascript">
+
+    function LK_BrowseServer(id, startupPath ) {
+        var finder = new CKFinder();
+        finder.BasePath = '__ROOT__/scripts/ckfinder/';
+        finder.startupPath  = "Images:/" +  startupPath;
+        finder.selectActionFunction = LK_SetFileField;
+        finder.selectActionData = new Array(id, startupPath);
+        finder.popup();
+    }
+
+    function LK_SetFileField(fileUrl, data) {
+        var id = data["selectActionData"][0];
+        jQuery("#" + id).val(fileUrl);
+        jQuery("#" + id + "Preview").html("<img src='" + fileUrl + "' />");
+    }
+
+
+    $(function(){
+        $(document).ready(function(){
+            if (typeof CKEDITOR == "undefined") {
+                //document.write("加载CKEditor失败");
+            }
+            else {
+                var editor = CKEDITOR.replace("content");
+                CKFinder.setupCKEditor(editor, "__ROOT__/scripts/ckfinder/"); //ckfinder总目录的相对路径.
+            }
+        });
+    });
+
+
+    $(function(){
+        var message_000 = "{:L('不能为空')}";
+        $.formValidator.initConfig($.extend(true, {}, JPLUGIN_FORMVALIDATOR_CONFIG, {formID: 'myform'}));
+        $("#title").formValidator({onShow:message_000,onFocus:message_000}).inputValidator({min:1,onError:"请输入标题"});
+        //$("#pic_show").formValidator({mode:'FixTip',onShow:message_000,onFocus:message_000}).inputValidator({min:1,onError:"请选择图片"});
+        //$("#pic_b_show").formValidator({mode:'FixTip',onShow:message_000,onFocus:message_000}).inputValidator({min:1,onError:"请选择图片"});
+    });
+
+
+
+</script>
+
+<include file="public:footer" />

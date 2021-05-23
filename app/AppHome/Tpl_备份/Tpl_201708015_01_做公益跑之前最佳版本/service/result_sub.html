@@ -1,0 +1,59 @@
+
+<include file="public:header" />
+
+
+
+    <div id="loadCurPos" class="container content-nav-path">
+        <a href="{:U('/')}">首页</a> <span class="arrow">></span> <a href="#">赛事服务</a> <span class="arrow">></span> 成绩查询
+    </div>
+
+    <div class="container main-content">
+
+        <h3 class="title-m v1">东风日产2017成都国际马拉松成绩查询</h3>
+		
+		<?php
+		if(empty($order_info)){
+		?>
+		<p class="no-data">暂无内容</p>
+		<?php
+		}
+		else{
+		?>
+        <div class="content-block v2 notice-content">
+            <h2 class="text-center">您的成绩为<?php echo $order_info['score'];?></h2>
+            <div class="enroll-success-info">
+                <div class="row">
+                    <div class="col-sm-6 col-xs-5 text-right">姓名</div>
+                    <div class="col-sm-6 col-xs-7"><?php echo $order_info['realname'];?></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-xs-5 text-right">参赛号</div>
+                    <div class="col-sm-6 col-xs-7"><?php echo $order_info['match_code'];?></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-xs-5 text-right">证件类型</div>
+                    <div class="col-sm-6 col-xs-7"><?php if($order_info['id_type']==1){echo '身份证';}elseif($order_info['id_type']==2){echo '军官证';}elseif($order_info['id_type']==3){echo '护照';}else{} ?></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-xs-5 text-right">证件号</div>
+                    <div class="col-sm-6 col-xs-7"><?php echo $order_info['id_number'];?></div>
+                </div>
+            </div>
+        </div>
+	<?php
+		}
+		?>
+
+
+        <div class="btn-mc-center">
+            <a href="{:U('/')}" class="btn btn-default">返回首页</a>
+            <a href="javascript:history.back();" class="btn btn-default">返回</a>
+        </div>
+
+    </div>
+    
+    
+    
+    
+
+<include file="public:footer" />

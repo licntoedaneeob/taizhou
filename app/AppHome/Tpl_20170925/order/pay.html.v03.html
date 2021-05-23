@@ -1,0 +1,162 @@
+<include file="public:header" />
+
+
+
+    <div id="loadCurPos" class="container content-nav-path">
+        <a href="{:U('/')}">首页</a> <span class="arrow">></span> <a href="#">报名赛事</a> <span class="arrow">></span> 选择付款
+    </div>
+
+    <div class="container main-content">
+
+	<form action="{:U('order/paySubmit')}" method="post" id="frm_login" name="frm_login">
+
+        <h3 class="title-m v1">选择您的支付方式</h3>
+
+
+        <div id="payButtonMc" class="content-block v2 pay-button-mc">
+            <div class="row">
+            	
+            <?php
+        	if($is_wxBrowser==1){
+	    	?>
+                <div class="col-sm-6"><a href="#" onclick="javascript:chang_pay_method('1');" <?php if($payMode==1){ ?>class="active"<?php } ?> ><img src="<?php echo STATICSPATH;?>images/ic-alipay.png" alt="支付宝支付"></a></div>
+                <div class="col-sm-6"><a href="#" onclick="javascript:chang_pay_method('2');" <?php if($payMode!=1){ ?>class="active"<?php } ?> ><img src="<?php echo STATICSPATH;?>images/ic-weixin.png" alt="微信支付"></a></div>
+                <?php
+	    	}else{
+	    	?>
+	    	  <div class="col-sm-6"><a href="#" onclick="javascript:chang_pay_method('1');" <?php if($payMode==1){ ?>class="active"<?php } ?>  ><img src="<?php echo STATICSPATH;?>images/ic-alipay.png" alt="支付宝支付"></a></div>
+	    	  <div class="col-sm-6"><a href="#" onclick="javascript:chang_pay_method('2');" <?php if($payMode!=1){ ?>class="active"<?php } ?>><img src="<?php echo STATICSPATH;?>images/ic-weixin.png" alt="微信支付"></a></div>
+	    	  <!--<div class="col-sm-6">微信扫码支付<img src="<?php echo $qrcode_scan_url;?>" alt="微信支付"></div>-->
+	    	<?php
+	    	}
+	    	?>
+	    	
+	    	
+            </div>
+        </div>
+
+        <div class="btn-mc-center">
+            <button type="button" class="btn btn-default"  onclick="javascript:do_submit();" >确认支付</button>
+            
+            
+        <input type="hidden" id="order_id" name="order_id" value="<?php echo $order_id;?>" >
+        <input type="hidden" id="order_no" name="order_no" value="<?php echo $order_no;?>" >
+        <input type="hidden" id="payMode" name="payMode" value="<?php echo $payMode;?>" >
+        <input type="hidden" id="is_wxBrowser" name="is_wxBrowser" value="<?php echo $is_wxBrowser;?>" >
+        <input type="hidden" name="dosubmit" id="dosubmit" value="yes">
+        
+        
+        
+        </div>
+
+	</form>
+
+    </div>
+    
+
+
+
+<script  type="text/javascript">
+	function chang_pay_method(metd){
+		$("#payMode").val(metd);
+	}
+	
+	
+</script>
+
+
+
+<script type="text/javascript">
+
+    function do_submit(){
+    	
+    	//alert("需要支付宝接口参数/微支付接口参数");
+    	//return false;
+    	
+        var order_id=$("#order_id").val();
+        var order_no=$("#order_no").val();
+        var payMode=$("#payMode").val();
+        var dosubmit=$("#dosubmit").val();
+		var is_wxBrowser=$("#is_wxBrowser").val();
+        
+        $.ajax({
+            url: "<?php echo __ROOT__;?>/order/paySubmit",
+            async: false,
+            type: "POST",
+            dataType: "json",
+            data: {order_id:order_id,order_no:order_no,payMode:payMode,dosubmit:dosubmit},
+            success: function(ret){
+                if(ret.success=='success'){
+                	
+                	if(payMode==2){
+                		if(is_wxBrowser == 1){
+                			$("#wxPay").submit();
+                			return false;
+                		}
+                		else{
+                			location.href="<?php echo __ROOT__;?>/order/wxpay_scan/order_id/"+order_id+"/order_no/"+order_no;
+                		}
+                	}
+                	else if(payMode==1){
+                		
+                		if(is_wxBrowser == 1){
+		                    $('.valid_error').html("请点击右上角选择“在浏览器中打开”进行支付");
+		                    new Function(demo3.innerHTML)();
+            				return false;
+		                }
+		                else{
+		                    $("#alipayment").submit();
+		                    return false;
+		                }
+
+                		return false;
+                	}
+                	else{
+	                	$("#wxPay").submit();
+	                	return false;
+	                }
+	                
+                }
+                //else if(ret.success=='is_login'){
+                //	  $('.valid_error').html("请先退出登录");
+                //    new Function(demo3.innerHTML)();
+                //    return false;
+                //}
+                else{
+                    $('.valid_error').html("提交失败，请重试！");
+                    new Function(demo3.innerHTML)();
+                    return false;
+                }
+            }
+        });
+        
+    }
+
+</script>
+
+
+<!--支付宝-->
+<form id="alipayment" name="alipayment" action="{:U('ali_pay/alipayapi')}" method="post">
+    <input type="hidden" size="30" name="WIDout_trade_no" id="WIDout_trade_no" value="<?php echo $order_no; ?>" />
+    <input type="hidden" size="30" name="WIDsubject" value="报名参赛费" />
+    <input type="hidden" size="30" name="WIDtotal_fee" id="WIDtotal_fee" value="<?php echo $amount_total; ?>" />
+    <input type="hidden" size="30" name="WIDshow_url" id="WIDshow_url" value="<?php echo BASE_URL; ?>" />
+    <input type="hidden" size="30" name="WIDbody" id="WIDbody" value="" />
+    <button type="submit" style="display:none;">确 认</button>
+</form>
+
+
+<!--微信支付-->
+<form id="wxPay" name="wxPay" action="{:U('wxpay/api', array('showwxpaytitle'=>1 ))}" method="post">
+    <input type="hidden" size="30" name="wx_out_trade_no" id="wx_out_trade_no" value="<?php echo $order_no; ?>" />
+    <input type="hidden" size="30" name="wx_total_fee" id="wx_total_fee" value="<?php echo $amount_total; ?>" />
+    <button type="submit" style="display:none;">确 认</button>
+</form>
+
+
+
+
+
+<script src="<?php echo STATICSPATH;?>scripts/app/enroll/order_pay.js" type="text/javascript"></script>
+
+<include file="public:footer" />

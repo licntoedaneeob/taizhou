@@ -1,0 +1,376 @@
+<include file="public:header" />
+
+<link href="__ROOT__/scripts/jPlugin/powerFloat/powerFloat.css" rel="stylesheet" type="text/css" />
+
+<include file="inc/competition-select" />
+
+
+
+<div class="page-navigation">
+	<h2 style="text-align: center;">分赛区决赛名单</h2>
+</div>
+
+
+<tagLib name="cmscp" />
+
+<form id="lkform" name="lkform" method="post" class="lkcmsform" action="{:U(MODULE_NAME .'/'.ACTION_NAME)}"
+	 data-list  ="{:U(MODULE_NAME.'/list_b')}"
+	 data-print ="{:U(MODULE_NAME.'/list_b_print')}"
+	 data-export="{:U(MODULE_NAME.'/list_b_export')}"
+>
+<fieldset class="competition">
+	<legend class="competition"></legend>
+<table id="grid-filter" width="100%" cellspacing="0" class="filter-table">
+<tbody>
+<tr>
+	<td width="100%" align="left">
+	{:L('筛选')}:
+	<input type="text" id="_f_search" name="_f_search" onchanges="form_list_submit();" class="form_filter_ele" value="{$f_search}">
+	<button onclick="form_list_submit();">{:L('开始')}</button>
+	<button onclick="form_clear_submit();">{:L('清空')}</button>
+	</td>
+	<td nowrap="nowrap">
+		<!-- {:L('分区')}: --><select id="_filter_area" name="_filter_area" onchange="form_list_submit();" class="form_filter_ele"><option value=""> - {:L('选择赛区')} - </option>
+		<volist name="Game_Areas" id="val" ><option value="{$val}" <if condition="$filter_area eq $val"> selected="selected"</if> >{$val}</option></volist></select>
+		<!-- {:L('组别')}: --><select id="_filter_group" name="_filter_group" onchange="form_list_submit();" class="form_filter_ele"><option value=""> - {:L('选择组别')} - </option>
+		<volist name="Game_Groups" id="val" ><option value="{$val['name']}" <if condition="$filter_group eq $val['name']"> selected="selected"</if> >{$val['name']}</option></volist></select>
+		<!-- {:L('城市')}: --><select id="_filter_city" name="_filter_city" onchange="form_list_submit();" class="form_filter_ele"><option value=""> - {:L('选择城市')} - </option>
+		<volist name="Game_Citys" id="val" ><option value="{$val['city']}" <if condition="$filter_city eq $val['city']"> selected="selected"</if> >{$val['city']}</option></volist></select>
+
+		<!-- {:L('是否预约练琴')}: -->
+		<select id="_filter_track_state" name="_filter_state_aoppiano" onchange="form_state_submit();" class="form_filter_ele" data-value="{$filter_state_aoppiano}">
+		<option value=""> - {:L('预约练琴')} - </option>
+		<option value="1" <if condition="$filter_state_aoppiano eq '1'"> selected="selected"</if> > {:L('预约')} </option>
+		<option value="0" <if condition="$filter_state_aoppiano eq '0'"> selected="selected"</if> > {:L('未预约')} </option>
+		</select>
+
+		<!-- {:L('报名费状态')}: -->
+		<select id="_filter_state_payment_b" name="_filter_state_payment_b" onchange="form_state_submit();" class="form_filter_ele" data-value="{$filter_state_payment_b}">
+		<option value=""> - {:L('分赛区决赛缴费')} - </option>
+		<option value="1" <if condition="$filter_state_payment_b eq '1'"> selected="selected"</if> > {:L('已交')} </option>
+		<option value="0" <if condition="$filter_state_payment_b eq '0'"> selected="selected"</if> > {:L('未交')} </option>
+		</select>
+
+		<!-- {:L('报名费状态')}: -->
+		<select id="_filter_state_qualify_c" name="_filter_state_qualify_c" onchange="form_state_submit();" class="form_filter_ele" data-value="{$filter_state_qualify_c}">
+		<option value=""> - {:L('晋级总决赛')} - </option>
+		<option value="1" <if condition="$filter_state_qualify_c eq '1'"> selected="selected"</if> > {:L('晋级')} </option>
+		<option value="0" <if condition="$filter_state_qualify_c eq '0'"> selected="selected"</if> > {:L('未晋级')} </option>
+		</select>
+
+		<!-- {:L('数据状态')}: -->
+		<select id="_filter_state" name="_filter_state" onchange="form_state_submit();" class="form_filter_ele" data-value="{$filter_state}">
+		<option value=""> - {:L('数据状态')} - </option>
+		<option value="1" <if condition="$filter_state eq '1'"> selected="selected"</if> > {:L('有效数据')} </option>
+		<option value="0" <if condition="$filter_state eq '0'"> selected="selected"</if> > {:L('无效数据')} </option>
+		</select>
+
+	</td>
+</tr>
+</tbody>
+</table>
+<table id="players-grid" width="100%" cellspacing="0" class="grid-table style-joomla2">
+<thead>
+<tr>
+	<!--<th width="15"><input type="checkbox" value="" id="chkallid" name="chkallid" onclick="form_checkbox_selectall(this.form, this);"></th>-->
+	<th width="40">{:L('参赛号')}</th>
+	<th><!-- {:L('标题')} --> <php>echo LkHTML::ListSort( L('姓名'), 'name', $f_order, $f_direc, 'form_order_submit', L('按此列排序'));  </php></th>
+	<th width="10"> </th>
+	<th width=""><!-- {:L('身份证')}--> <php>echo LkHTML::ListSort( L('身份证'), 'idcno', $f_order, $f_direc, 'form_order_submit', L('按此列排序'));  </php></th>
+	<th width=""><!-- {:L('电话')}--> <php>echo LkHTML::ListSort( L('电话'), 'phone', $f_order, $f_direc, 'form_order_submit', L('按此列排序'));  </php></th>
+	<th width="">{:L('居住 省 市')}</th>
+	<th width="">{:L('预赛 省 市')}</th>
+	<th width="">{:L('赛区')}</th>
+	<th width="">{:L('组别')}</th>
+	<th width="">{:L('代理商')}</th>
+	<th width="15">{:L('预约练琴')}</th>
+	<th width="15" title="{:L('身份证图片')}">{:L('身份图片')}</th>
+	<th width="15">{:L('标准像片')}</th>
+	<th width="15">{:L('艺术照片')}</th>
+	<th width="15" class="cell-action" title="{:L('报名费用缴费状态')}">{:L('缴费状态')}</th>
+	<th width="15" class="cell-action">{:L('晋级状态')}</th>
+	<th width="40">{:L('账号')}</th>
+	<th width="50" class="cell-action">操作</th>
+	<th width="15" class="cell-action">{:L('数据状态')}</th>
+</tr>
+</thead>
+<tbody id="table-sortable">
+
+<volist name="dataset" id="rec" >
+<tr data-id="{$rec.playerid}" class="sort-id-{$rec.playerid}">
+	<!--<td class="cell-checkbox"><input type="checkbox" value="{$rec.playerid}" name="playerid[]" /></td> -->
+	<td class="cell-rec">{$rec['playerid']}</td>
+	<td class="cell-rec">{$rec['name']}</td>
+	<td class="cell-gender"><cmscp:genderflg valvar="$rec['gender']" /></td>
+	<td class="cell-rec">{$rec['idcno']}</td>
+	<td class="cell-rec">{$rec['phone']}</td>
+	<td class="cell-rec">{$rec['user_prov']} {$rec['user_city']}</td>
+	<td class="cell-rec">{$rec['game_prov']} {$rec['game_city']}</td>
+	<td class="cell-rec">{$rec['game_area']}</td>
+	<td class="cell-rec">{$rec['game_group']}</td>
+	<td class="cell-rec">{$rec['agent_name']}</td>
+	<td class="cell-state"><cmscp:checkflg valvar="$rec['aop_piano']" caption="{:L('是否预约练琴')}" /></td>
+	<td class="cell-picture"><cmscp:pictureflg filevar="$rec['file_idcard']" caption="{:L('身份证图片')}" /></td>
+	<td class="cell-picture"><cmscp:pictureflg filevar="$rec['photo_normal']" caption="{:L('标准像')}" /></td>
+	<td class="cell-picture"><cmscp:pictureflg filevar="$rec['photo_artistic']" caption="{:L('艺术照')}" /></td>
+	<td class="cell-action "><a onclick="form_change_player_payment({$rec.playerid},'{$rec.state_b_payment}')" id="form_player_payment_{$rec.playerid}" href="#"><cmscp:checkflg valvar="$rec['state_b_payment']" caption="{:L('报名费用缴费状态')}" /></a></td>
+	<td class="cell-action"><a onclick="form_change_player_qualify({$rec.playerid},'{$rec.state_c_qualify}')" id="form_player_qualify_{$rec.playerid}" href="#"><cmscp:checkflg valvar="$rec['state_c_qualify']" caption="{:L('是否晋级状态')}" /></a></td>
+	<td class="cell-rec">{$rec['userid']}</td>
+	<td class="cell-action">
+		<a href="{:U(MODULE_NAME.'/player_edit', array('competition' => $competition, 'id'=>$rec['playerid']))}" class="action action-edit" title="{:L('编辑')}"> </a>
+		<a href="{:U(MODULE_NAME.'/player_print', array('competition' => $competition, 'id'=>$rec['playerid']))}" class="action action-print" title="{:L('打印')}"> </a>
+		<a href="{:U(MODULE_NAME.'/followup', array('competition' => $competition, 'id'=>$rec['playerid']))}" class="action action-follow" title="{:L('跟进')}"> </a>
+	</td>
+	<td class="cell-action"><a onclick="form_change_status({$rec.playerid},'{$rec.status}')" id="form_status_{$rec.playerid}" href="#"><cmscp:checkflg valvar="$rec['status']" caption="{:L('设置数据是有效还是无效')}" /></a></td>
+</tr>
+</volist>
+
+
+</tbody>
+<tfoot>
+<tr><td colspan="19">
+	<!--
+	<!--<label for="check_box" style="float:left;">全选/取消</label>-->
+	<?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?><input type="submit" class="button" name="dosubmit" value="删除" onclick="return confirm('你确定要删除吗？')" style="float:left;margin-left:10px;"/><?php }?>
+	-->
+	<div id="pages">{$page}</div>
+</td></tr>
+</tfoot>
+</table>
+</fieldset>
+
+<input type="hidden" name="competition" value="{$competition}" />
+<input type="hidden" name="_f_order" value="{$f_order}" />
+<input type="hidden" name="_f_direc" value="{$f_direc}" />
+<input type="hidden" name="_action" value="" />
+
+</form>
+
+
+<script language="javascript" type="text/javascript" src="__ROOT__/scripts/jPlugin/powerFloat/jquery-powerFloat-min.js"></script>
+<script language="javascript" type="text/javascript" src="__ROOT__/scripts/jPlugin/fixedtableheader/jquery.fixedtableheader.min.js"></script>
+<script language="javascript">
+iform = document.lkform;
+function form_checkbox_selectall(form, chkall){
+	LkCmsForm.CheckBoxAll(iform, 'name', 'playerid[]', chkall);//'chkallid');
+}
+function form_order_submit( order, dir, task ) {
+	$(iform).find("input[name='_f_order']").val(order);
+	$(iform).find("input[name='_f_direc']").val(dir);
+	$(iform).prop('action', $(iform).data('list'));
+	iform.submit( task );
+}
+function form_clear_submit(){
+	$(iform).find(".form_filter_ele").each(function(){
+		$(this).val("");
+	});
+	form_list_submit(iform);
+}
+function form_list_submit(){
+	$ = jQuery;
+	$(iform).prop('action', $(iform).data('list'));
+	$(iform).submit();
+}
+function form_print_submit(){
+	$ = jQuery;
+	$(iform).prop('action', $(iform).data('print'));
+	$(iform).submit();
+}
+function form_export_submit(){
+	$ = jQuery;
+	$(iform).prop('action', $(iform).data('export'));
+	$(iform).submit();
+}
+var_form_state_submit_ing = false;
+function form_state_submit(){
+	if( var_form_state_submit_ing ){
+		return;
+	}
+	var_form_state_submit_ing = true;
+	$ = jQuery;
+//	var state = arguments[0] || false;
+//	if( state ){
+//		var option = $('#_filter_state').find("option:selected");
+//		if( option.length > 0 ){
+//			$('#_filter_track_state').val("");
+//			$('#_filter_state_payment').val("");
+//		}
+//	}else{
+//		var option1 = $('#_filter_track_state').find("option:selected");
+//		var option2 = $('#_filter_state_payment').find("option:selected");
+//		if( option1.length > 0 && option2.length > 0){
+//			$('#_filter_state').val("");
+//		}
+//	}
+	form_list_submit();
+}
+function form_delete_submit(){
+	$ = jQuery;
+	$(iform).prop('action', $(iform).data('delete'));	
+	var ids='';
+	$(iform).children("input[name='id[]']:checked").each(function(i, n){
+		ids += $(n).val() + ',';
+	});
+	var info = "{:L('请选择你需要删除的记录')}";
+	if(ids=='') {
+		window.top.art.dialog({content:info,lock:true,width:'200',height:'50',time:1.5},function(){});
+		return false;
+	}
+	iform.submit();
+}
+function show_ajax_return( result ){
+	var message = "{:L('您没有权限进行此操作。')}";
+	if( result == '500' ){
+		message = "{:L('您没有权限进行此操作。')}";
+	}else
+	if( result == '400' ){
+		message = "{:L('参数错误，未知的参赛者ID。')}";
+	}else
+	if( result == '404' ){
+		message = "{:L('参数错误，未找到报名者信息。')}";
+	}else
+	if( result == '501' ){
+		message = "{:L('数据提交出错。请稍候再试。')}";
+	}
+	if( message != '' ){
+		jQuery.dialog({ 
+			"content": message
+		});
+	}
+}
+function form_change_status(id, type){
+	var flg = jQuery('#form_status_'+id+' i');
+	var itit = '数据有效性变更确认';
+	var info = '操作将会改变报名者 <span style="color:#C08040; font-weight: bold;">数据有效性</span> 的 <b>状态</b> ！<br />比如测试数据，或者乱填的，都可以设置为无效。<br />你确定要改变么？';
+		info = '分赛区决赛名单不可以改变其数据有效性';
+	var game = '{$competition}';
+	jQuery.dialog({
+		title : itit,
+		content: info,
+		ok: function(){
+		}
+		cancel: function(){
+		
+		}
+	});
+	return;
+	jQuery.dialog({
+		title : itit,
+		content: info,
+		ok: function(){
+			$.get("{:U('players/ajax_list_a_status')}", { "id": id, "competition": game }, function(jsondata){
+		    	var status = jsondata.status;
+		    	var result = jsondata.result;
+		    	if( status == 'true'){
+	    			if( result == 1 ){
+	    				flg.removeClass('icon-check-empty color-check-no').addClass('icon-check color-check-yes');
+	    			}else{
+	    				flg.removeClass('icon-check color-check-yes').addClass('icon-check-empty color-check-no');
+	    			}
+		    	}else{
+					show_ajax_return( jsondata.message );
+//		    		if( result == '404' ){
+//		    			jQuery.dialog({ 
+//		    				"content": "{:L('未找到报名者信息或者无权限修改。')}"
+//		    			});
+//		    		}
+		    	}
+			});
+		},
+		cancel: function(){
+		
+		}
+	
+	});
+}
+
+function form_change_player_payment( id, val ){
+	var flg = jQuery('#form_player_payment_'+id+' i');
+	var itit = '缴费状态变更确认';
+	var info = '操作将会改变报名者 <span style="color:#C08040; font-weight: bold;">预选赛报名费</span> 的 <b>缴费状态</b> ！<br />你确定要改变么？';
+	var game = '{$competition}';
+	if( val = 1 ){
+		
+	}
+	jQuery.dialog({
+		title : itit,
+		content: info,
+		ok: function(){
+			$.get("{:U('players/ajax_list_a_payment')}", { "id": id, "competition": game }, function(jsondata){
+		    	var status = jsondata.status;
+		    	var result = jsondata.result;
+		    	if( status == 'true'){
+	    			if( result == 1 ){
+	    				flg.removeClass('icon-check-empty color-check-no').addClass('icon-check color-check-yes');
+	    			}else{
+	    				flg.removeClass('icon-check color-check-yes').addClass('icon-check-empty color-check-no');
+	    			}
+		    	}else{
+					show_ajax_return( jsondata.message );
+//		    		if( result == '404' ){
+//		    			jQuery.dialog({ 
+//		    				"content": "{:L('未找到报名者信息或者无权限修改。')}"
+//		    			});
+//		    		}
+		    	}
+			});
+		},
+		cancel: function(){
+		
+		}
+	
+	});
+
+}
+function form_change_player_qualify( id, val ){
+	var flg = jQuery('#form_player_qualify_'+id+' i');
+	var itit = '晋级分赛区决赛状态变更确认';
+	var info = '操作将会改变参赛者 <span style="color:#C08040; font-weight: bold;">晋级分赛区决赛</span> 的 <b>状态</b> ！<br />你确定要改变么？';
+	var game = '{$competition}';
+	if( val = 1 ){
+		
+	}
+	jQuery.dialog({
+		title : itit,
+		content: info,
+		ok: function(){
+			$.get("{:U('players/ajax_list_b_qualify')}", { "id": id, "competition": game }, function(jsondata){
+		    	var status = jsondata.status;
+		    	var result = jsondata.result;
+		    	if( status == 'true'){
+	    			if( result == 1 ){
+	    				flg.removeClass('icon-check-empty color-check-no').addClass('icon-check color-check-yes');
+	    			}else{
+	    				flg.removeClass('icon-check color-check-yes').addClass('icon-check-empty color-check-no');
+	    			}
+		    	}else{
+					show_ajax_return( jsondata.message );
+//		    		if( result == '404' ){
+//		    			jQuery.dialog({ 
+//		    				"content": "{:L('未找到参赛者信息或者无权限修改。')}"
+//		    			});
+//		    		}
+		    	}
+			});
+		},
+		cancel: function(){
+		
+		}
+	
+	});
+
+}
+
+(function($){
+	$(document).ready(function(){
+
+		$("a.flg-picture-show").powerFloat({ targetMode: "ajax", targetAttr: "href", hoverFollow: "y", position: "6-8" });
+
+		$('#players-grid').fixedtableheader({"thead": true, "top": "1px"});
+
+	});
+
+})(jQuery);
+</script>
+<include file="public:footer" />
+

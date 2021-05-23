@@ -1,0 +1,374 @@
+<include file="public:header" />
+
+
+<div class="main-container container">
+    <!-- <div class="row">
+        <div class="tools-bar">
+            <div class="countdown pull-left">
+                <strong>赛事倒计时<span>COUNTDOWN</span></strong>
+                <div class="bd time">
+                    
+                </div>
+            </div>
+            <div class="pull-left rlink">
+                <a href="#"><i class="icon-user"></i>注册</a>丨<a href="#">登录</a>
+            </div>
+        </div>
+    </div> -->
+     <div class="row">
+        <ol class="breadcrumb">
+          <li><a href="{:U('/')}">首页</a></li>
+          <li class="active">报名赛事</li>
+        </ol>
+        <h3 class="title-m v2"><span>2017台州国际马拉松赛<i>填写详细资料</i></span></h3>
+        <div class="content-block v2 col-main">
+            <form class="form-horizontal form-mc form-confirm" id="form_input" name="form_input" method="post">
+              <div class="form-group">
+                <label class="col-sm-3 control-label multi">报名费：<span class="en">Entry fee</span></label>
+                <div class="col-sm-6">
+                    <p class="form-control-static"><?php echo $order_info['amount_total'];?>元</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">报名类型：<span class="en">Registration type</span></label>
+                <div class="col-sm-6">
+                    <p class="form-control-static"><?php if($order_info['cat_id']==1){echo '马拉松 Marathon';}elseif($order_info['cat_id']==2){echo '半程马拉松 Half Marathon';}elseif($order_info['cat_id']==3){echo '迷你马拉松 Happy Run';}elseif($order_info['cat_id']==4){echo '公益马拉松 Public welfare Marathon';}elseif($order_info['cat_id']==5){echo '公益半程马拉松 Public welfare Half Marathon';}else{} ?></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">姓名：<span class="en">Name</span></label>
+                <div class="col-sm-6">
+                    <p class="form-control-static"><?php echo $order_info['realname'];?></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">国家/地区：<span class="en">Country</span></label>
+                <div class="col-sm-6">
+                    <p class="form-control-static"><?php echo $order_info['cityarea'];?></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">证件类型：<span class="en">ID Type</span></label>
+                <div class="col-sm-6">
+                    <p class="form-control-static"><?php if($order_info['id_type']==1){echo '身份证 ID CARD';}elseif($order_info['id_type']==2){echo '军官证 Certificate Card';}elseif($order_info['id_type']==3){echo '护照 Passport';}elseif($order_info['id_type']==4){echo '台胞证 MTP';}elseif($order_info['id_type']==5){echo '回乡证 Home Re-entry Permit';}else{} ?></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">证件号码：<span class="en">ID Number</span></label>
+                <div class="col-sm-6">
+                    <p class="form-control-static"><?php echo $order_info['id_number'];?></p>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">是否台州户籍：<span class="en">Taizhou member</span></label>
+                <div class="col-sm-9">
+                    <p class="form-control-static"><?php if($order_info['renshou_zengxian']==1){echo '是 Yes';}elseif($order_info['renshou_zengxian']==2){echo '否 No';}else{} ?></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">性别：<span class="en">Gender</span></label>
+                <div class="col-sm-9">
+                    <p class="form-control-static"><?php if($order_info['sex']==1){echo '男 Male';}elseif($order_info['sex']==2){echo '女 Female';}else{} ?></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">出生日期：<span class="en">Birthday</span></label>
+                <div class="col-sm-6">
+                    <p class="form-control-static"><?php echo $order_info['birth_day'];?></p>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">通讯地址：<span class="en">Post address</span></label>
+                <div class="col-sm-8">
+                    <p class="form-control-static"><?php echo $order_info['address'];?></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">手机：<span class="en">Mobile</span></label>
+                <div class="col-sm-6">
+                    <p class="form-control-static"><?php echo $order_info['mobile'];?></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">邮箱地址：<span class="en">Email address</span></label>
+                <div class="col-sm-6">
+                    <p class="form-control-static"><?php echo $order_info['email'];?></p>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">血型：<span class="en">Blood type</span></label>
+                <div class="col-sm-9">
+                    <p class="form-control-static"><?php echo $order_info['blood'];?>型</p>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">衣服尺码：<span class="en">Clothes size</span></label>
+                <div class="col-sm-9">
+                    <p class="form-control-static"><?php echo $order_info['cloth_size'];?></p>
+                </div>
+            </div>
+            <!--
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">是否医护跑者：<span class="en">Is the medical runner</span></label>
+                <div class="col-sm-9">
+                    <p class="form-control-static"><?php if($order_info['medical_runner']==1){echo '是 Yes';}elseif($order_info['medical_runner']==2){echo '否 No';}else{} ?></p>
+                </div>
+            </div>
+            -->
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">跑团名称：<span class="en">Running group name</span></label>
+                <div class="col-sm-6">
+                    <p class="form-control-static"><?php echo $order_info['running_group_name'];?></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">紧急联系人姓名：<span class="en">Emergency Contact Name</span></label>
+                <div class="col-sm-6">
+                    <p class="form-control-static"><?php echo $order_info['ec_name'];?></p>
+                </div>
+            </div>
+            <!--
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">紧急联系人与参赛者关系：<span class="en">Emergency contact with participant</span></label>
+                <div class="col-sm-6">
+                    <p class="form-control-static"><?php echo $order_info['ec_relation'];?></p>
+                </div>
+            </div>
+            -->
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">紧急联系人电话：<span class="en">Emergency contact cell phone</span></label>
+                <div class="col-sm-6">
+                    <p class="form-control-static"><?php echo $order_info['ec_phone'];?></p>
+                </div>
+            </div>
+            <!--
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">紧急联系人地址：<span class="en">Emergency contact address</span></label>
+                <div class="col-sm-8">
+                    <p class="form-control-static"><?php echo $order_info['ec_address'];?></p>
+                </div>
+            </div>
+            -->
+            
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">马拉松项目体检证明：<span class="en">Medical Report</span></label>
+                <div class="col-sm-8 form-inline file-group">
+                    <?php if(!empty($order_info['cert_medical'])){ ?><p class="form-control-static"><img src="<?php echo $order_info['cert_medical'];?>" width="200" class="upload-pic-prev"></p><?php } ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">完赛证书成绩：<span class="en">Best time</span></label>
+                <div class="col-sm-6">
+                    <p class="form-control-static"><?php echo $order_info['best_chengji_score'];?></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">半程3小时以内完赛证明；<br>全程6小时完赛证明：<span class="en">Race Certificate</span></label>
+                <div class="col-sm-8 form-inline file-group">
+                    <?php if(!empty($order_info['cert_chengji'])){ ?><p class="form-control-static"><img src="<?php echo $order_info['cert_chengji'];?>" width="200" class="upload-pic-prev"></p><?php } ?>
+                </div>
+            </div>
+            
+            
+            
+            <?php if(empty($order_info) || $order_info['id_number_guard']!=''){ ?>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">监护人证件类型：<span class="en">Guardian ID Type</span></label>
+                <div class="col-sm-9">
+                    <p class="form-control-static"><?php if($order_info['id_type_guard']==1){echo '身份证 ID CARD';}elseif($order_info['id_type_guard']==2){echo '军官证 Certificate Card';}elseif($order_info['id_type_guard']==3){echo '护照 Passport';}elseif($order_info['id_type_guard']==4){echo '台胞证 MTP';}elseif($order_info['id_type_guard']==5){echo '回乡证 Home Re-entry Permit';}else{} ?></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">监护人证件号码：<span class="en">Guardian ID Number</span></label>
+                <div class="col-sm-9">
+                    <p class="form-control-static"><?php echo $order_info['id_number_guard'];?></p>
+                </div>
+            </div>
+            <?php } ?>
+            
+            
+            
+            <?php if(!empty($order_info) && !empty($order_info['team_id']) ){ ?>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">工作单位：<span class="en">Current Employer</span></label>
+                <div class="col-sm-8">
+                    <p class="form-control-static"><?php echo $order_info['danwei'];?></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">单位性质：<span class="en">Nature Of Business</span></label>
+                <div class="col-sm-8">
+                    <p class="form-control-static"><?php echo $order_info['danwei_xingzhi'];?></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">职位：<span class="en">Position</span></label>
+                <div class="col-sm-8">
+                    <p class="form-control-static"><?php echo $order_info['zhiwei'];?></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">学历：<span class="en">Education</span></label>
+                <div class="col-sm-8">
+                    <p class="form-control-static"><?php echo $order_info['xueli'];?></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">月收入水平：<span class="en">Monthly Income</span></label>
+                <div class="col-sm-8">
+                    <p class="form-control-static"><?php echo $order_info['yueshouru'];?></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">身高(cm)：<span class="en">Height(cm)</span></label>
+                <div class="col-sm-8">
+                    <p class="form-control-static"><?php echo $order_info['shengao'];?></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">体重(Kg)：<span class="en">Weight(Kg)</span></label>
+                <div class="col-sm-8">
+                    <p class="form-control-static"><?php echo $order_info['tizhong'];?></p>
+                </div>
+            </div>
+            <?php } ?>
+            
+            
+            <!--
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">邀请码：<span class="en">Invitation code</span></label>
+                <div class="col-sm-6">
+                    <p class="form-control-static"><?php echo $order_info['invit_code'];?></p>
+                </div>
+            </div>
+            -->
+            
+            <!--
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">是否需要中意人寿赠险：<span class="en">GENERALI CHINA free insurance</span></label>
+                <div class="col-sm-9">
+                    <p class="form-control-static"><?php if($order_info['renshou_zengxian']==1){echo '是 Yes';}elseif($order_info['renshou_zengxian']==2){echo '否 No';}else{} ?></p>
+                </div>
+            </div>
+            -->
+            
+            
+            <div class="btn-list tac mt30">
+                <button type="button" class="btn btn-lg btn-danger" onclick="javascript:history.back();">上一步</button>
+                <button type="button" class="btn btn-lg btn-danger" onclick="javascript:do_submit();">确认提交报名</button>
+                <input type="hidden" id="order_id" name="order_id" value="<?php echo $order_info['id'];?>" >
+                <input type="hidden" id="cat_id" name="cat_id" value="<?php echo $order_info['cat_id'];?>" >
+            </div>
+                <!--<div class="btn-list tac mt30">
+                        <button type="submit" class="btn btn-lg btn-danger">下一步</button>
+                    </div>-->
+            </form>
+                    
+    
+
+
+
+        </div>
+        
+    </div>
+</div>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+
+
+<script  type="text/javascript">
+	function show_error(v){
+		alert(v);
+		//$.com.alert.open(v);
+	}
+	
+	function do_submit(){
+		var order_id=$("#order_id").val();
+		var cat_id=$("#cat_id").val();
+		
+        $.ajax({
+            url: "<?php echo __ROOT__;?>/baoming/apply_confirm_sub",
+            async: false,
+            type: "POST",
+            dataType: "json",
+            data: {
+            order_id:order_id
+            },
+            success: function(ret){
+                if(ret.success=='success'){
+                    
+                    if(ret.isPay>0){
+                    location.href="<?php echo __ROOT__;?>/baoming/order_search_finish/order_id/"+ret.order_id; 
+                    }
+                    else{
+                    location.href="<?php echo __ROOT__;?>/order/pay/order_id/"+ret.order_id;
+                    }
+                    
+                    //if(ret.status_apply==1){
+                    //	if( (ret.cat_id==4 || ret.cat_id==5 ) && ret.bus_point.length==0 ){
+                    //		location.href="<?php echo __ROOT__;?>/baoming/attach/order_id/"+ret.order_id;   //公益跑用户中签，如没填过，直接去详细页
+                    //	}
+                    //	else{
+                    //		location.href="<?php echo __ROOT__;?>/baoming/apply_finish/order_id/"+ret.order_id;   //邀请码用户中签，但是不能去详细页
+                    //	}
+                    //}
+                    //else{
+                    //	location.href="<?php echo __ROOT__;?>/baoming/apply_finish/order_id/"+ret.order_id;
+                	 //}
+                	 
+                	 //location.href="<?php echo __ROOT__;?>/baoming/attach/order_id/"+ret.order_id;  //邀请码用户中签，去详细页
+                	 
+                	 
+                }
+                else{
+                	
+                	 show_error(ret.success);
+	              return false;
+	              
+                }
+            }
+        });
+        
+        
+	}
+	
+	//根据身份证，自动算出生日
+	function change_id_number(v){
+		if(v.length==18){
+			var y = v.substr(6, 4);
+			var m = v.substr(10, 2);
+			var d = v.substr(12, 2);
+			var bir=y+'-'+m+'-'+d;
+			//alert(bir);
+			$("#birthday").val(bir);
+		}
+	}
+	
+	
+
+</script>
+
+
+
+
+<script src="<?php echo STATICSPATH;?>scripts/lib/datetimepicker/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<script src="<?php echo STATICSPATH;?>scripts/lib/datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+<script src="<?php echo STATICSPATH;?>scripts/app/enroll/info1.js" type="text/javascript"></script>
+
+
+<include file="public:footer" />

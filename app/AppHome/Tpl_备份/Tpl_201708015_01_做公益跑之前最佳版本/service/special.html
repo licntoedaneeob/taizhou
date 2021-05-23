@@ -1,0 +1,25 @@
+
+<include file="public:header" />
+
+
+    
+    <div id="loadCurPos" class="container content-nav-path">
+        <a href="{:U('/')}">首页</a> <span class="arrow">></span> <a href="{:U('service/reserve', array('id'=>1 ))}">纪念品</a> <span class="arrow">></span> <?php echo $record['title_sub'];?>
+    </div>
+
+    <div class="container main-content">
+
+        <div class="content-block v3">
+            <h2 class="title"><?php echo $record['title'];?></h2>
+            <div class="content">
+                <?php echo $record['content'];?>
+                
+            </div>
+        </div>
+
+    </div>
+
+    
+    
+
+<include file="public:footer" />

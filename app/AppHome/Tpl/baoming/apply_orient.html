@@ -1,0 +1,1792 @@
+<include file="public:header" />
+
+
+<link href="<?php echo STATICSPATH;?>scripts/lib/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css">
+
+
+    <div id="loadCurPos" class="container content-nav-path">
+        <a href="{:U('/')}">首页</a> <span class="arrow">></span> <a href="#">报名赛事</a>
+    </div>
+
+    <div class="title-main">
+        <div class="container">
+            <span class="text">东风日产2017成都国际马拉松赛<small>报名信息</small></span>
+        </div>
+    </div>
+
+    <div class="container main-content">
+
+        <form class="form-horizontal form-mc" id="form_input" name="form_input" method="post">
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>报名类型：<span class="en">Registration type</span></label>
+                <div class="col-sm-6">
+                   
+                	<select class="form-control" name="cat_id" id="cat_id">
+                       <option value="6" >城市定向赛 </option>
+                    </select>
+                    
+                </div>
+                
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>队长姓名：<span class="en">Name</span></label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="realname" id="realname" value="<?php echo $order_info['realname'];?>" <?php if(!empty($order_info)){ ?>readonly<?php } ?> >
+                </div>
+                
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>性别：<span class="en">Gender</span></label>
+                <div class="col-sm-9">
+                    <div class="radio">
+                    <?php if(!empty($order_info)){ ?>
+	                    <?php if($order_info['sex']==1){ ?>
+	                    <label><input type="radio" name="sex" id="sex" checked > 男 Male</label>
+	                    <label><input type="radio" name="sex" id="sex" disabled > 女 Female</label>
+	                    <?php } ?>
+	                    <?php if($order_info['sex']==2){ ?>
+	                    <label><input type="radio" name="sex" id="sex" disabled > 男 Male</label>
+	                    <label><input type="radio" name="sex" id="sex" checked > 女 Female</label>
+	                    <?php } ?>
+                    <?php }else{ ?>
+                    <label><input type="radio" name="sex" id="sex" > 男 Male</label>
+                   <label><input type="radio" name="sex" id="sex" > 女 Female</label>
+                   <?php } ?>
+                        
+                    </div>
+                </div>
+                
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>证件类型：<span class="en">ID Type</span></label>
+                <div class="col-sm-6">
+                    <select class="form-control" name="id_type" id="id_type">
+                        <?php if(!empty($order_info)){ ?>
+                        <?php if($order_info['id_type']==1){ ?><option value="1" selected>身份证 ID CARD</option><?php } ?>
+                        <?php if($order_info['id_type']==2){ ?><option value="2" selected>军官证 Certificate Card</option><?php } ?>
+                        <?php if($order_info['id_type']==3){ ?><option value="3" selected>护照 Passport</option><?php } ?>
+                        <?php if($order_info['id_type']==4){ ?><option value="4" selected>台胞证 MTP</option><?php } ?>
+                        <?php if($order_info['id_type']==5){ ?><option value="5" selected>回乡证 Home Re-entry Permit</option><?php } ?>
+                        <?php }else{ ?>
+                        <option value="1">身份证 ID CARD</option>
+                        <option value="2">军官证 Certificate Card</option>
+                        <option value="3">护照 Passport</option>
+                        <option value="4">台胞证 MTP</option>
+                        <option value="5">回乡证 Home Re-entry Permit</option>
+                        <?php } ?>
+                    </select>
+                </div>
+                
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>证件号码：<span class="en">ID Number</span></label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="id_number" id="id_number" onkeyup="change_id_number(this.value)" value="<?php echo $order_info['id_number'];?>" <?php if(!empty($order_info)){ ?>readonly<?php } ?>  >
+                </div>
+                
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>出生日期：<span class="en">Birthday</span></label>
+                <div class="col-sm-6">
+                	<?php if(!empty($order_info)){ ?>
+                	<input type="text" id="birthday_old" name="birth_day_old" data-date="1990-01-01" class="form-control" value="<?php echo $order_info['birth_day'];?>" readonly >
+                	<input type="hidden" id="birthday" name="birth_day" value="<?php echo $order_info['birth_day'];?>" >
+                	<?php }else{ ?>
+                	<input type="text" id="birthday" name="birth_day" data-date="1990-01-01" class="form-control" value="<?php echo $order_info['birth_day'];?>" >
+                	<?php } ?>
+                	
+                </div>
+                
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>通讯地址：<span class="en">Post address</span></label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" placeholder="请填写详细地址 Please fill in the  address"  name="address" id="address" value="<?php echo $order_info['address'];?>">
+                </div>
+                
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>手机：<span class="en">Mobile</span></label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="mobile" id="mobile" value="<?php echo $order_info['mobile'];?>">
+                </div>
+                
+            </div>
+            <!--
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>邮箱地址：<span class="en">Email address</span></label>
+                <div class="col-sm-6">
+                    <input type="email" class="form-control" name="email" id="email" value="<?php echo $order_info['email'];?>">
+                </div>
+                
+            </div>
+            -->
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>国家/地区：<span class="en">Country</span></label>
+                <div class="col-sm-6">
+                <?php if($order_info['status_apply']==1){?>
+                   <select class="form-control" name="cityarea" id="cityarea">
+                   	 <?php
+			    		if(!empty($guoji_list)){
+						foreach ($guoji_list as $k=>$v) {
+					?>
+                        <?php if($order_info['cityarea']==$v['guoji_name']){ ?><option value="<?php echo $v['guoji_name'];?>" <?php if($order_info['cityarea']==$v['guoji_name']){ ?>selected<?php } ?> ><?php echo $v['guoji_name'];?></option><?php } ?>
+                       <?php
+				    }
+				}
+				?>
+                    </select>
+                <?php }else{ ?>
+                    <select class="form-control" name="cityarea" id="cityarea">
+                   	 <?php
+			    		if(!empty($guoji_list)){
+						foreach ($guoji_list as $k=>$v) {
+					?>
+                        <option value="<?php echo $v['guoji_name'];?>" <?php if($order_info['cityarea']==$v['guoji_name']){ ?>selected<?php } ?> ><?php echo $v['guoji_name'];?></option>
+                       <?php
+				    }
+				}
+				?>
+                    </select>
+                  <?php } ?>
+                </div>
+                
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>血型：<span class="en">Blood type</span></label>
+                <div class="col-sm-9">
+                    <div class="radio">
+                        <label><input type="radio" name="blood"  id="blood" <?php if($order_info['blood']=='A'){ ?>checked<?php } ?>  > A型</label>
+                        <label><input type="radio" name="blood"  id="blood" <?php if($order_info['blood']=='B'){ ?>checked<?php } ?>  > B型</label>
+                        <label><input type="radio" name="blood"  id="blood" <?php if($order_info['blood']=='O'){ ?>checked<?php } ?>  > O型</label>
+                        <label><input type="radio" name="blood"  id="blood" <?php if($order_info['blood']=='AB'){ ?>checked<?php } ?>  > AB型</label>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>衣服尺码：<span class="en">Clothes size</span></label>
+                <div class="col-sm-9">
+                    <div class="radio">
+                        <label><input type="radio" name="cloth_size" id="cloth_size" value="XS:160" <?php if ($order_info['cloth_size']=='XS:160'){echo 'checked';}?> > XS:160</label>
+                        <label><input type="radio" name="cloth_size" id="cloth_size" value="S:165" <?php if ($order_info['cloth_size']=='S:165'){echo 'checked';}?> > S:165</label>
+                        <label><input type="radio" name="cloth_size" id="cloth_size" value="M:170" <?php if ($order_info['cloth_size']=='M:170'){echo 'checked';}?> > M:170</label>
+                        <label><input type="radio" name="cloth_size" id="cloth_size" value="L:175" <?php if ($order_info['cloth_size']=='L:175'){echo 'checked';}?> > L:175</label>
+                        <label><input type="radio" name="cloth_size" id="cloth_size" value="XL:180" <?php if ($order_info['cloth_size']=='XL:180'){echo 'checked';}?> > XL:180</label>
+                        <label><input type="radio" name="cloth_size" id="cloth_size" value="XXL:185" <?php if ($order_info['cloth_size']=='XXL:185'){echo 'checked';}?> > XXL:185</label>
+                        <label><input type="radio" name="cloth_size" id="cloth_size" value="3XL:190" <?php if ($order_info['cloth_size']=='3XL:190'){echo 'checked';}?> > 3XL:190</label>
+                    </div>
+                </div>
+            </div>
+            <!--
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">是否医护跑者：<span class="en">Is the medical runner</span></label>
+                <div class="col-sm-9">
+                    <div class="radio">
+                        <label><input type="radio" name="medical_runner" id="medical_runner" value="1" <?php if ($order_info['medical_runner']==1){echo 'checked';}?>> 是 Yes</label>
+                        <label><input type="radio" name="medical_runner" id="medical_runner" value="2" <?php if ($order_info['medical_runner']==2){echo 'checked';}?> > 否 No</label>
+                    </div>
+                </div>
+            </div>
+            -->
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">赛队名称：<span class="en">Running group name</span></label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="running_group_name" id="running_group_name" value="<?php echo $order_info['running_group_name'];?>">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>紧急联系人姓名：<span class="en">Emergency Contact Name</span></label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control"  name="ec_name" id="ec_name" value="<?php echo $order_info['ec_name'];?>">
+                </div>
+                
+            </div>
+            <!--
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">紧急联系人与参赛者关系：<span class="en">Emergency contact with participant</span></label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control"  name="ec_relation" id="ec_relation" value="<?php echo $order_info['ec_relation'];?>">
+                </div>
+            </div>
+            -->
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>紧急联系人电话：<span class="en">Emergency contact cell phone</span></label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control"  name="ec_phone" id="ec_phone" value="<?php echo $order_info['ec_phone'];?>">
+                </div>
+               
+            </div>
+            <!--
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">紧急联系人地址：<span class="en">Emergency contact address</span></label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" placeholder="请填写详细地址 Please fill in the  address"  name="ec_address" id="ec_address" value="<?php echo $order_info['ec_address'];?>">
+                </div>
+            </div>
+            -->
+            
+            
+            <!--
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">邀请码：<span class="en">Invitation code</span></label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control"  name="invit_code" id="invit_code" value="<?php echo $order_info['invit_code'];?>">
+                </div>
+            </div>
+            -->
+            <input type="hidden"  name="invit_code" id="invit_code" value="<?php echo empty($order_info['invit_code'])?$invit_code:$order_info['invit_code'] ;?>">
+            
+            
+            <!--
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">是否需要中意人寿赠险：<span class="en">GENERALI CHINA free insurance</span></label>
+                <div class="col-sm-9">
+                    <div class="radio">
+                        <label><input type="radio" name="renshou_zengxian" id="renshou_zengxian" value="1" <?php if ($order_info['renshou_zengxian']==1){echo 'checked';}?>> 是 Yes</label>
+                        <label><input type="radio" name="renshou_zengxian" id="renshou_zengxian" value="2" <?php if ($order_info['renshou_zengxian']==2){echo 'checked';}?> > 否 No</label>
+                        <span class="en"><a href="#" data-toggle="modal" data-target="#myModal">成都马拉松比赛赠险方案</a></span>
+                    </div>
+                </div>
+            </div>
+            -->
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">&nbsp;</span><span class="en"></span></label>
+                <div class="col-sm-6">
+                </div>
+            </div>
+            
+            
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>组员1姓名：<span class="en">Name</span></label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="realname_1" id="realname_1" value="<?php echo $order_info['realname_1'];?>" <?php if(!empty($order_info)){ ?>readonly<?php } ?> >
+                </div>
+                
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>性别：<span class="en">Gender</span></label>
+                <div class="col-sm-9">
+                    <div class="radio">
+                    
+                    <label><input type="radio" name="sex_1" id="sex_1" > 男 Male</label>
+                   <label><input type="radio" name="sex_1" id="sex_1" > 女 Female</label>
+                   
+                    </div>
+                </div>
+                
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>证件类型：<span class="en">ID Type</span></label>
+                <div class="col-sm-6">
+                    <select class="form-control" name="id_type_1" id="id_type_1">
+
+                        <option value="1">身份证 ID CARD</option>
+                        <option value="2">军官证 Certificate Card</option>
+                        <option value="3">护照 Passport</option>
+                        <option value="4">台胞证 MTP</option>
+                        <option value="5">回乡证 Home Re-entry Permit</option>
+                        
+                    </select>
+                </div>
+                
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>证件号码：<span class="en">ID Number</span></label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="id_number_1" id="id_number_1" onkeyup="change_id_number(this.value)" value="<?php echo $order_info['id_number_1'];?>" <?php if(!empty($order_info)){ ?>readonly<?php } ?>  >
+                </div>
+                
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>出生日期：<span class="en">Birthday</span></label>
+                <div class="col-sm-6">
+
+                	<input type="text" id="birthday_1" name="birth_day_1" data-date="1990-01-01" class="form-control" value="<?php echo $order_info['birth_day_1'];?>" >
+                	
+                </div>
+                
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>通讯地址：<span class="en">Post address</span></label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" placeholder="请填写详细地址 Please fill in the  address"  name="address_1" id="address_1" value="<?php echo $order_info['address_1'];?>">
+                </div>
+                
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>手机：<span class="en">Mobile</span></label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="mobile_1" id="mobile_1" value="<?php echo $order_info['mobile_1'];?>">
+                </div>
+                
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>国家/地区：<span class="en">Country</span></label>
+                <div class="col-sm-6">
+                
+                    <select class="form-control" name="cityarea_1" id="cityarea_1">
+                   	 <?php
+			    		if(!empty($guoji_list)){
+						foreach ($guoji_list as $k=>$v) {
+					?>
+                        <option value="<?php echo $v['guoji_name'];?>" ><?php echo $v['guoji_name'];?></option>
+                       <?php
+				    }
+				}
+				?>
+                    </select>
+                  
+                </div>
+                
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>血型：<span class="en">Blood type</span></label>
+                <div class="col-sm-9">
+                    <div class="radio">
+                        <label><input type="radio" name="blood_1"  id="blood_1" <?php if($order_info['blood_1']=='A'){ ?>checked<?php } ?>  > A型</label>
+                        <label><input type="radio" name="blood_1"  id="blood_1" <?php if($order_info['blood_1']=='B'){ ?>checked<?php } ?>  > B型</label>
+                        <label><input type="radio" name="blood_1"  id="blood_1" <?php if($order_info['blood_1']=='O'){ ?>checked<?php } ?>  > O型</label>
+                        <label><input type="radio" name="blood_1"  id="blood_1" <?php if($order_info['blood_1']=='AB'){ ?>checked<?php } ?>  > AB型</label>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>衣服尺码：<span class="en">Clothes size</span></label>
+                <div class="col-sm-9">
+                    <div class="radio">
+                        <label><input type="radio" name="cloth_size_1" id="cloth_size_1" value="XS:160" <?php if ($order_info['cloth_size_1']=='XS:160'){echo 'checked';}?> > XS:160</label>
+                        <label><input type="radio" name="cloth_size_1" id="cloth_size_1" value="S:165" <?php if ($order_info['cloth_size_1']=='S:165'){echo 'checked';}?> > S:165</label>
+                        <label><input type="radio" name="cloth_size_1" id="cloth_size_1" value="M:170" <?php if ($order_info['cloth_size_1']=='M:170'){echo 'checked';}?> > M:170</label>
+                        <label><input type="radio" name="cloth_size_1" id="cloth_size_1" value="L:175" <?php if ($order_info['cloth_size_1']=='L:175'){echo 'checked';}?> > L:175</label>
+                        <label><input type="radio" name="cloth_size_1" id="cloth_size_1" value="XL:180" <?php if ($order_info['cloth_size_1']=='XL:180'){echo 'checked';}?> > XL:180</label>
+                        <label><input type="radio" name="cloth_size_1" id="cloth_size_1" value="XXL:185" <?php if ($order_info['cloth_size_1']=='XXL:185'){echo 'checked';}?> > XXL:185</label>
+                        <label><input type="radio" name="cloth_size_1" id="cloth_size_1" value="3XL:190" <?php if ($order_info['cloth_size_1']=='3XL:190'){echo 'checked';}?> > 3XL:190</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>紧急联系人姓名：<span class="en">Emergency Contact Name</span></label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control"  name="ec_name_1" id="ec_name_1" value="<?php echo $order_info['ec_name_1'];?>">
+                </div>
+                
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>紧急联系人电话：<span class="en">Emergency contact cell phone</span></label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control"  name="ec_phone_1" id="ec_phone_1" value="<?php echo $order_info['ec_phone_1'];?>">
+                </div>
+               
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">&nbsp;</span><span class="en"></span></label>
+                <div class="col-sm-6">
+                </div>
+            </div>
+            
+            
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>组员2姓名：<span class="en">Name</span></label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="realname_2" id="realname_2" value="<?php echo $order_info['realname_2'];?>" <?php if(!empty($order_info)){ ?>readonly<?php } ?> >
+                </div>
+                
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>性别：<span class="en">Gender</span></label>
+                <div class="col-sm-9">
+                    <div class="radio">
+                    
+                    <label><input type="radio" name="sex_2" id="sex_2" > 男 Male</label>
+                   <label><input type="radio" name="sex_2" id="sex_2" > 女 Female</label>
+                   
+                    </div>
+                </div>
+                
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>证件类型：<span class="en">ID Type</span></label>
+                <div class="col-sm-6">
+                    <select class="form-control" name="id_type_2" id="id_type_2">
+
+                        <option value="1">身份证 ID CARD</option>
+                        <option value="2">军官证 Certificate Card</option>
+                        <option value="3">护照 Passport</option>
+                        <option value="4">台胞证 MTP</option>
+                        <option value="5">回乡证 Home Re-entry Permit</option>
+                        
+                    </select>
+                </div>
+                
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>证件号码：<span class="en">ID Number</span></label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="id_number_2" id="id_number_2" onkeyup="change_id_number(this.value)" value="<?php echo $order_info['id_number_2'];?>" <?php if(!empty($order_info)){ ?>readonly<?php } ?>  >
+                </div>
+                
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>出生日期：<span class="en">Birthday</span></label>
+                <div class="col-sm-6">
+
+                	<input type="text" id="birthday_2" name="birth_day_2" data-date="1990-01-01" class="form-control" value="<?php echo $order_info['birth_day_2'];?>" >
+                	
+                </div>
+                
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>通讯地址：<span class="en">Post address</span></label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" placeholder="请填写详细地址 Please fill in the  address"  name="address_2" id="address_2" value="<?php echo $order_info['address_2'];?>">
+                </div>
+                
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>手机：<span class="en">Mobile</span></label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="mobile_2" id="mobile_2" value="<?php echo $order_info['mobile_2'];?>">
+                </div>
+                
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>国家/地区：<span class="en">Country</span></label>
+                <div class="col-sm-6">
+                
+                    <select class="form-control" name="cityarea_2" id="cityarea_2">
+                   	 <?php
+			    		if(!empty($guoji_list)){
+						foreach ($guoji_list as $k=>$v) {
+					?>
+                        <option value="<?php echo $v['guoji_name'];?>" ><?php echo $v['guoji_name'];?></option>
+                       <?php
+				    }
+				}
+				?>
+                    </select>
+                  
+                </div>
+                
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>血型：<span class="en">Blood type</span></label>
+                <div class="col-sm-9">
+                    <div class="radio">
+                        <label><input type="radio" name="blood_2"  id="blood_2" <?php if($order_info['blood_2']=='A'){ ?>checked<?php } ?>  > A型</label>
+                        <label><input type="radio" name="blood_2"  id="blood_2" <?php if($order_info['blood_2']=='B'){ ?>checked<?php } ?>  > B型</label>
+                        <label><input type="radio" name="blood_2"  id="blood_2" <?php if($order_info['blood_2']=='O'){ ?>checked<?php } ?>  > O型</label>
+                        <label><input type="radio" name="blood_2"  id="blood_2" <?php if($order_info['blood_2']=='AB'){ ?>checked<?php } ?>  > AB型</label>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>衣服尺码：<span class="en">Clothes size</span></label>
+                <div class="col-sm-9">
+                    <div class="radio">
+                        <label><input type="radio" name="cloth_size_2" id="cloth_size_2" value="XS:160" <?php if ($order_info['cloth_size_2']=='XS:160'){echo 'checked';}?> > XS:160</label>
+                        <label><input type="radio" name="cloth_size_2" id="cloth_size_2" value="S:165" <?php if ($order_info['cloth_size_2']=='S:165'){echo 'checked';}?> > S:165</label>
+                        <label><input type="radio" name="cloth_size_2" id="cloth_size_2" value="M:170" <?php if ($order_info['cloth_size_2']=='M:170'){echo 'checked';}?> > M:170</label>
+                        <label><input type="radio" name="cloth_size_2" id="cloth_size_2" value="L:175" <?php if ($order_info['cloth_size_2']=='L:175'){echo 'checked';}?> > L:175</label>
+                        <label><input type="radio" name="cloth_size_2" id="cloth_size_2" value="XL:180" <?php if ($order_info['cloth_size_2']=='XL:180'){echo 'checked';}?> > XL:180</label>
+                        <label><input type="radio" name="cloth_size_2" id="cloth_size_2" value="XXL:185" <?php if ($order_info['cloth_size_2']=='XXL:185'){echo 'checked';}?> > XXL:185</label>
+                        <label><input type="radio" name="cloth_size_2" id="cloth_size_2" value="3XL:190" <?php if ($order_info['cloth_size_2']=='3XL:190'){echo 'checked';}?> > 3XL:190</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>紧急联系人姓名：<span class="en">Emergency Contact Name</span></label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control"  name="ec_name_2" id="ec_name_2" value="<?php echo $order_info['ec_name_2'];?>">
+                </div>
+                
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>紧急联系人电话：<span class="en">Emergency contact cell phone</span></label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control"  name="ec_phone_2" id="ec_phone_2" value="<?php echo $order_info['ec_phone_2'];?>">
+                </div>
+               
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">&nbsp;</span><span class="en"></span></label>
+                <div class="col-sm-6">
+                </div>
+            </div>
+            
+            
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>组员3姓名：<span class="en">Name</span></label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="realname_3" id="realname_3" value="<?php echo $order_info['realname_3'];?>" <?php if(!empty($order_info)){ ?>readonly<?php } ?> >
+                </div>
+                
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>性别：<span class="en">Gender</span></label>
+                <div class="col-sm-9">
+                    <div class="radio">
+                    
+                    <label><input type="radio" name="sex_3" id="sex_3" > 男 Male</label>
+                   <label><input type="radio" name="sex_3" id="sex_3" > 女 Female</label>
+                   
+                    </div>
+                </div>
+                
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>证件类型：<span class="en">ID Type</span></label>
+                <div class="col-sm-6">
+                    <select class="form-control" name="id_type_3" id="id_type_3">
+
+                        <option value="1">身份证 ID CARD</option>
+                        <option value="2">军官证 Certificate Card</option>
+                        <option value="3">护照 Passport</option>
+                        <option value="4">台胞证 MTP</option>
+                        <option value="5">回乡证 Home Re-entry Permit</option>
+                        
+                    </select>
+                </div>
+                
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>证件号码：<span class="en">ID Number</span></label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="id_number_3" id="id_number_3" onkeyup="change_id_number(this.value)" value="<?php echo $order_info['id_number_3'];?>" <?php if(!empty($order_info)){ ?>readonly<?php } ?>  >
+                </div>
+                
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>出生日期：<span class="en">Birthday</span></label>
+                <div class="col-sm-6">
+
+                	<input type="text" id="birthday_3" name="birth_day_3" data-date="1990-01-01" class="form-control" value="<?php echo $order_info['birth_day_3'];?>" >
+                	
+                </div>
+                
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>通讯地址：<span class="en">Post address</span></label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" placeholder="请填写详细地址 Please fill in the  address"  name="address_3" id="address_3" value="<?php echo $order_info['address_3'];?>">
+                </div>
+                
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>手机：<span class="en">Mobile</span></label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="mobile_3" id="mobile_3" value="<?php echo $order_info['mobile_3'];?>">
+                </div>
+                
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>国家/地区：<span class="en">Country</span></label>
+                <div class="col-sm-6">
+                
+                    <select class="form-control" name="cityarea_3" id="cityarea_3">
+                   	 <?php
+			    		if(!empty($guoji_list)){
+						foreach ($guoji_list as $k=>$v) {
+					?>
+                        <option value="<?php echo $v['guoji_name'];?>" ><?php echo $v['guoji_name'];?></option>
+                       <?php
+				    }
+				}
+				?>
+                    </select>
+                  
+                </div>
+                
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>血型：<span class="en">Blood type</span></label>
+                <div class="col-sm-9">
+                    <div class="radio">
+                        <label><input type="radio" name="blood_3"  id="blood_3" <?php if($order_info['blood_3']=='A'){ ?>checked<?php } ?>  > A型</label>
+                        <label><input type="radio" name="blood_3"  id="blood_3" <?php if($order_info['blood_3']=='B'){ ?>checked<?php } ?>  > B型</label>
+                        <label><input type="radio" name="blood_3"  id="blood_3" <?php if($order_info['blood_3']=='O'){ ?>checked<?php } ?>  > O型</label>
+                        <label><input type="radio" name="blood_3"  id="blood_3" <?php if($order_info['blood_3']=='AB'){ ?>checked<?php } ?>  > AB型</label>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>衣服尺码：<span class="en">Clothes size</span></label>
+                <div class="col-sm-9">
+                    <div class="radio">
+                        <label><input type="radio" name="cloth_size_3" id="cloth_size_3" value="XS:160" <?php if ($order_info['cloth_size_3']=='XS:160'){echo 'checked';}?> > XS:160</label>
+                        <label><input type="radio" name="cloth_size_3" id="cloth_size_3" value="S:165" <?php if ($order_info['cloth_size_3']=='S:165'){echo 'checked';}?> > S:165</label>
+                        <label><input type="radio" name="cloth_size_3" id="cloth_size_3" value="M:170" <?php if ($order_info['cloth_size_3']=='M:170'){echo 'checked';}?> > M:170</label>
+                        <label><input type="radio" name="cloth_size_3" id="cloth_size_3" value="L:175" <?php if ($order_info['cloth_size_3']=='L:175'){echo 'checked';}?> > L:175</label>
+                        <label><input type="radio" name="cloth_size_3" id="cloth_size_3" value="XL:180" <?php if ($order_info['cloth_size_3']=='XL:180'){echo 'checked';}?> > XL:180</label>
+                        <label><input type="radio" name="cloth_size_3" id="cloth_size_3" value="XXL:185" <?php if ($order_info['cloth_size_3']=='XXL:185'){echo 'checked';}?> > XXL:185</label>
+                        <label><input type="radio" name="cloth_size_3" id="cloth_size_3" value="3XL:190" <?php if ($order_info['cloth_size_3']=='3XL:190'){echo 'checked';}?> > 3XL:190</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>紧急联系人姓名：<span class="en">Emergency Contact Name</span></label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control"  name="ec_name_3" id="ec_name_3" value="<?php echo $order_info['ec_name_3'];?>">
+                </div>
+                
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>紧急联系人电话：<span class="en">Emergency contact cell phone</span></label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control"  name="ec_phone_3" id="ec_phone_3" value="<?php echo $order_info['ec_phone_3'];?>">
+                </div>
+               
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">&nbsp;</span><span class="en"></span></label>
+                <div class="col-sm-6">
+                </div>
+            </div>
+            
+            
+            
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>验证码：<span class="en">Identifying code</span></label>
+                <div class="col-sm-9 form-inline inline">
+                    <input type="text" class="form-control" size="8"  id="validate" name="validate"  onfocus="this.select();">
+                    <img src="<?php echo __ROOT__;?>/validateimg.php" class="id-code-img" onclick="javascript:reloadVerificationCode();"  id="verifyImage">
+                </div>
+                
+            </div>
+            
+             <div class="form-group" align="center">
+               带“<span class="require-star">*</span>”为必填项
+            </div>
+            
+            <div class="form-group">
+                <div class="btn-mc-center">
+                    <button type="button" class="btn btn-default" onclick="javascript:location.href='{:U('baoming/rule')}';" >上一步</button>
+                    <button type="button" class="btn btn-default" onclick="javascript:do_submit();">提交报名</button>
+                    <input type="hidden" name="order_id" id="order_id" value="<?php echo $order_id;?>">
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">成都马拉松比赛赠险方案</h4>
+            </div>
+            <div class="modal-body text-center">
+                <p>中意人寿温馨提示：您可免费获得一份10万交通意外、10万特定意外保险。</p>
+                <p>e路通---10万免费交通意外、10万特定意外保障（30天）</p>
+
+                <div class="table-mc1">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>保险责任</th>
+                                <th width="80">保额</th>
+                                <th width="80">保障期间</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>公共交通工具（公共汽车、班车、出租车、电车、列车、轮船、民航等）</td>
+                                <td>10万</td>
+                                <td rowspan="2">30天</td>
+                            </tr>
+                            <tr>
+                                <td>电梯或扶梯</td>
+                                <td>10万</td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+
+                <p>生效日期：填表或中签当日领取，次日生效</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script  type="text/javascript">
+	
+	
+    function reloadVerificationCode(){
+        document.getElementById('verifyImage').src = '<?php echo __ROOT__;?>/validateimg.php?'+Math.random();
+        document.getElementById('validate').value = '';
+    }
+    
+    
+	function show_error(v){
+		//alert(v);
+		$.com.alert.open(v);
+	}
+	
+	function do_submit(){
+		
+		var cat_id=$("#cat_id").val();
+		var realname=$("#realname").val();
+		var birthday=$("#birthday").val();
+		var id_type=$("#id_type").val();
+		var id_number=$("#id_number").val();
+		var address=$("#address").val();
+		var mobile=$("#mobile").val();
+		//var email=$("#email").val();
+		var cityarea=$("#cityarea").val();
+		
+		var running_group_name=$("#running_group_name").val();
+		var ec_name=$("#ec_name").val();
+		var ec_relation=$("#ec_relation").val();
+		var ec_phone=$("#ec_phone").val();
+		var ec_address=$("#ec_address").val();
+		
+		var invit_code=$("#invit_code").val();
+		
+		var validate=$("#validate").val();
+		
+		var order_id=$("#order_id").val();
+		
+		
+	        if (cat_id==""){
+	            show_error("请输入报名类型 Please input Registration type");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        if (realname==""){
+	            show_error("请输入队长姓名 Please input Name");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+		
+		var   sltSource=false;   
+          for   (var   i=0;i<document.form_input.sex.length;i++){   
+              if   (document.form_input.sex[i].checked==true)   sltSource=true;   
+          }   
+          if   (sltSource==false){   
+              show_error("请输入性别 Please input Gender");
+              document.form_input.sex[0].focus();   
+              return false;   
+          }
+		if (document.form_input.sex[0].checked==true){
+		var sex=1;
+		}
+		else{
+		var sex=2;
+		}
+
+
+	        
+	        
+	        
+	        
+	        if (id_type==""){
+	            show_error("请输入证件类型 Please input ID Type");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        if (id_number==""){
+	            show_error("请输入证件号码 Please input ID Number");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        if (birthday==""){
+	            show_error("请输入出生日期 Please input Birthday");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        
+	        if (address==""){
+	            show_error("请输入通讯地址 Please input Post address");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        
+	        if (mobile==""){
+	            show_error("请输入手机 Please input Mobile");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        //if (email==""){
+	       //     show_error("请输入邮箱地址 Please input Email address");
+	       //     return false;
+	        //}
+	        //else{
+	        //}
+	        
+	        
+	        //var reg = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
+	        //if (reg.test(email) <= 0){
+	     //  	 show_error("邮箱地址有误 Email address is error");
+	       //     return false;
+	        //}
+	        //else{
+	       // }
+	        
+	        
+	        
+	        if (cityarea==""){
+	            show_error("请输入国家/地区 Please input Country");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        
+	        if (blood==""){
+	            show_error("请输入血型 Please input Blood type");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+		var   sltSource=false;   
+          for   (var   i=0;i<document.form_input.blood.length;i++){   
+              if   (document.form_input.blood[i].checked==true)   sltSource=true;   
+          }   
+          if   (sltSource==false){   
+              show_error("请输入血型 Please input Blood type");
+              document.form_input.blood[0].focus();   
+              return false;   
+          }
+		if (document.form_input.blood[0].checked==true){
+		var blood='A';
+		}
+		if (document.form_input.blood[1].checked==true){
+		var blood='B';
+		}
+		if (document.form_input.blood[2].checked==true){
+		var blood='O';
+		}
+		if (document.form_input.blood[3].checked==true){
+		var blood='AB';
+		}
+		
+		
+		
+		
+		var   sltSource=false;   
+          for   (var   i=0;i<document.form_input.cloth_size.length;i++){   
+              if   (document.form_input.cloth_size[i].checked==true)   sltSource=true;   
+          }   
+          if   (sltSource==false){   
+              show_error("请输入衣服尺码 Please input Clothes size");
+              document.form_input.cloth_size[0].focus();   
+              return false;   
+          }
+		if (document.form_input.cloth_size[0].checked==true){
+		var cloth_size='XS:160';
+		}
+		if (document.form_input.cloth_size[1].checked==true){
+		var cloth_size='S:165';
+		}
+		if (document.form_input.cloth_size[2].checked==true){
+		var cloth_size='M:170';
+		}
+		if (document.form_input.cloth_size[3].checked==true){
+		var cloth_size='L:175';
+		}
+		if (document.form_input.cloth_size[4].checked==true){
+		var cloth_size='XL:180';
+		}
+		if (document.form_input.cloth_size[5].checked==true){
+		var cloth_size='XXL:185';
+		}
+		if (document.form_input.cloth_size[6].checked==true){
+		var cloth_size='3XL:190';
+		}
+
+
+
+/*
+		var   sltSource=false;   
+          for   (var   i=0;i<document.form_input.medical_runner.length;i++){   
+              if   (document.form_input.medical_runner[i].checked==true)   sltSource=true;   
+          }   
+          if   (sltSource==false){   
+              show_error("请输入是否医护跑者 Please input Is the medical runner");
+              document.form_input.medical_runner[0].focus();   
+              return false;   
+          }
+		if (document.form_input.medical_runner[0].checked==true){
+		var medical_runner='1';
+		}
+		if (document.form_input.medical_runner[1].checked==true){
+		var medical_runner='2';
+		}
+*/
+
+
+
+
+	        //if (running_group_name==""){
+	          //  show_error("请输入跑团名称 Please input Running group name");
+	           // return false;
+	        //}
+	        //else{
+	        //}
+	        
+	        
+	        
+	        if (ec_name==""){
+	            show_error("请输入紧急联系人姓名 Please input Emergency Contact Name");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        //if (ec_relation==""){
+	       //     show_error("请输入紧急联系人与参赛者关系 Please input Emergency contact with participant");
+	       //     return false;
+	        //}
+	        //else{
+	        //}
+	        
+	        
+	        if (ec_phone==""){
+	            show_error("请输入紧急联系人电话 Please input Emergency contact cell phone");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        
+	        
+	        //if (ec_address==""){
+	        //    show_error("请输入紧急联系人地址 Please input Emergency contact address");
+	        //    return false;
+	        //}
+	        //else{
+	        //}
+	        
+	        
+		
+		//var   sltSource=false;   
+        //  for   (var   i=0;i<document.form_input.renshou_zengxian.length;i++){   
+        //      if   (document.form_input.renshou_zengxian[i].checked==true)   sltSource=true;   
+        //  }   
+        //  if   (sltSource==false){   
+        //      show_error("请输入是否需要中意人寿赠险 Please input GENERALI CHINA free insurance");
+        //      document.form_input.renshou_zengxian[0].focus();   
+        //      return false;   
+        //  }
+		//if (document.form_input.renshou_zengxian[0].checked==true){
+		//var renshou_zengxian='1';
+		//}
+		//if (document.form_input.renshou_zengxian[1].checked==true){
+		//var renshou_zengxian='2';
+		//}
+		
+		
+		
+	        //if (invit_code==""){
+	        //    show_error("请输入邀请码 Please input Invitation code");
+	        //    return false;
+	        //}
+	        //else{
+	        //}
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+		var realname_1=$("#realname_1").val();
+		var birthday_1=$("#birthday_1").val();
+		var id_type_1=$("#id_type_1").val();
+		var id_number_1=$("#id_number_1").val();
+		var address_1=$("#address_1").val();
+		var mobile_1=$("#mobile_1").val();
+		//var email_1=$("#email_1").val();
+		var cityarea_1=$("#cityarea_1").val();
+		var ec_name_1=$("#ec_name_1").val();
+		var ec_phone_1=$("#ec_phone_1").val();
+		
+	 if (realname_1==""){
+	  		show_error("请输入组员1姓名 Please input Name");
+	            return false;
+	 }
+	 else{
+		 
+	        if (realname_1==""){
+	            show_error("请输入组员1姓名 Please input Name");
+	            return false;
+	        }
+	        else{
+	        }
+		 
+		 
+		var   sltSource=false;   
+	          for   (var   i=0;i<document.form_input.sex_1.length;i++){   
+	              if   (document.form_input.sex_1[i].checked==true)   sltSource=true;   
+	          }   
+	          if   (sltSource==false){   
+	              show_error("请输入性别 Please input Gender");
+	              document.form_input.sex_1[0].focus();   
+	              return false;   
+	          }
+			if (document.form_input.sex_1[0].checked==true){
+			var sex_1=1;
+			}
+			else{
+			var sex_1=2;
+			}
+		
+		
+	        if (id_type_1==""){
+	            show_error("请输入证件类型 Please input ID Type");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        if (id_number_1==""){
+	            show_error("请输入证件号码 Please input ID Number");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        if (birthday_1==""){
+	            show_error("请输入出生日期 Please input Birthday");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        
+	        if (address_1==""){
+	            show_error("请输入通讯地址 Please input Post address");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        
+	        if (mobile_1==""){
+	            show_error("请输入手机 Please input Mobile");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        
+	        
+	        if (cityarea_1==""){
+	            show_error("请输入国家/地区 Please input Country");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        
+	        if (blood_1==""){
+	            show_error("请输入血型 Please input Blood type");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+		var   sltSource=false;   
+          for   (var   i=0;i<document.form_input.blood_1.length;i++){   
+              if   (document.form_input.blood_1[i].checked==true)   sltSource=true;   
+          }   
+          if   (sltSource==false){   
+              show_error("请输入血型 Please input Blood type");
+              document.form_input.blood_1[0].focus();   
+              return false;   
+          }
+		if (document.form_input.blood_1[0].checked==true){
+		var blood_1='A';
+		}
+		if (document.form_input.blood_1[1].checked==true){
+		var blood_1='B';
+		}
+		if (document.form_input.blood_1[2].checked==true){
+		var blood_1='O';
+		}
+		if (document.form_input.blood_1[3].checked==true){
+		var blood_1='AB';
+		}
+		
+		
+		
+		
+		var   sltSource=false;   
+          for   (var   i=0;i<document.form_input.cloth_size_1.length;i++){   
+              if   (document.form_input.cloth_size_1[i].checked==true)   sltSource=true;   
+          }   
+          if   (sltSource==false){   
+              show_error("请输入衣服尺码 Please input Clothes size");
+              document.form_input.cloth_size_1[0].focus();   
+              return false;   
+          }
+		if (document.form_input.cloth_size_1[0].checked==true){
+		var cloth_size_1='XS:160';
+		}
+		if (document.form_input.cloth_size_1[1].checked==true){
+		var cloth_size_1='S:165';
+		}
+		if (document.form_input.cloth_size_1[2].checked==true){
+		var cloth_size_1='M:170';
+		}
+		if (document.form_input.cloth_size_1[3].checked==true){
+		var cloth_size_1='L:175';
+		}
+		if (document.form_input.cloth_size_1[4].checked==true){
+		var cloth_size_1='XL:180';
+		}
+		if (document.form_input.cloth_size_1[5].checked==true){
+		var cloth_size_1='XXL:185';
+		}
+		if (document.form_input.cloth_size_1[6].checked==true){
+		var cloth_size_1='3XL:190';
+		}
+
+
+		
+	        if (ec_name_1==""){
+	            show_error("请输入紧急联系人姓名 Please input Emergency Contact Name");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        
+	        if (ec_phone_1==""){
+	            show_error("请输入紧急联系人电话 Please input Emergency contact cell phone");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+		 
+	 }
+		 
+	        
+	        
+		
+
+	        
+	        
+	        
+	        
+	        
+	        
+		var realname_2=$("#realname_2").val();
+		var birthday_2=$("#birthday_2").val();
+		var id_type_2=$("#id_type_2").val();
+		var id_number_2=$("#id_number_2").val();
+		var address_2=$("#address_2").val();
+		var mobile_2=$("#mobile_2").val();
+		//var email_2=$("#email_2").val();
+		var cityarea_2=$("#cityarea_2").val();
+		var ec_name_2=$("#ec_name_2").val();
+		var ec_phone_2=$("#ec_phone_2").val();
+		
+	 if (realname_2==""){
+	 	show_error("请输入组员2姓名 Please input Name");
+	            return false;
+	 }
+	 else{
+		 
+	        if (realname_2==""){
+	            show_error("请输入组员1姓名 Please input Name");
+	            return false;
+	        }
+	        else{
+	        }
+		 
+		 
+		var   sltSource=false;   
+	          for   (var   i=0;i<document.form_input.sex_2.length;i++){   
+	              if   (document.form_input.sex_2[i].checked==true)   sltSource=true;   
+	          }   
+	          if   (sltSource==false){   
+	              show_error("请输入性别 Please input Gender");
+	              document.form_input.sex_2[0].focus();   
+	              return false;   
+	          }
+			if (document.form_input.sex_2[0].checked==true){
+			var sex_2=1;
+			}
+			else{
+			var sex_2=2;
+			}
+		
+		
+	        if (id_type_2==""){
+	            show_error("请输入证件类型 Please input ID Type");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        if (id_number_2==""){
+	            show_error("请输入证件号码 Please input ID Number");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        if (birthday_2==""){
+	            show_error("请输入出生日期 Please input Birthday");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        
+	        if (address_2==""){
+	            show_error("请输入通讯地址 Please input Post address");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        
+	        if (mobile_2==""){
+	            show_error("请输入手机 Please input Mobile");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        
+	        
+	        if (cityarea_2==""){
+	            show_error("请输入国家/地区 Please input Country");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        
+	        if (blood_2==""){
+	            show_error("请输入血型 Please input Blood type");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+		var   sltSource=false;   
+          for   (var   i=0;i<document.form_input.blood_2.length;i++){   
+              if   (document.form_input.blood_2[i].checked==true)   sltSource=true;   
+          }   
+          if   (sltSource==false){   
+              show_error("请输入血型 Please input Blood type");
+              document.form_input.blood_2[0].focus();   
+              return false;   
+          }
+		if (document.form_input.blood_2[0].checked==true){
+		var blood_2='A';
+		}
+		if (document.form_input.blood_2[1].checked==true){
+		var blood_2='B';
+		}
+		if (document.form_input.blood_2[2].checked==true){
+		var blood_2='O';
+		}
+		if (document.form_input.blood_2[3].checked==true){
+		var blood_2='AB';
+		}
+		
+		
+		
+		
+		var   sltSource=false;   
+          for   (var   i=0;i<document.form_input.cloth_size_2.length;i++){   
+              if   (document.form_input.cloth_size_2[i].checked==true)   sltSource=true;   
+          }   
+          if   (sltSource==false){   
+              show_error("请输入衣服尺码 Please input Clothes size");
+              document.form_input.cloth_size_2[0].focus();   
+              return false;   
+          }
+		if (document.form_input.cloth_size_2[0].checked==true){
+		var cloth_size_2='XS:160';
+		}
+		if (document.form_input.cloth_size_2[1].checked==true){
+		var cloth_size_2='S:165';
+		}
+		if (document.form_input.cloth_size_2[2].checked==true){
+		var cloth_size_2='M:170';
+		}
+		if (document.form_input.cloth_size_2[3].checked==true){
+		var cloth_size_2='L:175';
+		}
+		if (document.form_input.cloth_size_2[4].checked==true){
+		var cloth_size_2='XL:180';
+		}
+		if (document.form_input.cloth_size_2[5].checked==true){
+		var cloth_size_2='XXL:185';
+		}
+		if (document.form_input.cloth_size_2[6].checked==true){
+		var cloth_size_2='3XL:190';
+		}
+
+
+		
+	        if (ec_name_2==""){
+	            show_error("请输入紧急联系人姓名 Please input Emergency Contact Name");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        
+	        if (ec_phone_2==""){
+	            show_error("请输入紧急联系人电话 Please input Emergency contact cell phone");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+		 
+	 }
+		 
+	        
+	        
+		
+		
+		
+		
+		
+	        
+		var realname_3=$("#realname_3").val();
+		var birthday_3=$("#birthday_3").val();
+		var id_type_3=$("#id_type_3").val();
+		var id_number_3=$("#id_number_3").val();
+		var address_3=$("#address_3").val();
+		var mobile_3=$("#mobile_3").val();
+		//var email_3=$("#email_3").val();
+		var cityarea_3=$("#cityarea_3").val();
+		var ec_name_3=$("#ec_name_3").val();
+		var ec_phone_3=$("#ec_phone_3").val();
+		
+	 if (realname_3==""){
+	 	show_error("请输入组员3姓名 Please input Name");
+	            return false;
+	 }
+	 else{
+		 
+	        if (realname_3==""){
+	            show_error("请输入组员1姓名 Please input Name");
+	            return false;
+	        }
+	        else{
+	        }
+		 
+		 
+		var   sltSource=false;   
+	          for   (var   i=0;i<document.form_input.sex_3.length;i++){   
+	              if   (document.form_input.sex_3[i].checked==true)   sltSource=true;   
+	          }   
+	          if   (sltSource==false){   
+	              show_error("请输入性别 Please input Gender");
+	              document.form_input.sex_3[0].focus();   
+	              return false;   
+	          }
+			if (document.form_input.sex_3[0].checked==true){
+			var sex_3=1;
+			}
+			else{
+			var sex_3=2;
+			}
+		
+		
+	        if (id_type_3==""){
+	            show_error("请输入证件类型 Please input ID Type");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        if (id_number_3==""){
+	            show_error("请输入证件号码 Please input ID Number");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        if (birthday_3==""){
+	            show_error("请输入出生日期 Please input Birthday");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        
+	        if (address_3==""){
+	            show_error("请输入通讯地址 Please input Post address");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        
+	        if (mobile_3==""){
+	            show_error("请输入手机 Please input Mobile");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        
+	        
+	        if (cityarea_3==""){
+	            show_error("请输入国家/地区 Please input Country");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        
+	        if (blood_3==""){
+	            show_error("请输入血型 Please input Blood type");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+		var   sltSource=false;   
+          for   (var   i=0;i<document.form_input.blood_3.length;i++){   
+              if   (document.form_input.blood_3[i].checked==true)   sltSource=true;   
+          }   
+          if   (sltSource==false){   
+              show_error("请输入血型 Please input Blood type");
+              document.form_input.blood_3[0].focus();   
+              return false;   
+          }
+		if (document.form_input.blood_3[0].checked==true){
+		var blood_3='A';
+		}
+		if (document.form_input.blood_3[1].checked==true){
+		var blood_3='B';
+		}
+		if (document.form_input.blood_3[2].checked==true){
+		var blood_3='O';
+		}
+		if (document.form_input.blood_3[3].checked==true){
+		var blood_3='AB';
+		}
+		
+		
+		
+		
+		var   sltSource=false;   
+          for   (var   i=0;i<document.form_input.cloth_size_3.length;i++){   
+              if   (document.form_input.cloth_size_3[i].checked==true)   sltSource=true;   
+          }   
+          if   (sltSource==false){   
+              show_error("请输入衣服尺码 Please input Clothes size");
+              document.form_input.cloth_size_3[0].focus();   
+              return false;   
+          }
+		if (document.form_input.cloth_size_3[0].checked==true){
+		var cloth_size_3='XS:160';
+		}
+		if (document.form_input.cloth_size_3[1].checked==true){
+		var cloth_size_3='S:165';
+		}
+		if (document.form_input.cloth_size_3[2].checked==true){
+		var cloth_size_3='M:170';
+		}
+		if (document.form_input.cloth_size_3[3].checked==true){
+		var cloth_size_3='L:175';
+		}
+		if (document.form_input.cloth_size_3[4].checked==true){
+		var cloth_size_3='XL:180';
+		}
+		if (document.form_input.cloth_size_3[5].checked==true){
+		var cloth_size_3='XXL:185';
+		}
+		if (document.form_input.cloth_size_3[6].checked==true){
+		var cloth_size_3='3XL:190';
+		}
+
+
+		
+	        if (ec_name_3==""){
+	            show_error("请输入紧急联系人姓名 Please input Emergency Contact Name");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        
+	        if (ec_phone_3==""){
+	            show_error("请输入紧急联系人电话 Please input Emergency contact cell phone");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+		 
+	 }
+		 
+	        
+	        
+		
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+        if (validate==""){
+         	show_error("请输入正确的验证码 Please input Identifying code");
+	       return false;
+        }
+         else{
+	   }
+        
+        
+	        
+	        
+        
+        $.ajax({
+            url: "<?php echo __ROOT__;?>/baoming/apply_orient_sub",
+            async: false,
+            type: "POST",
+            dataType: "json",
+            data: {
+            cat_id:cat_id,
+            realname:realname,
+            sex:sex,
+            birth_day:birthday,
+            id_type:id_type,
+            id_number:id_number,
+            address:address,
+            mobile:mobile,
+            //email:email,
+            cityarea:cityarea,
+            blood:blood,
+            cloth_size:cloth_size,
+            //medical_runner:medical_runner,
+            running_group_name:running_group_name,
+            ec_name:ec_name,
+            //ec_relation:ec_relation,
+            ec_phone:ec_phone,
+            //ec_address:ec_address,
+            //renshou_zengxian:renshou_zengxian,
+            invit_code:invit_code,
+            
+            realname_1:realname_1,
+            sex_1:sex_1,
+            birth_day_1:birthday_1,
+            id_type_1:id_type_1,
+            id_number_1:id_number_1,
+            address_1:address_1,
+            mobile_1:mobile_1,
+            cityarea_1:cityarea_1,
+            blood_1:blood_1,
+            cloth_size_1:cloth_size_1,
+            ec_name_1:ec_name_1,
+            ec_phone_1:ec_phone_1,
+            
+            
+            realname_2:realname_2,
+            sex_2:sex_2,
+            birth_day_2:birthday_2,
+            id_type_2:id_type_2,
+            id_number_2:id_number_2,
+            address_2:address_2,
+            mobile_2:mobile_2,
+            cityarea_2:cityarea_2,
+            blood_2:blood_2,
+            cloth_size_2:cloth_size_2,
+            ec_name_2:ec_name_2,
+            ec_phone_2:ec_phone_2,
+            
+            
+            
+            realname_3:realname_3,
+            sex_3:sex_3,
+            birth_day_3:birthday_3,
+            id_type_3:id_type_3,
+            id_number_3:id_number_3,
+            address_3:address_3,
+            mobile_3:mobile_3,
+            cityarea_3:cityarea_3,
+            blood_3:blood_3,
+            cloth_size_3:cloth_size_3,
+            ec_name_3:ec_name_3,
+            ec_phone_3:ec_phone_3,
+            
+            
+            
+            order_id:order_id,
+            validate:validate
+            
+            },
+            success: function(ret){
+                if(ret.success=='success'){
+                   
+                   
+                	location.href="<?php echo __ROOT__;?>/baoming/apply_orient_confirm/order_id/"+ret.order_id;
+                	
+					
+                }
+                else{
+                	
+                	 show_error(ret.success);
+	              return false;
+	              
+                }
+            }
+        });
+        
+        
+	}
+	
+	//根据身份证，自动算出生日
+	function change_id_number(v){
+		if(v.length==18){
+			var y = v.substr(6, 4);
+			var m = v.substr(10, 2);
+			var d = v.substr(12, 2);
+			var bir=y+'-'+m+'-'+d;
+			//alert(bir);
+			$("#birthday").val(bir);
+		}
+	}
+	
+	
+
+</script>
+
+
+
+
+<script src="<?php echo STATICSPATH;?>scripts/lib/datetimepicker/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<script src="<?php echo STATICSPATH;?>scripts/lib/datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+<script src="<?php echo STATICSPATH;?>scripts/app/enroll/info1_orient.js" type="text/javascript"></script>
+
+
+<include file="public:footer" />

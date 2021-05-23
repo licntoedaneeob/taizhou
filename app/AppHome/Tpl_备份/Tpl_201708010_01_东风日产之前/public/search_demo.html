@@ -1,0 +1,35 @@
+<include file="public:header" />
+
+<br><br><br>
+<br><br><br>
+
+        <div class="top-search">
+        
+	        <script language="Javascript">
+	        
+	        	function string_trim(str){ //删除左右两端的空格
+		　　     return str.replace(/(^\s*)|(\s*$)/g, "");
+		　　 }
+		　　 
+			function gocheck_search_global(form){
+				if (form.srh_content_global.value!=""){
+					//form.submit();
+					str_content=string_trim(form.srh_content_global.value);
+					 //alert(str_content);return;
+				　　 location.href="<?php echo __ROOT__;?>/home/search/srh_content_global/"+encodeURIComponent(str_content);
+				}
+				return true;
+			}
+			</script>
+        	<form action="{:U('home/search' )}" method="post" name="search_global">
+            <input type="text" name="srh_content_global" id="srh_content_global" value="<?php if (isset($srh_content) && $srh_content!=""){ echo $srh_content;} else{?><?php }?>"  >
+            <input type="button" value="搜索"   onclick="javascript:gocheck_search_global(document.search_global);" >
+            </form>
+        </div>
+        
+        <br><br><br>
+        <br><br><br>
+        <br><br><br>
+        
+        
+<include file="public:footer" />

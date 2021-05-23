@@ -1,0 +1,43 @@
+<include file="public:header" />
+
+
+<div class="main-container container">
+    <!-- <div class="row">
+        <div class="tools-bar">
+            <div class="countdown pull-left">
+                <strong>赛事倒计时<span>COUNTDOWN</span></strong>
+                <div class="bd time">
+                    
+                </div>
+            </div>
+            <div class="pull-left rlink">
+                <a href="#"><i class="icon-user"></i>注册</a>丨<a href="#">登录</a>
+            </div>
+        </div>
+    </div> -->
+    <div class="row">
+        <ol class="breadcrumb">
+          <li><a href="#">首页</a></li>
+          <li class="active">精彩图集</li>
+        </ol>
+        <h3 class="title-m v2"><span>精彩图集</span></h3>
+        <div class="content-block v2 col-main m-detail">
+            <h2 class="title"><?php echo $record['title'];?></h2>
+            <div class="date"><?php echo $record['pub_time'];?></div>
+            <div class="content">
+                <p class="text-center"><?php echo $record['content'];?></p>
+            </div>
+            <div class="btn-list tac mt30">
+                <a href="javascript:history.back();" class="btn btn-danger">返回上一页</a>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+    
+    
+    
+<include file="public:footer" />

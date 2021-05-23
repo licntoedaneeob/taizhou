@@ -1,0 +1,38 @@
+<include file="public:header" />
+
+
+
+
+
+    <div id="loadCurPos" class="container content-nav-path">
+        <a href="{:U('/')}">首页</a> <span class="arrow">></span> <a href="#">报名赛事</a> <span class="arrow">></span> 报名查询
+    </div>
+
+    
+    <div class="container main-content">
+
+        <!--<h3 class="title-m v1">2017成都国际马拉松赛报名查询</h3>-->
+
+        <div class="content-block v2 notice-content">
+            <div class="text-center">
+                <div class="m-icon m-icon-warning"></div>
+                <h2>您的审核已通过，但您尚未缴费！</h2>
+                <p>请点击立即缴费。</p>
+                <p>姓名：<?php echo $order_info['realname'];?></p>
+                <p>手机：<?php echo $order_info['mobile'];?></p>
+                <p>项目：<?php if($order_info['cat_id']==1){echo '马拉松 Marathon';}elseif($order_info['cat_id']==2){echo '半程马拉松 Half Marathon';}elseif($order_info['cat_id']==3){echo '欢乐跑 Happy Run';}elseif($order_info['cat_id']==4){echo '公益马拉松 Public welfare Marathon';}elseif($order_info['cat_id']==5){echo '公益半程马拉松 Public welfare Half Marathon';}else{} ?></p>
+            </div>
+        </div>
+
+        <div class="btn-mc-center">
+            <button type="button" class="btn btn-default" onclick="javascript:location.href='{:U('order/pay', array('order_id'=>$order_info['id'] , 'order_no'=>$order_info['order_no'] )   )}';">立即缴费</button>
+        </div>
+
+    </div>
+    
+    
+    
+    
+
+
+<include file="public:footer" />

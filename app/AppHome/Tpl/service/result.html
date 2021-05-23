@@ -1,0 +1,191 @@
+
+<include file="public:header" />
+
+
+<div class="main-container container">
+<form  id="form_input" name="form_input" method="post" action="{:U('service/result_sub')}">
+    <!-- <div class="row">
+        <div class="tools-bar">
+            <div class="countdown pull-left">
+                <strong>赛事倒计时<span>COUNTDOWN</span></strong>
+                <div class="bd time">
+
+                </div>
+            </div>
+            <div class="pull-left rlink">
+                <a href="#"><i class="icon-user"></i>注册</a>丨<a href="#">登录</a>
+            </div>
+        </div>
+    </div> -->
+     <div class="row">
+        <ol class="breadcrumb">
+          <li><a href="{:U('/')}">首页</a></li>
+          <li class="active">成绩查询</li>
+        </ol>
+        <div class="member-mc">
+                <h3 class="title-m v2"><span>2017台州国际马拉松赛成绩查询</span></h3>
+                <div class="content-block v2 col-main">
+                    <div class="form-horizontal form-mc">
+                        <!--
+                        <div class="form-group">
+	                    <label class="col-sm-3 control-label">参赛号：</label>
+	                    <div class="col-sm-6">
+	                        <input type="text" class="form-control" name="match_code" id="match_code">
+	                    </div>
+	                </div>
+	                <div class="form-group">
+	                    <label class="col-sm-3 control-label">证件类型：</label>
+	                    <div class="col-sm-6">
+	                        <select class="form-control" name="id_type" id="id_type">
+	                             <option value="1">身份证</option>
+		                        <option value="2">军官证</option>
+		                        <option value="3">护照</option>
+	                        </select>
+	                    </div>
+	                </div>
+
+	                -->
+
+	                <div class="form-group">
+	                    <label class="col-sm-3 control-label">姓名：</label>
+	                    <div class="col-sm-6">
+	                        <input type="text" class="form-control" name="realname" id="realname">
+	                    </div>
+	                </div>
+
+	                <div class="form-group">
+	                    <label class="col-sm-3 control-label">参赛号：</label>
+	                    <div class="col-sm-6">
+	                        <input type="text" class="form-control" name="id_number" id="id_number">
+	                    </div>
+	                </div>
+                        <!--
+		                <div class="form-group">
+		                    <label class="col-sm-4 control-label">验证码 Identifying code：</label>
+		                    <div class="col-sm-3 form-inline inline">
+		                        <input type="text" class="form-control" size="8"  id="validate" name="validate"  onfocus="this.select();">
+		                    	<img src="<?php echo __ROOT__;?>/validateimg.php" class="id-code-img" onclick="javascript:reloadVerificationCode();"  id="verifyImage">
+		                    </div>
+		                </div>
+		                -->
+                        <div class="form-group btn-list">
+                            <div class="col-sm-6 col-sm-offset-3">
+                            <input type="hidden" name="id_type" id="id_type" value="1">
+                                <button type="button" class="btn btn-lg btn-danger" onclick="javascript:do_submit();">立即查询</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+    </div>
+    </form>
+</div>
+
+
+
+
+
+
+
+
+
+<script  type="text/javascript">
+	function show_error(v){
+		alert(v);
+		//$.com.alert.open(v);
+	}
+
+
+	function do_submit(){
+
+
+		var id_type=$("#id_type").val();
+		var id_number=$("#id_number").val();
+		//var match_code=$("#match_code").val();
+		var realname=$("#realname").val();
+
+
+	        if (id_type==""){
+	            show_error("请输入证件类型 Please input Type of ID");
+	            return false;
+	        }
+	        else{
+	        }
+
+
+
+
+
+	        if (realname==""){
+	            show_error("请输入姓名");
+	            return false;
+	        }
+	        else{
+	        }
+
+
+	        if (id_number==""){
+	            show_error("请输入参赛号");
+	            return false;
+	        }
+	        else{
+	        }
+
+
+	        //if (id_number==""){
+	        //    show_error("请输入证件号码 Please input ID Number");
+	        //    return false;
+	        //}
+	        //else{
+	        //}
+
+
+	        //if (match_code==""){
+	       //     show_error("请输入参赛号 Please input Code");
+	        //    return false;
+	        //}
+	        //else{
+	       // }
+
+
+             document.form_input.submit();
+
+             /*
+        $.ajax({
+            url: "<?php echo __ROOT__;?>/service/result_sub",
+            async: false,
+            type: "POST",
+            dataType: "json",
+            data: {
+            id_type:id_type,
+            id_number:id_number,
+            match_code:match_code,
+            realname:realname
+
+            },
+            success: function(ret){
+                if(ret.success=='success'){
+
+                	//alert(ret.order_id);return false;
+                    location.href="<?php echo __ROOT__;?>/baoming/order_search_finish/order_id/"+ret.order_id;
+                	//alert(123);return;
+                	//location.href="<?php echo __ROOT__;?>/baoming/apply_finish/order_id/"+ret.order_id;
+
+                }
+                else{
+                	 show_error(ret.success);
+	              return false;
+                }
+            }
+        });
+        */
+
+
+	}
+</script>
+
+
+
+<include file="public:footer" />

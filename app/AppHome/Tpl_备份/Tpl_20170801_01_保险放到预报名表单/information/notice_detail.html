@@ -1,0 +1,29 @@
+<include file="public:header" />
+
+
+    <div id="loadCurPos" class="container content-nav-path">
+        <a href="{:U('/')}">首页</a> <span class="arrow">></span> <a href="{:U('information/notice')}">新闻公告</a> <span class="arrow">></span> 比赛公告详情
+    </div>
+
+    <div class="container main-content m-detail article">
+
+        <div class="content-block v3">
+
+            <h2 class="title"><?php echo $record['title'];?></h2>
+
+            <div class="date"><i class="icon-time"></i> <?php echo $record['pub_time'];?></div>
+
+            <div class="content">
+                <?php echo $record['content'];?>
+                
+            </div>
+
+        </div>
+
+        <div class="btn-mc-center">
+            <a href="javascript:history.back();" class="btn btn-default">返回</a>
+        </div>
+
+    </div>
+    
+<include file="public:footer" />

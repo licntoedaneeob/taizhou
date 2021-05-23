@@ -1,0 +1,191 @@
+<include file="public:header" />
+
+
+
+    <div id="loadCurPos" class="container content-nav-path">
+        <a href="{:U('/')}">首页</a> <span class="arrow">></span> <a href="#">报名赛事</a> <span class="arrow">></span> 填写详细资料
+    </div>
+
+    <div class="title-main">
+        <div class="container">
+            <span class="text">2017成都国际马拉松<small>填写详细资料</small></span>
+        </div>
+    </div>
+
+    <div class="container main-content">
+
+        <form class="form-horizontal form-mc form-confirm"  id="form_input" name="form_input" method="post"   action="{:U('baoming/attach_confirm_sub')}">
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">报名费：<span class="en">Entry fee</span></label>
+                <div class="col-sm-6">
+                    <p class="form-control-static"><?php echo $order_info['amount_total'];?>元</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">体检证明：<span class="en">Medical Check</span></label>
+                <div class="col-sm-8 form-inline file-group">
+                    <p class="form-control-static"><img src="<?php echo $order_info['cert_medical'];?>" width="200" class="upload-pic-prev"></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">最好成绩赛事：<span class="en">Best performance event</span></label>
+                <div class="col-sm-6">
+                    <p class="form-control-static"><?php echo $order_info['best_chengji_item'];?></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">最好成绩时间：<span class="en">Best time</span></label>
+                <div class="col-sm-6">
+                    <p class="form-control-static"><?php echo $order_info['best_chengji_score'];?></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">上传赛事证明文件：<span class="en">Upload event documents</span></label>
+                <div class="col-sm-8 form-inline file-group">
+                    <p class="form-control-static"><img src="<?php echo $order_info['cert_chengji'];?>" width="200" class="upload-pic-prev"></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">摆渡车点：<span class="en">Ferry point</span></label>
+                <div class="col-sm-6">
+                    <p class="form-control-static"><?php echo $order_info['bus_point'];?></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">衣服尺码：<span class="en">Clothes size</span></label>
+                <div class="col-sm-9">
+                    <p class="form-control-static"><?php echo $order_info['cloth_size'];?></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">是否医护跑者：<span class="en">Is the medical runner</span></label>
+                <div class="col-sm-9">
+                    <p class="form-control-static"><?php if($order_info['medical_runner']==1){echo '是 Yes';}elseif($order_info['medical_runner']==2){echo '否 No';}else{} ?></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">跑团名称：<span class="en">Running group name</span></label>
+                <div class="col-sm-6">
+                    <p class="form-control-static"><?php echo $order_info['running_group_name'];?></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">紧急联系人姓名：<span class="en">Emergency Contact Name</span></label>
+                <div class="col-sm-6">
+                    <p class="form-control-static"><?php echo $order_info['ec_name'];?></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">紧急联系人与参赛者关系：<span class="en">Emergency contact with participant</span></label>
+                <div class="col-sm-6">
+                    <p class="form-control-static"><?php echo $order_info['ec_relation'];?></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">紧急联系人电话：<span class="en">Emergency contact cell phone</span></label>
+                <div class="col-sm-6">
+                    <p class="form-control-static"><?php echo $order_info['ec_phone'];?></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">紧急联系人地址：<span class="en">Emergency contact address</span></label>
+                <div class="col-sm-8">
+                    <p class="form-control-static"><?php echo $order_info['ec_address'];?></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label multi">是否需要中意人寿赠险：<span class="en">GENERALI CHINA free insurance</span></label>
+                <div class="col-sm-9">
+                    <p class="form-control-static"><?php if($order_info['renshou_zengxian']==1){echo '是 Yes';}elseif($order_info['renshou_zengxian']==2){echo '否 No';}else{} ?></p>
+                </div>
+            </div>
+            <div class="form-group btn-mc-center">
+                <button type="button" class="btn btn-default" onclick="javascript:history.back();">上一步</button>
+                <button type="submit" class="btn btn-default" onclick="javascript:do_submit();">确认提交</button>
+                <input type="hidden" id="order_id" name="order_id" value="<?php echo $order_info['id'];?>" >
+            </div>
+        </form>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+
+
+<script  type="text/javascript">
+	function show_error(v){
+		//alert(v);
+		$.com.alert.open(v);
+	}
+	
+	function do_submit(){
+		var order_id=$("#order_id").val();
+		
+		
+	        document.form_input.submit();
+	        
+	        
+	        
+        $.ajax({
+            url: "<?php echo __ROOT__;?>/baoming/attach_confirm_sub",
+            async: false,
+            type: "POST",
+            dataType: "json",
+            data: {
+            order_id:order_id
+            },
+            success: function(ret){
+                if(ret.success=='success'){
+                
+                    location.href="<?php echo __ROOT__;?>/order/pay/order_id/"+ret.order_id;
+                	
+                }
+                else{
+                	
+                	 show_error(ret.success);
+	              return false;
+	              
+                }
+            }
+        });
+        
+        
+	}
+	
+	//根据身份证，自动算出生日
+	function change_id_number(v){
+		if(v.length==18){
+			var y = v.substr(6, 4);
+			var m = v.substr(10, 2);
+			var d = v.substr(12, 2);
+			var bir=y+'-'+m+'-'+d;
+			//alert(bir);
+			$("#birthday").val(bir);
+		}
+	}
+	
+	
+
+</script>
+
+
+
+
+<script src="<?php echo STATICSPATH;?>scripts/lib/datetimepicker/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<script src="<?php echo STATICSPATH;?>scripts/lib/datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+<script src="<?php echo STATICSPATH;?>scripts/app/enroll/info1.js" type="text/javascript"></script>
+
+
+<include file="public:footer" />

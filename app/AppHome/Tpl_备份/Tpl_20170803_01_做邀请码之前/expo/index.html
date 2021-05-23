@@ -1,0 +1,30 @@
+
+<include file="public:header" />
+
+		
+    <div class="container content-nav-path">
+        <div class="submenu"><a href="{:U('expo/index', array('id'=>1 ))}" <?php if($id==1){?>class="on"<?php }?> >马博会介绍</a> <a href="{:U('expo/index', array('id'=>2 ))}" <?php if($id==2){?>class="on"<?php }?> >马博会招募</a> <a href="{:U('expo/index', array('id'=>3 ))}" <?php if($id==3){?>class="on"<?php }?> >新闻中心</a></div>
+    </div>
+    <div class="container content-nav-path">
+        <a href="{:U('/')}">首页</a> <span class="arrow">></span> <a href="{:U('expo/index')}">马博会EXPO</a> <span class="arrow">></span> <?php echo $record['title_sub'];?>
+    </div>
+
+    <div class="container main-content">
+
+        <div class="content-block v3">
+            <h2 class="title"><?php echo $record['title'];?></h2>
+            <div class="content">
+              <?php echo $record['content'];?>
+          </div>
+      </div>
+       
+
+    </div>
+    
+    
+    
+
+    
+    
+
+<include file="public:footer" />

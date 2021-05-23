@@ -1,0 +1,457 @@
+<include file="public:header" />
+
+
+
+<div class="main-container container">
+    <!-- <div class="row">
+        <div class="tools-bar">
+            <div class="countdown pull-left">
+                <strong>赛事倒计时<span>COUNTDOWN</span></strong>
+                <div class="bd time">
+                    
+                </div>
+            </div>
+            <div class="pull-left rlink">
+                <a href="#"><i class="icon-user"></i>注册</a>丨<a href="#">登录</a>
+            </div>
+        </div>
+    </div> -->
+    <div class="row">
+        <ol class="breadcrumb">
+          <li><a href="{:U('/')}">首页</a></li>
+          <li class="active">报名赛事</li>
+        </ol>
+        <h3 class="title-m v2"><span>2017台州国际马拉松赛<i>填写团队报名表</i></span></h3>
+        <div class="content-block v2 col-main">
+             <div class="text-center" style="margin-bottom: 50px;">
+                <p><img src="<?php echo STATICSPATH;?>images/tz-icon-down.png" alt=""><a href="/statics/down/team.xlsx">下载2017台州国际马拉松赛参赛选手团队报名表（excel格式）</a></p>
+            </div>
+            <form class="form-horizontal form-mc" id="form_input" name="form_input" method="post" enctype="multipart/form-data"  action="{:U('baoming/team_attach_sub')}">
+                <div class="form-group">
+                <label class="col-sm-3 control-label">领队姓名：</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="realname" id="realname" value="<?php echo $order_info['realname'];?>" <?php if(!empty($order_info)){ ?>readonly<?php } ?> >
+                </div>
+            </div>
+             <div class="form-group">
+                <label class="col-sm-3 control-label">领队身份证号：</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="id_number" id="id_number"  value="<?php echo $order_info['id_number'];?>" <?php if(!empty($order_info)){ ?>readonly<?php } ?> >
+                </div>
+            </div>
+             <div class="form-group">
+                <label class="col-sm-3 control-label">领队手机号码：</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="mobile" id="mobile" value="<?php echo $order_info['mobile'];?>">
+                </div>
+            </div>
+          <div class="form-group">
+                    <label class="col-sm-3 control-label multi">团队报名信息表：</label>
+                    <div class="col-sm-8 form-inline file-group">
+	                    <input type="text" class="form-control"  id="photoCover" readonly >
+	                    <span class="file-button">
+	                        <input name="photo_normal" id="lefile" type="file" >
+	                        <button type="button" class="btn btn-info-r p-20">浏览 Browse</button>
+	                    </span>
+	                    <?php if($order_info['cert_medical']!=''){ ?><a href="<?php echo $order_info['cert_medical']; ?>" target="_blank"  class="btn btn-info p-20">查看 View</a><?php } ?>
+	                </div>
+                </div>
+              
+              <div class="form-group">
+                <label class="col-sm-3 control-label multi"><span class="require-star">*</span>验证码：<span class="en">Identifying code</span></label>
+                <div class="col-sm-9 form-inline inline">
+                    <input type="text" class="form-control" size="8"  id="validate" name="validate"  onfocus="this.select();">
+                    <img src="<?php echo __ROOT__;?>/validateimg.php" class="id-code-img" onclick="javascript:reloadVerificationCode();"  id="verifyImage">
+                </div>
+                
+            </div>
+            
+                  <div class="btn-list tac mt30">
+                        <button type="button" class="btn btn-lg btn-danger" onclick="javascript:do_submit();">提 交</button>
+                        <input type="hidden" name="order_id" id="order_id" value="<?php echo $order_id;?>">
+                        <input type="hidden"  name="invit_code" id="invit_code" value="<?php echo empty($order_info['invit_code'])?$invit_code:$order_info['invit_code'] ;?>">
+            			<input type="hidden" name="cat_id" id="cat_id" value="7">
+            			<input type="hidden" name="id_type" id="id_type" value="1">
+                    </div>
+            </form>
+            <div class="text-center">
+                <p style="color: red"><!--参赛项目不符合，上传成功--></p>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+
+
+
+
+<script type="text/javascript">
+	$('input[id=lefile]').change(function() {
+		$('#photoCover').val($(this).val());
+	});
+	$('input[id=lefile2]').change(function() {
+		$('#photoCover2').val($(this).val());
+	});
+</script>
+
+
+<script  type="text/javascript">
+	
+	
+    function reloadVerificationCode(){
+        document.getElementById('verifyImage').src = '<?php echo __ROOT__;?>/validateimg.php?'+Math.random();
+        document.getElementById('validate').value = '';
+    }
+    
+    
+	function show_error(v){
+		alert(v);
+		//$.com.alert.open(v);
+	}
+	
+	function do_submit(){
+		
+		var realname=$("#realname").val();
+		var id_number=$("#id_number").val();
+		var mobile=$("#mobile").val();
+		var invit_code=$("#invit_code").val();
+		var validate=$("#validate").val();
+		var order_id=$("#order_id").val();
+		var lefile=$("#lefile").val();
+		var cat_id=$("#cat_id").val();
+		var id_type=$("#id_type").val();
+		/*
+		
+		
+		var birthday=$("#birthday").val();
+		
+		
+		var address=$("#address").val();
+		
+		var email=$("#email").val();
+		var cityarea=$("#cityarea").val();
+		
+		var running_group_name=$("#running_group_name").val();
+		var ec_name=$("#ec_name").val();
+		var ec_relation=$("#ec_relation").val();
+		var ec_phone=$("#ec_phone").val();
+		var ec_address=$("#ec_address").val();
+		
+		var lefile2=$("#lefile2").val();
+		var best_chengji_score=$("#best_chengji_score").val();
+		*/
+		
+		
+		
+	        
+	        
+	        
+	        
+	        
+	        if (realname==""){
+	            show_error("请输入领队姓名");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        
+	        if (id_number==""){
+	            show_error("请输入领队身份证号");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        if(!/^\d{6}((?:19|20)(?:(?:\d{2}(?:0[13578]|1[02])(?:0[1-9]|[12]\d|3[01]))|(?:\d{2}(?:0[13456789]|1[012])(?:0[1-9]|[12]\d|30))|(?:\d{2}02(?:0[1-9]|1\d|2[0-8]))|(?:(?:0[48]|[2468][048]|[13579][26])0229)))\d{2}(\d)[xX\d]$/.test(id_number))
+		   {
+		      show_error("领队身份证号有误");
+	            return false;
+		   }
+		   else{
+	        }
+	        
+	        
+	        if (mobile==""){
+	            show_error("请输入领队手机号码");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        /*
+		
+	        if (cat_id==""){
+	            show_error("请输入报名类型 Please input Registration type");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        if (realname==""){
+	            show_error("请输入姓名 Please input Name");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+		
+		var   sltSource=false;   
+          for   (var   i=0;i<document.form_input.sex.length;i++){   
+              if   (document.form_input.sex[i].checked==true)   sltSource=true;   
+          }   
+          if   (sltSource==false){   
+              show_error("请输入性别 Please input Gender");
+              document.form_input.sex[0].focus();   
+              return false;   
+          }
+		if (document.form_input.sex[0].checked==true){
+		var sex=1;
+		}
+		else{
+		var sex=2;
+		}
+
+
+	        
+	        
+	        
+	        
+	        if (id_type==""){
+	            show_error("请输入证件类型 Please input ID Type");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        if (id_number==""){
+	            show_error("请输入证件号码 Please input ID Number");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        if (birthday==""){
+	            show_error("请输入出生日期 Please input Birthday");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        
+	        if (address==""){
+	            show_error("请输入通讯地址 Please input Post address");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        
+	        if (mobile==""){
+	            show_error("请输入手机 Please input Mobile");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        if (email==""){
+	            show_error("请输入邮箱地址 Please input Email address");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        */
+	        
+	        
+		
+		<?php if(empty($order_info['cert_medical'])){ ?>
+		
+		
+		        if (lefile==""){
+		            show_error("请上传团队报名信息表");
+		            return false;
+		        }
+		        else{
+		        	
+		        	var f=lefile;
+			       
+			        if(!/\.(xlsx|XLSX)$/.test(f)){
+			          alert("团队报名信息表必须是xlsx类型")
+			          return false;
+			        }
+			        
+			        
+		        }
+	        
+	        <?php } ?>
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+        if (validate==""){
+         	show_error("请输入正确的验证码 Please input Identifying code");
+	       return false;
+        }
+         else{
+	   }
+        
+        
+	        
+	        
+        
+        $.ajax({
+            url: "<?php echo __ROOT__;?>/baoming/team_sub",
+            async: false,
+            type: "POST",
+            dataType: "json",
+            data: {
+            realname:realname,
+            id_number:id_number,
+            mobile:mobile,
+            cat_id:cat_id,
+            id_type:id_type,
+            //sex:sex,
+            //birth_day:birthday,
+            //address:address,
+            //email:email,
+            //cityarea:cityarea,
+            //blood:blood,
+            //cloth_size:cloth_size,
+            //medical_runner:medical_runner,
+            //running_group_name:running_group_name,
+            //ec_name:ec_name,
+            //ec_relation:ec_relation,
+            //ec_phone:ec_phone,
+            //ec_address:ec_address,
+            //best_chengji_score:best_chengji_score,
+            //renshou_zengxian:renshou_zengxian,
+            invit_code:invit_code,
+            order_id:order_id,
+            validate:validate
+            
+            },
+            success: function(ret){
+                if(ret.success=='success'){
+                   
+                   $("#order_id").val(ret.order_id);
+                   
+                   //金昌：提交附件信息，再去预报名确认页
+                   setTimeout(function(){
+			document.form_input.submit();
+			}, 500);
+			
+			//去预报名确认页
+                	//location.href="<?php echo __ROOT__;?>/baoming/apply_confirm/order_id/"+ret.order_id;
+                    //location.href="<?php echo __ROOT__;?>/baoming/apply_finish/order_id/"+ret.order_id;
+                	
+					
+                }
+                else{
+                	
+                	 show_error(ret.success);
+	              return false;
+	              
+                }
+            }
+        });
+        
+        
+	}
+	
+	
+	//根据国籍，切换可选的证件类型
+	function change_cityarea(v){
+	if(v=="中国"){
+	$("#guoji_1").css("display", "none");
+	$("#guoji_0").css("display", "block");
+	}
+	else{
+	$("#guoji_0").css("display", "none");
+	$("#guoji_1").css("display", "block");
+	}
+	}
+	
+	
+	
+	//根据身份证，自动算出生日
+	function change_id_number(v){
+		
+
+
+		//var g=function(s){return document.getElementById(s);};
+		
+		   //if(!/^\d{6}((?:19|20)(?:(?:\d{2}(?:0[13578]|1[02])(?:0[1-9]|[12]\d|3[01]))|(?:\d{2}(?:0[13456789]|1[012])(?:0[1-9]|[12]\d|30))|(?:\d{2}02(?:0[1-9]|1\d|2[0-8]))|(?:(?:0[48]|[2468][048]|[13579][26])0229)))\d{2}(\d)[xX\d]$/.test(g('id').value))
+		   if(!/^\d{6}((?:19|20)(?:(?:\d{2}(?:0[13578]|1[02])(?:0[1-9]|[12]\d|3[01]))|(?:\d{2}(?:0[13456789]|1[012])(?:0[1-9]|[12]\d|30))|(?:\d{2}02(?:0[1-9]|1\d|2[0-8]))|(?:(?:0[48]|[2468][048]|[13579][26])0229)))\d{2}(\d)[xX\d]$/.test(v))
+		   {
+		      //alert('身份证号非法.');
+		      //return;
+		   }
+		   else{
+		     var y = (RegExp.$1).substr(0,4);
+			var m = (RegExp.$1).substr(4,2);
+			var d = (RegExp.$1).substr(6,4);
+			//var bir=y+'-'+m+'-'+d;
+			//$("#birthday").val(bir);
+			
+			
+		   var idcard_sex=(parseInt(RegExp.$2)%2==0?'女':'男');   //这句之前不能有其他js，否则会出错，可能跟 RegExp 不能中断有关。
+		     //alert(idcard_sex);
+		     if(idcard_sex=='女'){
+				var sex_value=2;
+			}
+			else{
+				var sex_value=1;
+			}
+			//alert(sex_value);
+			$(".form-horizontal").find('input:radio[name="sex"]:checked').attr("checked",false);
+			$(".form-horizontal").find('input:radio[name="sex"][value="'+sex_value+'"]').click();
+
+
+			  if(v.length==18){
+					var y = v.substr(6, 4);
+					var m = v.substr(10, 2);
+					var d = v.substr(12, 2);
+					var bir=y+'-'+m+'-'+d;
+					//alert(bir);
+					$("#birthday").val(bir);
+				}
+				
+		   }
+		   //g('bd1').value=(RegExp.$1).substr(0,4);
+		   //g('bd2').value=(RegExp.$1).substr(4,2);
+		   //g('bd3').value=(RegExp.$1).substr(6,4);
+		   //g('sex').value=(parseInt(RegExp.$2)%2==0?'女':'男');
+		   
+		   
+		
+	}
+	
+	
+
+</script>
+
+
+
+
+
+
+<include file="public:footer" />

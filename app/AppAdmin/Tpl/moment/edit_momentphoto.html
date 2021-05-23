@@ -1,0 +1,136 @@
+<include file="public:header" />
+
+<form action="{:U('moment/edit_momentphoto')}" method="post" name="myform" id="myform" class="lkcmsform">
+
+<table width="100%" cellpadding="2" cellspacing="1" class="form-table">
+<tbody>
+    
+    
+    
+<tr>
+    <th width="60">{:L('精彩影像')} :</th>
+    <td>
+        <select id="class_id" name="class_id">
+            <volist name="allclasslist" id="rec" >
+                <option value="{$rec['id']}" <if condition="$rec['id'] eq $record.class_id ">selected="selected"</if> >{$rec['title']}</option>
+            </volist>
+        </select>
+
+    </td>
+</tr>
+
+
+
+    <tr>
+        <th width="60">{:L('标题')} :</th>
+        <td><input type="text" name="title" id="title" class="input-text" value="{$record.title}" size="85" maxlength="100"></td>
+    </tr>
+
+
+
+
+
+    <tr>
+        <th width="60">{:L('小图(282*282)')} :</th>
+        <td><input type="text" name="pic_show" id="pic_show" value="{$record.pic_show}" size="25" class="input-text" maxlength="100"  ><a class="lk-pic-select button" href="javascript:LK_BrowseServer('pic_show','momentphoto/');" >{:L('选择图片')}</a></div>
+        
+        &nbsp;&nbsp;&nbsp;替换文本(ALT): <input type="text" name="pic_alt" id="pic_alt" class="input-text" value="{$record.pic_alt}" size="25" maxlength="100">
+       
+        </td>
+    </tr>
+
+
+    <tr>
+        <th width="60">{:L('大图(282*282)')} :</th>
+        <td><input type="text" name="pic_b_show" id="pic_b_show" value="{$record.pic_b_show}" size="25" class="input-text" maxlength="100"  ><a class="lk-pic-select button" href="javascript:LK_BrowseServer('pic_b_show','momentphoto/');" >{:L('选择图片')}</a></div>
+        
+        &nbsp;&nbsp;&nbsp;替换文本(ALT): <input type="text" name="pic_b_alt" id="pic_b_alt" class="input-text" value="{$record.pic_b_alt}" size="25" maxlength="100">
+       
+        </td>
+    </tr>
+
+
+    
+
+
+    <tr>
+        <th width="60">{:L('顺序')} :</th>
+        <td><input type="text" name="sort" id="sort" class="input-text" value="{$record.sort}" size="25" maxlength="100" onkeyup="keyup_action3(this)"></td>
+    </tr>
+
+    <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+    <tr>
+      	<th>{:L('状态')} :</th>
+      	<td>
+      		<input type="radio" name="status" class="radio_style" value="1" <if condition="$record.status eq '1'"> checked</if> /> &nbsp;{:L('发布')}&nbsp;&nbsp;&nbsp;
+        	<input type="radio" name="status" class="radio_style" value="0" <if condition="$record.status neq '1'"> checked</if> /> &nbsp;{:L('隐藏')}
+      	</td>
+    </tr>
+    <?php }else{ ?>
+    <tr>
+      	<th>{:L('状态')} :</th>
+      	<td>
+      		<input type="hidden" name="status" value="0" /> 
+      		<if condition="$record.status eq '1'">发布</if>
+      		<if condition="$record.status neq '1'">隐藏</if>
+      		&nbsp;&nbsp;（改动后，将变为隐藏）
+      	</td>
+    </tr>
+    <?php } ?>
+</tbody>
+</table>
+<input type="hidden" name="id" value="{$record.id}" />
+
+<table width="100%" cellpadding="2" cellspacing="1" class="form-table">
+	<tfoot>
+	<tr><th>
+<input type="submit" name="dosubmit" id="dosubmit" class="button" value="确定">
+	</th></tr>
+	</tfoot>
+</table>
+</form>
+
+<script language="javascript" type="text/javascript" src="__ROOT__/scripts/ckeditor/ckeditor.js"></script>
+<script language="javascript" type="text/javascript" src="__ROOT__/scripts/ckfinder/ckfinder.js"></script>
+<script type="text/javascript">
+
+    function LK_BrowseServer(id, startupPath ) {
+        var finder = new CKFinder();
+        finder.BasePath = '__ROOT__/scripts/ckfinder/';
+        finder.startupPath  = "Images:/" +  startupPath;
+        finder.selectActionFunction = LK_SetFileField;
+        finder.selectActionData = new Array(id, startupPath);
+        finder.popup();
+    }
+
+    function LK_SetFileField(fileUrl, data) {
+        var id = data["selectActionData"][0];
+        jQuery("#" + id).val(fileUrl);
+        jQuery("#" + id + "Preview").html("<img src='" + fileUrl + "' />");
+    }
+
+
+    $(function(){
+        $(document).ready(function(){
+            if (typeof CKEDITOR == "undefined") {
+                //document.write("加载CKEditor失败");
+            }
+            else {
+                var editor = CKEDITOR.replace("content");
+                CKFinder.setupCKEditor(editor, "__ROOT__/scripts/ckfinder/"); //ckfinder总目录的相对路径.
+            }
+        });
+    });
+
+
+    $(function(){
+        var message_000 = "{:L('不能为空')}";
+        $.formValidator.initConfig($.extend(true, {}, JPLUGIN_FORMVALIDATOR_CONFIG, {formID: 'myform'}));
+        $("#title").formValidator({onShow:message_000,onFocus:message_000}).inputValidator({min:1,onError:"请输入标题"});
+        //$("#pic_show").formValidator({mode:'FixTip',onShow:message_000,onFocus:message_000}).inputValidator({min:1,onError:"请选择图片"});
+        //$("#pic_b_show").formValidator({mode:'FixTip',onShow:message_000,onFocus:message_000}).inputValidator({min:1,onError:"请选择图片"});
+    });
+
+</script>
+
+<include file="public:footer" />

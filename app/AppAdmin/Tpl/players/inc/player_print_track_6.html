@@ -1,0 +1,67 @@
+<table width="630" border="1" cellpadding="0" cellspacing="0" class="print-table">
+   <tr class="none">
+    <td width="80"></td>
+    <td width="80"></td>
+    <td width="80"></td>
+    <td width="80"></td>
+    <td width="80"></td>
+    <td width="80"></td>
+    <td width="140" class="last"></td>
+  </tr>
+  <tr>
+    <th>参赛组别</th>
+    <td>{$record.game_group}&nbsp;</td>
+    <td>{$record.game_area}&nbsp;</td>
+    <td><!-- {$record.game_city} -->&nbsp;</td>
+    <th>代理商</th>
+    <td colspan="2">{$record.agent_name}&nbsp;</td>
+  </tr>
+  <tr>
+    <th rowspan="2">预选赛曲目</th>
+    <td colspan="3">1. {$record.track_a1}</td>
+    <td colspan="3">2. {$record.track_a2}</td>
+  </tr>  
+  <tr>
+    <td colspan="3">3. {$record.track_a3}</td>
+    <td colspan="3">4. {$record.track_a4}</td>
+  </tr>
+  <tr>
+    <th rowspan="2">分赛区决赛<br />曲目</th>
+    <td colspan="3">1. {$record.track_b1}</td>
+    <td colspan="3">2. {$record.track_b2}</td>
+  </tr>  
+  <tr>
+    <td colspan="3">3. {$record.track_b3}</td>
+    <td colspan="3">4. {$record.track_b4}</td>
+  </tr>
+  <if condition="$record['Flag_IS_PRO'] neq 'yes'">
+  <tr>
+    <th rowspan="2">总决赛曲目</th>
+    <td colspan="3">1. {$record.track_c1}</td>
+    <td colspan="3">2. {$record.track_c2}</td>
+  </tr>  
+  <tr>
+    <td colspan="3">3. {$record.track_c3}</td>
+    <td colspan="3">4. {$record.track_c4}</td>
+  </tr> 
+  <else />
+  <tr>
+    <th rowspan="2">总决赛曲目<br />第一轮</th>
+    <td colspan="3">1. {$record.track_c1}</td>
+    <td colspan="3">2. {$record.track_c2}</td>
+  </tr>  
+  <tr>
+    <td colspan="3">3. {$record.track_c3}</td>
+    <td colspan="3">4. {$record.track_c4}</td>
+  </tr>
+  <tr>
+    <th rowspan="2">总决赛曲目<br />第二轮</th>
+    <td colspan="3">1. {$record.track_c5}</td>
+    <td colspan="3">2. {$record.track_c6}</td>
+  </tr>  
+  <tr>
+    <td colspan="3">3. {$record.track_c7}</td>
+    <td colspan="3">4. {$record.track_c8}</td>
+  </tr>
+  </if>
+</table>

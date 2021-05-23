@@ -1,0 +1,324 @@
+<include file="public:header" />
+
+<style>
+.grid-table .col-id { width: 50px; }
+.grid-table .col-checkbox { text-align: center; width: 35px; }
+.grid-table .col-role { text-align: left; width: 120px; }
+.grid-table .col-name { text-align: left;  }
+.grid-table .col-status { width: 50px;  }
+.grid-table .col-time { width: 140px; }
+.grid-table .col-action { text-align: center; width: 120px; }
+</style>
+
+
+   <form id="lkform" name="lkform" action="" data-list="{:U('trade/listing')}" data-delete="{:U('trade/delete')}" method="post" class="lkcmsform">
+
+<table width="100%" cellspacing="0" class="filter-table">
+<tbody>
+<tr>
+	<td width="100%" align="left">
+	
+	{:L('报名时间')}:
+	<input type="text" name="_filter_starttime" id="_filter_starttime" value="{$filter_starttime}" class="input-text" size="10" maxlength="100" onclick="javascript:WdatePicker({dateFmt:'yyyy-MM-dd'});" >-
+	<input type="text" name="_filter_endtime" id="_filter_endtime" value="{$filter_endtime}" class="input-text" size="10" maxlength="100" onclick="javascript:WdatePicker({dateFmt:'yyyy-MM-dd'});" >
+	
+	
+	
+	<!--
+	{:L('生日')}:
+	<input type="text" name="_filter_starttime_birthday" id="_filter_starttime_birthday" value="{$filter_starttime_birthday}" class="input-text" size="10" maxlength="100" onclick="javascript:WdatePicker({dateFmt:'yyyy-MM-dd'});" >-
+	<input type="text" name="_filter_endtime_birthday" id="_filter_endtime_birthday" value="{$filter_endtime_birthday}" class="input-text" size="10" maxlength="100" onclick="javascript:WdatePicker({dateFmt:'yyyy-MM-dd'});" >
+	-->
+	
+	{:L('赛事分站')}:
+	<select id="_filter_catalog_stage" name="_filter_catalog_stage" >
+		<option value=""> - {:L('全部')} - </option>
+		<?php
+		foreach($catalog_stage_list as $k=>$v){
+		?>
+		<option value="<?php echo $v['catalog_id'].'|'.$v['stage_id'];?>" <?php if($filter_catalog_stage==$v['catalog_id'].'|'.$v['stage_id']){echo 'selected';}?> ><?php echo $v['catalog_name']." - ".$v['stage_name'];?></option>
+		<?php
+		}
+		?>
+	</select>
+	
+	
+	
+	{:L('支付方式')}:
+	<select id="_filter_payMode" name="_filter_payMode" >
+		<option value=""> - {:L('全部')} - </option>
+		<option value="0" <if condition="$filter_payMode eq '0'"> selected="selected"</if> > {:L('未定义')} </option>
+		<option value="1" <if condition="$filter_payMode eq '1'"> selected="selected"</if> > {:L('支付宝')} </option>
+		<option value="2" <if condition="$filter_payMode eq '2'"> selected="selected"</if> > {:L('微信')} </option>
+		<option value="9" <if condition="$filter_payMode eq '9'"> selected="selected"</if> > {:L('线下支付')} </option>
+	</select>
+	
+	
+	
+	{:L('支付状态')}:
+    
+    <select id="_filter_isPay" name="_filter_isPay" >
+		<option value=""> - {:L('全部')} - </option>
+		<option value="0" <if condition="$filter_isPay eq '0'"> selected="selected"</if> > {:L('未支付')} </option>
+		<option value="1" <if condition="$filter_isPay eq '1'"> selected="selected"</if> > {:L('已支付')} </option>
+		<option value="2" <if condition="$filter_isPay eq '2'"> selected="selected"</if> > {:L('待确认')} </option>
+	</select>
+	
+	{:L('关键字')}:
+    <select id="_filter_fieldname" name="_filter_fieldname" >
+		<option value=""> - {:L('全部')} - </option>
+		<option value="order_no" <if condition="$filter_fieldname eq 'order_no'"> selected="selected"</if> > {:L('订单号')} </option>
+		<option value="trade_no" <if condition="$filter_fieldname eq 'trade_no'"> selected="selected"</if> > {:L('支付交易号')} </option>
+		<option value="m_mobile" <if condition="$filter_fieldname eq 'm_mobile'"> selected="selected"</if> > {:L('手机')} </option>
+		<option value="m_realname" <if condition="$filter_fieldname eq 'm_realname'"> selected="selected"</if> > {:L('姓名')} </option>
+	</select>
+	
+	
+    <input type="text" id="_f_search" name="_f_search" class="" value="{$f_search}">
+	&nbsp;
+	<!--<button onclick="javascript:form_list_submit('lkform');return false;">{:L('搜索')}</button>-->
+	<button onclick="javascript:$ = jQuery; $(form).prop('action', $(form).data('list')); $('#is_export').val('0'); $(form).submit(); ">{:L('搜索')}</button>
+	&nbsp;
+	<input type="hidden" id="is_export" name="is_export" value="0">
+	<!--<button onclick="javascript:form_list_submit('lkform', 1);return false;">{:L('导出')}</button>-->
+	<button onclick="javascript:$ = jQuery; $(form).prop('action', $(form).data('list')); $('#is_export').val('1'); $(form).submit(); ">{:L('导出')}</button>
+	
+	
+	<!--
+	<button onclick="
+		document.getElementById('_f_order').value='';
+		document.getElementById('_f_direc').value='';
+		document.getElementById('_f_search').value='';
+
+		document.getElementById('_filter_state').value='';
+		form_list_submit(this.form);">{:L('清空')}</button>
+	-->
+	
+	</td>
+	
+	
+	<!--
+	<td nowrap="nowrap">
+		<select id="_filter_state" name="_filter_state" onchange="form_list_submit(lkform);" data-value="{$filter_state}">
+		<option value=""> - {:L('选择状态')} - </option>
+		<option value="1" <if condition="$filter_state eq '1'"> selected="selected"</if> > {:L('发布')} </option>
+		<option value="0" <if condition="$filter_state eq '0'"> selected="selected"</if> > {:L('隐藏')} </option>
+		</select>
+	</td>
+	-->
+	
+	
+</tr>
+</tbody>
+</table>
+
+<table width="100%" cellspacing="0" class="grid-table style-joomla2">
+<thead>
+<tr>
+	<th><input type="checkbox" value="" id="chkallid" name="chkallid" onclick="form_checkbox_selectall(this.form);"></th>
+	<!--<th><php>echo LkHTML::ListSort( L('id'), 'id', $f_order, $f_direc, 'form_ordering', L('按此列排序'));  </php></th>-->
+	<!--<th><php>echo LkHTML::ListSort( L('手机'), 'ordername', $f_order, $f_direc, 'form_ordering', L('按此列排序'));  </php></th>-->
+	<!--<th>{:L('流水ID')}</th>-->
+	<th>{:L('订单号')}</th>
+	<th>{:L('交易号')}</th>
+	<th>{:L('支付方式')}</th>
+	<th>{:L('总金额')}</th>
+	<th>{:L('支付状态')}</th>
+	<th>{:L('站点名')}</th>
+	<th>{:L('报名项目')}</th>
+	<!--<th>{:L('赛事名')}</th>-->
+	<!--<th>{:L('姓名')}</th>-->
+	<!--<th>{:L('手机')}</th>-->
+	<!--<th>{:L('报名时间')}</th>-->
+	
+	
+	<!--<th class="cell-action" nowrap="nowrap">{:L('状态')}</th>-->
+	<th class="cell-action">操作</th>
+</tr>
+</thead>
+<tbody>
+
+<?php 
+if(!empty($dataset)){
+foreach($dataset as $k=>$rec){
+?>
+<tr>
+	<td class="cell-checkbox"><input type="checkbox" value="{$rec['id']}" name="id[]" /></td>
+	<!--<td class="cell-id">{$rec['id']}</td>-->
+	<td>{$rec['order_no']}</td>
+	<td>{$rec['trade_no']}</td>
+	<td>
+        <if condition="$rec['payMode'] eq '0'">未定义</if>
+        <if condition="$rec['payMode'] eq '1'">支付宝</if>
+        <if condition="$rec['payMode'] eq '2'">微信</if>
+        <if condition="$rec['payMode'] eq '9'">线下支付</if>
+    </td>
+	<td>{$rec['amount_total']}</td>
+	<td>
+        <if condition="$rec['isPay'] eq '0'">未支付</if>
+        <if condition="$rec['isPay'] eq '1'">已支付</if>
+        <if condition="$rec['isPay'] eq '2'">待确认</if>
+    </td>
+	<td>{$rec['stage_name']}</td>
+	<td>{$order_race_arr[$rec['order_no']]['br']}</td>
+	<!--<td>{$rec['catalog_name']}</td>-->
+	<!--<td>{$rec['m_realname']}</td>-->
+	<!--<td>{$rec['m_mobile']}</td>-->
+	<!--<td>{$rec['createDateTime']}</td>-->
+	
+	
+    
+	
+	<!--<td class="cell-time"><if condition="$rec['modify_time'] gt '0'">{$rec.modify_time|date='Y-m-d H:i:s',###}</if></td>-->
+	<!--<td>{$quan_history_arr[$rec['id']]['quan_summary']}</td>-->
+	
+	
+	<td class="cell-action"><a href="{:U('trade/edit_show', array('id'=>$rec['id']))}" class="action ">{:L('查看全部')}</a>
+	<!--
+	&nbsp;&nbsp;<a href="{:U('order_quan_history/create', array('order_id'=>$rec['id']))}" class="action action-list">{:L('添加该用户卡券分配')}</a>
+	
+	&nbsp;&nbsp;<a href="{:U('order_quan_history/listing', array('_filter_order_id'=>$rec['id']))}" class="action action-list">{:L('该用户卡券分配列表')}</a>
+	
+	-->
+	
+	
+	</td>
+</tr>
+
+<?php 
+}
+}
+?>
+
+</tbody>
+<tfoot>
+
+
+<!--
+<tr><td colspan="13" >
+
+	
+	<span style="float:left;">{:L('请选择需要批量分配的卡券')}&nbsp;</span>
+	<select id="quan_id" name="quan_id" style="float:left;">
+		<?php
+		foreach($quan_list as $k=>$v){
+		?>
+		<option value="<?php echo $v['id']?>" ><?php echo $v['title']?></option>
+		<?php
+		}
+		?>
+	</select>
+	<span style="float:left;">&nbsp;{:L('数量')}&nbsp;</span>
+	<input type="text" id="quan_number" name="quan_number" class="" value="1" onkeyup="keyup_action3(this)" style="float:left;" size="2"> 
+	<?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?><input type="submit" class="button" name="dosubmit" value="批量分配卡券" onclick="return confirm('你确定要批量分配所选择的卡券吗？')" style="float:left;margin-left:10px;"/><?php }?>
+	
+	
+</td></tr>
+-->
+
+<!--
+<tr><td colspan="13" style="border-top: 0px ;">
+	
+	<?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?><input type="submit" class="button" name="dosubmit" value="删除" onclick="return confirm('你确定要删除吗？')" style="float:left;margin-left:10px;"/><?php }?>
+	
+	
+	<?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?><input type="submit" class="button" name="dosubmit" value="批量设为普通等级" onclick="return confirm('你确定要批量设为普通等级吗？')" style="float:left;margin-left:10px;"/><?php }?>
+	
+	<?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?><input type="submit" class="button" name="dosubmit" value="批量设为VIP等级" onclick="return confirm('你确定要批量设为VIP等级吗？')" style="float:left;margin-left:10px;"/><?php }?>
+	
+	
+	
+	<div id="pages">{$page}</div>
+</td></tr>
+-->
+
+
+
+<tr><td colspan="13" style="border-top: 0px ;">
+	
+	<!--
+	<?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?><input type="submit" class="button" name="dosubmit" value="删除" onclick="return confirm('你确定要删除吗？')" style="float:left;margin-left:10px;"/><?php }?>
+	-->
+	
+	
+	<div id="pages">{$page}</div>
+</td></tr>
+
+
+
+</tfoot>
+</table>
+
+
+       <input type="hidden" name="_f_order" value="{$f_order}" />
+       <input type="hidden" name="_f_direc" value="{$f_direc}" />
+
+
+</form>
+
+
+
+<script language="javascript">
+
+    function form_ordering( order, dir, task ) {
+        var form = document.lkform;
+        form._f_order.value = order;
+        form._f_direc.value = dir;
+        form.submit( task );
+    }
+
+function form_checkbox_selectall(form){
+	LkCmsForm.CheckBoxAll(form, 'name', 'id[]', 'chkallid');
+}
+function form_list_submit(form,is_export=0){
+	$ = jQuery;
+	$(form).prop('action', $(form).data('list'));
+	if(is_export>0){
+		$("#is_export").val(is_export);
+	}
+	else{
+		$("#is_export").val('0');
+	}
+	$(form).submit();
+}
+function form_delete_submit(form){
+//	$ = jQuery;
+//	$(form).prop('action', $(form).data('delete'));	
+//	var ids='';
+//	$(form).children("input[name='id[]']:checked").each(function(i, n){
+//		ids += $(n).val() + ',';
+//	});
+//	var info = "{:L('请选择你需要删除的用户')}";
+//	if(ids=='') {
+//		window.top.art.dialog({content:info,lock:true,width:'200',height:'50',time:1.5},function(){});
+//		return false;
+//	}
+//	form.submit();
+}
+function table_change_status(id, type){
+    $.get("{:U('trade/ajax_change_status')}", { id: id, type: type }, function(jsondata){
+    	var status = jsondata.status;
+    	var result = jsondata.result;
+    	if( status == 'true'){
+			$("#"+type+"_"+id+" img").attr('src', '__ROOT__/statics/images/status_'+ result +'.gif');
+    	}
+	}); 
+}
+
+;(function($){
+	$(document).ready(function(){
+		
+
+	});
+
+})(jQuery);
+</script>
+
+
+
+<script src="__ROOT__/scripts/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
+
+
+
+	
+<include file="public:footer" />

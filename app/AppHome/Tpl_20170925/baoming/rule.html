@@ -1,0 +1,66 @@
+<include file="public:header" />
+
+
+<div class="main-container container">
+    <!--
+    <div class="container-fluid">
+	    <div class="container">
+	            <div class="countdown pull-left">
+	                <strong class="pull-left">赛事倒计时<span>Countdown</span></strong>
+	                <div class="bd time">
+	                </div>
+	            </div>
+	    </div>
+    </div>
+    -->
+    <div class="row">
+        <ol class="breadcrumb">
+          <li><a href="#">首页</a></li>
+          <li class="active">报名赛事</li>
+        </ol>
+        <div class="content-block v2 col-main">
+            <h2 class="title tac"> <?php echo $rule_1['title'];?></h2>
+                        <div class="content">
+                          <?php echo $rule_1['content'];?>
+        </div>
+        <div class="btn-list tac mt30">
+            <!--<p><label><input type="checkbox" id="cb_agree"  > 同意上述条款</label></p>-->
+            
+            <a href="javascript:void(0);" onclick="javascript:do_submit();" id="btn_submit" class="btn btn-danger">下一步</a>
+            
+            
+            <!--<a href="javascript:void(0);" onclick="javascript:do_submit();" id="btn_submit" class="btn btn-danger">下一步 <span id="djsTime" class="djs-time">(<span>15</span>秒)</span></a>-->
+        </div>
+    </div>
+</div>
+
+
+
+
+<script  type="text/javascript">
+	function show_error(v){
+		alert(v);
+		//$.com.alert.open(v);
+	}
+	
+	function do_submit(){
+		location.href="<?php echo __ROOT__;?>/baoming/apply";
+		return false;
+		
+		if($("#cb_agree").prop("checked")==true) {
+			 location.href="<?php echo __ROOT__;?>/baoming/apply";
+		}
+		else{
+			show_error("请先阅读并同意上述条款");
+			return false;
+		}
+		 
+	}
+</script>
+
+
+<!--
+<script src="<?php echo STATICSPATH;?>scripts/app/enroll/notice.js" type="text/javascript"></script>
+-->
+
+<include file="public:footer" />

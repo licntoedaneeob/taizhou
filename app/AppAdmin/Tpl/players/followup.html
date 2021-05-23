@@ -1,0 +1,168 @@
+<include file="public:header" />
+
+<link href="__ROOT__/scripts/jQueryUI/jui-1.10-themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" />
+
+
+<include file="inc/competition-select" />
+
+<fieldset class="competition">
+	<legend class="competition"></legend>
+
+<div id="ListDetail" class="PrintArea" style="width: 540pt; margin: 0 auto;">
+<style>
+table.profile-table {
+	border-top: solid #666 1pt;
+	border-left: solid #666 1pt;
+	border-right: 0;
+	border-bottom: 0;
+	margin-bottom: 1pt;
+}
+table.profile-table td, table.profile-table th {
+	border-top: 0;
+	border-left: 0;
+	border-right: solid #666 1pt;
+	border-bottom: solid #666 1pt;
+	padding: 2px;
+	height: 25px;
+	vertical-align: middle;
+}
+table.profile-table tr.none td, table.profile-table tr.none th{
+	padding: 0; margin: 0;
+	height: 0px;
+	border-right: 0pt;
+	border-bottom: solid black 0pt;
+}
+table.profile-table tr.none td.last, table.profile-table tr.none th.last{
+	border-right: solid black 1pt;
+}
+table.profile-table td {
+	font-family: "Microsoft Yahei",tahoma,arial,Verdana,sans-serif;/*,"SimSun"*/
+	font-size: 14px;
+}
+table.profile-table th {
+	font-family: "FangSong", "仿宋", "仿宋_GB2312";
+	font-size: 16px;
+	font-weight: normal;
+	text-align: left;
+}
+table.profile-table tr:first-child td, table.profile-table tr:first-child th{
+	border-top: 0;
+}
+
+</style>
+
+<table border="1" cellpadding="0" cellspacing="0" class="profile-table" style="width: 100%;">
+   <tr class="">
+    <th width="">参赛号</th>
+    <th width="">姓名</th>
+    <th width="">性别</th>
+    <th width="">身份证号</th>
+    <th width="">电话</th>
+    <th width="">居住城市</th>
+    <th width="">监护人</th>
+    <th width="">关系</th>
+    <th width="">监护人电话</th>
+  </tr>
+  <tr>
+    <td>{$record.playerid}&nbsp;</td>
+    <td>{$record.name}&nbsp;</td>
+    <td><if condition="$record['gender'] eq '1'">男<elseif condition="$record['gender'] eq '0'" />女<else />未知</if>&nbsp;</td>
+    <td>{$record.idcno}&nbsp;</td>
+    <td>{$record.phone}</td>
+    <td><!--{$record.user_prov} -->{$record.user_city}&nbsp;{$record.game_city}</td>
+    <td>{$record.guardian_name}&nbsp;</td>
+    <td>{$record.guardian_relation}&nbsp;</td>
+    <td>{$record.guardian_phone}&nbsp;</td>
+  </tr>
+</table>
+
+
+
+</div>
+
+
+
+</fieldset>
+
+<form id="myform" name="myform" action="{:U(MODULE_NAME .'/'.ACTION_NAME)}" method="post" onsubmit="return form_check_submit();" class="lkcmsform">
+<fieldset class="competition">
+	<legend class="competition">问卷调查</legend>
+
+<div id="player-tab-5">
+	<table width="100%" cellpadding="2" cellspacing="1" class="form-table">
+		<thead>
+		<tr> 
+			<th colspan="2">{:L('问卷调查')}</th>
+		</tr>
+		</thead>
+		<tbody>
+		<volist name="Game_FQuestion" id="sec" key="x">
+		<tr> 
+			<th>{$sec['question']} </th>
+			<td colspan="1" class="normal">
+			<if condition="$sec['type'] eq 'radio'" >
+				<volist name="sec['options']" id="option" key="i">
+	      		<input type="radio" name="fquestion_{$sec['code']}" id="fquestion_{$sec['code']}_{$i}" class="radio_style" value="{$option}"
+	      			<volist name="fquestion" id="rec" key="z">
+	      			<if condition="$rec['fquestion_code'] eq $sec['code']" >
+	      				<if condition="$rec['fquestion_value'] eq $option" >checked="checked"</if>
+	      			</if>
+	      			</volist>
+	      		> 
+	      		<label for="fquestion_{$sec['code']}_{$i}">{$option}</label>&nbsp;&nbsp;&nbsp;
+	      		</volist>
+			<elseif condition="$sec['type'] eq 'text'" />
+				<input type="text" name="fquestion_{$sec['code']}" id="fquestion_{$sec['code']}" class="input-text"  
+	      			<volist name="fquestion" id="rec" key="z">
+	      				<if condition="$rec['fquestion_code'] eq $sec['code']" >value="{$rec['fquestion_value']}"</if>
+	      			</volist>
+				/>
+			</if>
+			</td>
+		</tr>
+		</volist>
+		</tbody>
+	</table>
+
+</div>
+
+
+<input type="hidden" name="id" value="{$record.playerid}" />
+<input type="hidden" name="competition" value="{$competition}" />
+<table width="100%" cellpadding="2" cellspacing="1" class="form-table">
+	<tfoot>
+	<tr>
+		<th style="text-align: center;">
+			<input type="submit" name="dosubmit" id="dosubmit" class="button" value="确定">
+		</th>
+	</tr>
+	</tfoot>
+</table>
+
+
+</fieldset>
+
+</form>
+
+
+<script type="text/javascript">
+function form_show_dialog( $message, $setting ){
+	$ = jQuery;
+	$conf = $.extend({}, {content: '', lock:true, button: {name: '返回', callback: function () {}} }, $setting);
+	$conf.content = $message;
+	jQuery.dialog($conf);
+}
+function form_check_submit(){
+	var obj, msg;
+	return true;
+}
+(function($){
+	$(document).ready(function(){
+
+
+	});
+
+})(jQuery);
+</script>
+<include file="public:footer" />
+

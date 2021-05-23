@@ -1,0 +1,96 @@
+<include file="public:header" />
+
+<style>
+fieldset.node{ margin-bottom: 10px; }
+table#grid th.module { width: 150px; background:#eaf0f7; }
+table#grid th label { }
+table#grid td.action { padding-left: 10px; color: #000; }
+table#grid td div.node { display: inline-block; width: 150px;  }
+table#grid td div.node label { margin-left: 5px; }
+</style>
+
+<form action="{:U('role/auth_submit')}" method="post" name="myform" id="myform" class="lkcmsform">
+
+<foreach name="modules" item="Cat">
+<notempty name="Cat['-links']">
+<fieldset class="node">
+
+	<legend>{$Cat['title']}</legend>
+<table width="100%" cellpadding="2" cellspacing="1" class="grid-table" id="grid">
+	<tbody>
+	<foreach name="Cat['-links']" item="Grp">
+        <tr>
+            <th class="module" nowrap="true">
+            	<input type="checkbox" id ="node-module-{$Grp['code']}" class="module module-{$Grp['code']}" value="{$Grp['code']}" name="access_node[]"/>
+            	&nbsp;<label for="node-module-{$Grp['code']}">{$Grp['title']}</label>
+        	</th>
+            <td class="action">
+	<notempty name="Grp['-links']">
+	<foreach name="Grp['-links']" item="Val">
+	<div class="node">
+		<input type="checkbox" id ="node-action-{$Val['code']}" class="action action-{$Grp['code']}" data-group="{$Grp['code']}" value="{$Val['code']}" name="access_node[]" <if condition="$Val['auth'] == 'yes'">checked="checked"</if> /><label for="node-action-{$Val['code']}">{$Val['title']}</label>
+	</div>
+	</foreach>
+	</notempty>
+		
+      		</td>
+        </tr>
+
+	</foreach>
+	</tbody>
+</table>
+</fieldset>
+</notempty>
+</foreach>
+<input type="hidden" name="id" value="{$role_id}" />
+<div class="form-buttons">
+    <input type="submit" value="提交" name="dosubmit" class="button" id="dosubmit"/>
+</div>
+
+</form>
+
+<script language="javascript">
+(function($){
+	$(document).ready(function(){
+		$('#grid input.module').each(function(i, module){
+			var code = $(module).val();
+			var len1 = $('#grid input.action-'+ code +'').length;
+			var len2 = $('#grid input.action-'+ code +':checked').length;
+			//console.log('AuthPage - JS1 : ' + code + ' - ' + len1 + ' / ' + len2);
+			if( len1 == len2 ){
+				$(module).prop("checked",true);
+			}else if( len2 == 0 ){
+				$(module).prop("checked",false);
+			}
+		});
+		$('#grid input.module').click(function(){
+			var checked = $(this).is(":checked");
+			var code = $(this).val();
+			$('#grid input.action-'+ code +'').each(function(i, action){
+				if( checked ){
+					$(action).prop("checked", true);
+				}else{
+					$(action).prop("checked", false);
+				}
+			});
+		});
+		$('#grid input.action').click(function(){
+			var code = $(this).data('group');
+			var len1 = $('#grid input.action-' + code).length;
+			var len2 = $('#grid input.action-' + code + ':checked').length;
+			var len3 = len1 - len2;
+			if( len3 == len1 ){
+				$('#grid input.module-'+ code + '').prop("checked",false);
+			}else if( len3 == 0){
+				$('#grid input.module-'+ code + '').prop("checked",true);
+			}
+		});
+		
+
+	});
+
+})(jQuery);
+</script>
+
+
+<include file="public:footer" />

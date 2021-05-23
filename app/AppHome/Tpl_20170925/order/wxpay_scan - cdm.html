@@ -1,0 +1,30 @@
+<include file="public:header" />
+
+
+
+    <div id="loadCurPos" class="container content-nav-path">
+        <a href="{:U('/')}">首页</a> <span class="arrow">></span> <a href="#">报名赛事</a> <span class="arrow">></span> 选择付款
+    </div>
+
+    <div class="container main-content">
+
+        <h3 class="title-m v1">微信支付</h3>
+
+        <div class="content-block v2">
+            <div class="text-center">
+                <p><img src="<?php echo $qrcode_scan_url;?>"></p>
+                <p>请用手机打开微信扫一扫支付</p>
+            </div>
+        </div>
+
+        <div class="btn-mc-center">
+            <a href="{:U('/')}" class="btn btn-default">支付完成，点击返回首页</a>
+            <!--<a href="{:U('order/pay', array('order_id'=>$order_info['id'] , 'order_no'=>$order_info['order_no'] ) )}" class="btn btn-default">重新选择支付方式</a>-->
+        </div>
+
+    </div>
+    
+    
+    
+
+<include file="public:footer" />

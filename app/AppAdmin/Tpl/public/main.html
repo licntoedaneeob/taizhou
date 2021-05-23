@@ -1,0 +1,105 @@
+<include file="public:header" />
+<link href="__ROOT__/statics/css/main.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">
+$(function(){	
+	$(".main_con").hover(
+			  function () {
+			    $(this).css("background","#ffffcc");
+			  },
+			  function () {
+			    $(this).css("background","#ffffff");
+			  }
+	);
+})
+</script>
+<div style="padding:10px; overflow:hidden;">
+	<?php
+	/* 隐藏
+	<if condition="$CurrAccount['Account-Role'] neq 'agent'">
+	<div class="main_top" style="clear:both;">			
+		<if condition="$no_security_info eq 1">
+			<h4>安全提示</h4>	
+			 <volist name="security_info" id="v">              
+					<p class="red" style="font-size:14px;">※　{$v}</p>				
+	       	</volist>	
+		</if>	
+		<h4>如果网站无法显示</h4>
+		<p class="green">网站以前正常显示，现在无法显示请清除缓存试试，【<a href="{:u('public/clearCache')}">更新缓存</a>】</p>
+		
+	</div>
+	</if>
+	*/ ?>
+	<if condition="$CurrAccount['Account-Role'] eq 'agent'">
+	<div class="main_top" style="clear:both;">			
+		<h4>欢迎页</h4>	
+		<p class="green">
+	</div>
+	</if>	
+	<div style="width:50%;" class="fl">
+		<div class="main_con fl">
+			<h6>我的个人信息</h6>
+			<div class="content">
+				<p>您好，<b style="color:#06C">{$CurrAccount['Account-Name']}</b> &nbsp;[{$CurrAccount['Role']['role_name']}]<br></p>
+				<div class="hr"></div>               
+				<if condition="$CurrAccount['Account-Role'] eq 'agent'">
+				<p>欢迎进入网站管理后台。<br />请点击上方菜单中的“比赛管理”，使用比赛相关功能。</p>
+				</if>	
+			</div>
+		</div>	
+	<if condition="$CurrAccount['Account-Role'] neq 'agent'">
+		<?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin' || $CurrAccount['Account-Role']=='editor'){ ?>
+		<div class="main_con fl" style="display:none;">
+			<h6><span class="more"><a href="#" target="_blank"> </a></span> </h6>
+			<div class="content">				
+			</div>
+		</div>
+		<div class="main_con fl">
+			<h6>配置信息</h6>
+			<div class="content">
+				<volist name="server_info" id="v">
+					<p>{$key} : {$v}</p>
+                </volist>
+				<div class="hr"></div>
+			</div>
+		</div>
+		<?php } ?>
+	</if>	
+	
+	
+		<div class="main_con fl">
+			<h6>重要提醒</h6>
+			<div class="content">
+				<p>上传文件时，文件名请不要使用中文，建议使用英文或数字命名文件。尤其当操作系统为 Linux 时，需要留意。<br></p>
+				<div class="hr"></div>               
+				
+			</div>
+		</div>
+	
+	
+	</div>
+    <?php
+	/* 隐藏
+	<div style="width:49%;" class="fr">
+		<div class="main_con fl">
+			<h6><span class="more"><a href="#" target="_blank"> </a></span>公告</h6>
+			<div class="content">	
+				<ul>
+				</ul>
+				<div class="hr"></div>
+			</div>
+		</div>	
+	    <if condition="$CurrAccount['Account-Role'] neq 'agent'">
+		<div class="main_con fl">
+			<h6>版权信息</h6>
+			<div class="content">
+				<p></p>
+				<p></p>
+				<div class="hr"></div>
+				<p></p>
+			</div>
+		</div>		
+	    </if>
+	</div>
+	*/ ?>
+</div>
+<include file="public:footer" />

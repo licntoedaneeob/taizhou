@@ -1,0 +1,279 @@
+<include file="public:header" />
+
+<form action="{:U('news_class/create')}" method="post" name="myform" id="myform" class="lkcmsform">
+
+<table width="100%" cellpadding="2" cellspacing="1" class="form-table">
+<tbody>
+
+
+<!--
+	<tr>
+	    <th width="60">{:L('分公司区域')} :</th>
+	    <td>
+	        <select id="class_id" name="class_id">
+	            <volist name="allclasslist" id="rec" >
+	                <option value="{$rec['id']}" <if condition="$rec['id'] eq $record.class_id ">selected="selected"</if> >{$rec['title']}</option>
+	            </volist>
+	        </select>
+
+	    </td>
+	</tr>
+-->
+
+    <tr>
+        <th width="60">{:L('标题')} :</th>
+        <td><input type="text" name="title" id="title" class="input-text" value="{$record.title}" size="25" maxlength="100"></td>
+    </tr>
+	
+
+
+
+	<tr>
+        <th width="60">{:L('展示页图(469*197)')} :</th>
+        <td><input type="text" name="pic_show" id="pic_show" value="{$record.pic_show}" size="25" class="input-text" maxlength="100"  ><a class="lk-pic-select button" href="javascript:LK_BrowseServer('pic_show','news_class/');" >{:L('选择图片')}</a>
+        &nbsp;&nbsp;&nbsp;替换文本(ALT): <input type="text" name="pic_alt" id="pic_alt" class="input-text" value="{$record.pic_alt}" size="25" maxlength="100">
+       
+        </td>
+    </tr>
+    
+    <!--
+    <tr> 
+      <th width="">{:L('纬度')} :</th>
+      <td><input type="text" name="lat" id="lat" class="input-text" value="{$record.lat}" size="25" maxlength="100"></td>
+    </tr>
+    
+    <tr> 
+      <th width="">{:L('经度')} :</th>
+      <td><input type="text" name="lng" id="lng" class="input-text" value="{$record.lng}" size="25" maxlength="100"></td>
+    </tr>
+    -->
+    
+    
+    <tr>
+        <th width="60">{:L('摘要')} :</th>
+        <td><textarea id="summary" name="summary" cols="70" rows="3">{$record.summary}</textarea></td>
+    </tr>
+
+	
+	
+<!--
+	<tr>
+        <th width="60">{:L('地图(563*212)')} :</th>
+        <td><input type="text" name="pic_ditu_show" id="pic_ditu_show" value="{$record.pic_ditu_show}" size="25" class="input-text" maxlength="100"  ><a class="lk-pic-select button" href="javascript:LK_BrowseServer('pic_ditu_show','news_class/');" >{:L('选择图片')}</a>
+        &nbsp;&nbsp;&nbsp;替换文本(ALT): <input type="text" name="pic_ditu_alt" id="pic_ditu_alt" class="input-text" value="{$record.pic_ditu_alt}" size="25" maxlength="100">
+       
+        </td>
+    </tr>
+    
+    
+    
+
+    <tr>
+        <th width="60">{:L('行车指南')} :</th>
+        <td><textarea id="xingche_zhinan" name="xingche_zhinan" cols="70" rows="3">{$record.xingche_zhinan}</textarea></td>
+    </tr>
+
+
+
+    <tr>
+        <th width="60">{:L('交通指南')} :</th>
+        <td><textarea id="jiaotong_zhinan" name="jiaotong_zhinan" cols="70" rows="3">{$record.jiaotong_zhinan}</textarea></td>
+    </tr>
+
+-->
+
+    <!--
+    <tr>
+      	<th>{:L('置顶推荐')} :</th>
+      	<td>
+      		<input type="radio" name="is_tuijian" class="radio_style" value="1" checked /> &nbsp;{:L('是')}&nbsp;&nbsp;&nbsp;
+        	<input type="radio" name="is_tuijian" class="radio_style" value="0" /> &nbsp;{:L('否')}
+      	</td>
+    </tr>
+    
+    
+    
+    
+     <tr>
+        <th width="60">{:L('国旗图(640*1136)')} :</th>
+        <td><input type="text" name="pic_b_show" id="pic_b_show" size="25" class="input-text" maxlength="100"  ><a class="lk-pic-select button" href="javascript:LK_BrowseServer('pic_b_show','news_class/');" >{:L('选择图片')}</a>
+        
+        &nbsp;&nbsp;&nbsp;替换文本(ALT): <input type="text" name="pic_b_alt" id="pic_b_alt" class="input-text" value="" size="25" maxlength="100">
+        
+        </td>
+    </tr>
+    -->
+    
+<!--
+    <tr>
+        <th width="60">{:L('展示页图(640*1136)')} :</th>
+        <td><input type="text" name="pic_show" id="pic_show" size="25" class="input-text" maxlength="100"  ><a class="lk-pic-select button" href="javascript:LK_BrowseServer('pic_show','news_class/');" >{:L('选择图片')}</a>
+         &nbsp;&nbsp;&nbsp;替换文本(ALT): <input type="text" name="pic_alt" id="pic_alt" class="input-text" value="" size="25" maxlength="100">
+        
+        
+        </td>
+    </tr>
+    
+    
+    
+     <tr>
+        <th width="60">{:L('大图(640*1136)')} :</th>
+        <td><input type="text" name="pic_b_show" id="pic_b_show" size="25" class="input-text" maxlength="100"  ><a class="lk-pic-select button" href="javascript:LK_BrowseServer('pic_b_show','news_class/');" >{:L('选择图片')}</a>
+        
+        &nbsp;&nbsp;&nbsp;替换文本(ALT): <input type="text" name="pic_b_alt" id="pic_b_alt" class="input-text" value="" size="25" maxlength="100">
+        
+        </td>
+    </tr>
+    
+    
+	<tr>
+        <th width="60">{:L('视频文件')} :</th>
+        <td><input type="text" name="filepath" id="filepath" size="25" class="input-text" maxlength="100"  ><a class="lk-pic-select button" href="javascript:LK_BrowseServer_Files('filepath','news_class/');" >{:L('选择文件')}</a></td>
+    </tr>
+    -->
+    
+    
+    
+    <!--
+    <tr>
+        <th width="60">{:L('视频预览图(640*360)')} :</th>
+        <td><input type="text" name="video_pic_outer" id="video_pic_outer" size="25" class="input-text" maxlength="100"  ><a class="lk-pic-select button" href="javascript:LK_BrowseServer('video_pic_outer','news_class/');" >{:L('选择图片')}</a>
+        
+        </td>
+    </tr>
+    -->
+	
+	
+	<!--
+    <tr>
+        <th width="60">{:L('摘要')} :</th>
+        <td><textarea id="summary" name="summary" cols="70" rows="3"></textarea></td>
+    </tr>
+
+	<tr> 
+      <th width="60">{:L('详细内容')} :</th>
+      <td>
+          <textarea name="content" id="content"></textarea>
+      </td>
+    </tr>
+-->
+
+
+
+	<!--
+	<tr> 
+      <th width="60">{:L('页面 Title')} :</th>
+      <td><input type="text" name="seo_title" id="seo_title" class="input-text" value="" size="25" maxlength="100"></td>
+    </tr>
+    
+	<tr>
+        <th width="60">{:L('页面 meta Keyword')} :</th>
+        <td><textarea id="seo_keyword" name="seo_keyword" cols="70" rows="3"></textarea></td>
+    </tr>
+    
+    <tr>
+        <th width="60">{:L('页面 meta Description')} :</th>
+        <td><textarea id="seo_desc" name="seo_desc" cols="70" rows="3"></textarea></td>
+    </tr>
+    -->
+    
+
+
+
+    <tr>
+        <th width="60">{:L('顺序')} :</th>
+        <td><input type="text" name="sort" id="sort" class="input-text" value="" size="25" maxlength="100" onkeyup="keyup_action3(this)"></td>
+    </tr>
+
+    
+    <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>
+    <tr>
+      	<th>{:L('状态')} :</th>
+      	<td>
+      		<input type="radio" name="status" class="radio_style" value="1" checked /> &nbsp;{:L('发布')}&nbsp;&nbsp;&nbsp;
+        	<input type="radio" name="status" class="radio_style" value="0" /> &nbsp;{:L('隐藏')}
+      	</td>
+    </tr>
+    <?php }else{ ?>
+    <tr>
+      	<th>{:L('状态')} :</th>
+      	<td>
+      		<input type="hidden" name="status" value="0" /> 隐藏
+      	</td>
+    </tr>
+    <?php } ?>
+    
+</tbody>
+</table>
+<table width="100%" cellpadding="2" cellspacing="1" class="form-table">
+	<tfoot>
+	<tr><th>
+<input type="submit" name="dosubmit" id="dosubmit" class="button" value="确定" >
+	</th></tr>
+	</tfoot>
+</table>
+</form>
+<script language="javascript" type="text/javascript" src="__ROOT__/scripts/ckeditor/ckeditor.js"></script>
+<script language="javascript" type="text/javascript" src="__ROOT__/scripts/ckfinder/ckfinder.js"></script>
+<script type="text/javascript">
+
+    function LK_BrowseServer(id, startupPath ) {
+        var finder = new CKFinder();
+        finder.BasePath = '__ROOT__/scripts/ckfinder/';
+        finder.startupPath  = "Images:/" +  startupPath;
+        finder.selectActionFunction = LK_SetFileField;
+        finder.selectActionData = new Array(id, startupPath);
+        finder.popup();
+    }
+
+    function LK_BrowseServer_Files(id, startupPath ) {
+        var finder = new CKFinder();
+        finder.BasePath = '__ROOT__/scripts/ckfinder/';
+        finder.startupPath  = "Files:/" +  startupPath;
+        finder.selectActionFunction = LK_SetFileField;
+        finder.selectActionData = new Array(id, startupPath);
+        finder.popup();
+    }
+
+    function LK_SetFileField(fileUrl, data) {
+        var id = data["selectActionData"][0];
+        jQuery("#" + id).val(fileUrl);
+        jQuery("#" + id + "Preview").html("<img src='" + fileUrl + "' />");
+    }
+
+
+    $(function(){
+        $(document).ready(function(){
+            if (typeof CKEDITOR == "undefined") {
+                //document.write("加载CKEditor失败");
+            }
+            else {
+                //var editor = CKEDITOR.replace("content");
+                //CKFinder.setupCKEditor(editor, "__ROOT__/scripts/ckfinder/"); //ckfinder总目录的相对路径.
+                
+                
+                
+                var editor = CKEDITOR.replace("xingche_zhinan");
+                CKFinder.setupCKEditor(editor, "__ROOT__/scripts/ckfinder/"); //ckfinder总目录的相对路径.
+                
+                
+                var editor = CKEDITOR.replace("jiaotong_zhinan");
+                CKFinder.setupCKEditor(editor, "__ROOT__/scripts/ckfinder/"); //ckfinder总目录的相对路径.
+                
+                
+            }
+        });
+    });
+
+
+    $(function(){
+        var message_000 = "{:L('不能为空')}";
+        $.formValidator.initConfig($.extend(true, {}, JPLUGIN_FORMVALIDATOR_CONFIG, {formID: 'myform'}));
+        $("#title").formValidator({onShow:message_000,onFocus:message_000}).inputValidator({min:1,onError:"请输入标题"});
+    });
+
+
+
+</script>
+
+<include file="public:footer" />

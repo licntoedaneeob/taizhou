@@ -1,0 +1,89 @@
+<include file="public:header" />
+
+    <link href="<?php echo STATICSPATH;?>css/swiper.min.css" rel="stylesheet" type="text/css">
+
+
+
+
+
+<div class="main-container container">
+    <!-- <div class="row">
+        <div class="tools-bar">
+            <div class="countdown pull-left">
+                <strong>赛事倒计时<span>COUNTDOWN</span></strong>
+                <div class="bd time">
+                    
+                </div>
+            </div>
+            <div class="pull-left rlink">
+                <a href="#"><i class="icon-user"></i>注册</a>丨<a href="#">登录</a>
+            </div>
+        </div>
+    </div> -->
+    <div class="row">
+        <ol class="breadcrumb">
+          <li><a href="{:U('/')}">首页</a></li>
+          <li class="active">精彩图集</li>
+        </ol>
+        <h3 class="title-m v2"><span>精彩图集</span></h3>
+        <div class="content-block v2 col-main m-photo-list">
+		
+		 <?php
+        		if(empty($news_information_list)){
+			?>
+			<p class="no-data">暂无内容</p>
+		<?php
+			}
+		?>
+		
+		
+			<?php
+        		if(!empty($news_information_list)){
+        			?>
+            <div class="list row">
+            <?php
+				foreach ($news_information_list as $k=>$v) {
+			?>
+                <a href="{:U('information/picture_detail', array('id'=>$v['id'] ))}" class="col-sm-3 col-xs-6 item">
+                    <div class="pic"><img src="<?php echo STATICSCDN.$v['pic_show'];?>" alt=""></div>
+                    <div class="text"><?php echo $v['title'];?></div>
+                    <div class="date"><?php echo $v['pub_time'];?></div>
+                </a>
+                <?php
+        		}
+			?>
+            </div>
+
+		<nav class="container text-center">
+	            <ul class="pagination">
+	                 {$page}
+	            </ul>
+	        </nav>
+	        <!--
+            <nav class="container text-center">
+                <ul class="pagination">
+                    <li class="disabled"><a href="#"><i class="icon-chevron-left"></i></a></li>
+                    <li class="active"><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#"><i class="icon-chevron-right"></i></a></li>
+                </ul>
+            </nav>-->
+
+  		<?php
+				}
+			?>
+			
+			
+        </div>
+    </div>
+</div>
+
+    
+    
+    
+    
+
+<include file="public:footer" />

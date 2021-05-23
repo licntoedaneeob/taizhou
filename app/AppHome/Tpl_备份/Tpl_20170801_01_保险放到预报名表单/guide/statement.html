@@ -1,0 +1,27 @@
+<include file="public:header" />
+
+
+    
+    <div id="loadCurPos" class="container content-nav-path">
+        <a href="{:U('/')}">首页</a> <span class="arrow">></span> <a href="#">参赛指南</a> <span class="arrow">></span> 参赛声明
+    </div>
+
+    <div class="container main-content">
+
+        <div class="content-block v3">
+            <h2 class="title"><?php echo $record['title'];?></h2>
+            <div class="content">
+                <?php echo $record['content'];?>
+                
+            </div>
+        </div>
+<!--
+        <div class="btn-mc-center">
+            <a href="{:U('baoming/rule')}" class="btn btn-default">下一步</a>
+        </div>
+-->
+    </div>
+    
+    
+
+<include file="public:footer" />

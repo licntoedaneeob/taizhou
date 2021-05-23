@@ -1,0 +1,251 @@
+<include file="public:header" />
+ 
+
+    <div id="loadCurPos" class="container content-nav-path">
+        <a href="{:U('/')}">首页</a> <span class="arrow">></span> <a href="#">关于我们</a> <span class="arrow">></span> 联系我们
+    </div>
+	
+    <div class="container main-content">
+		
+		
+		<div class="content-block v3">
+            <h2 class="title"><?php echo $record['title'];?></h2>
+            <div class="content">
+             <?php echo $record['content'];?>
+                <!--
+                <h5>报名咨询:</h5>
+                <p>电话：010-67167482 （每天早9点至晚5点半）<br>
+                    （如遇电话忙音，请发送邮件，我们将尽快回复。）<br>
+                    邮箱：oc@beijing-marathon.com</p>
+                <br>
+
+                <h5>市场营销部（企业合作咨询）:</h5>
+                <p>联系人：李先生 李女士<br>
+                    联系方式：010-67103188-632/635<br>
+                    邮箱：liyang@beijing-marathon.com</p>
+                <br>
+
+                <h5>公益咨询：</h5>
+                <p>010-67103188-681<br>
+                    yangxinyuan@beijing-marathon.com</p>
+                    -->
+            </div>
+        </div>
+        
+		
+		
+        <form class="form-horizontal form-mc" id="form_input" name="form_input" method="post">
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-9">
+                    <h3 class="b">信息反馈</h3>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">姓名：</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="realname" id="realname">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">性别：</label>
+                <div class="col-sm-6">
+                    <div class="radio">
+                        <label><input type="radio" name="sex" id="sex" value="1"> 男</label>
+                        <label><input type="radio" name="sex" id="sex" value="2"> 女</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">联系电话：</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="mobile" id="mobile">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">电子邮件：</label>
+                <div class="col-sm-6">
+                    <input type="email" class="form-control" name="email" id="email">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">反馈标题：</label>
+                <div class="col-sm-6">
+                    <input type="email" class="form-control" name="title" id="title">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">反馈内容：</label>
+                <div class="col-sm-8">
+                    <textarea rows="12" placeholder="请输入至少30个字" class="form-control" name="summary" id="summary"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">验证码：</label>
+                <div class="col-sm-6 form-inline inline">
+                    <input type="text" class="form-control" size="8"  id="validate" name="validate"  onfocus="this.select();" >
+                    <img src="<?php echo __ROOT__;?>/validateimg.php" class="id-code-img" onclick="javascript:reloadVerificationCode();"  id="verifyImage">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="btn-mc-center">
+                    <!--<button type="reset" class="btn btn-default">重新填写</button>-->
+                    <button type="button" class="btn btn-default" onclick="javascript:do_submit();">提交反馈</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+<script  type="text/javascript">
+
+
+    function reloadVerificationCode(){
+        document.getElementById('verifyImage').src = '<?php echo __ROOT__;?>/validateimg.php?'+Math.random();
+        document.getElementById('validate').value = '';
+    }
+    
+    
+	function show_error(v){
+		//alert(v);
+		$.com.alert.open(v);
+	}
+	
+	function do_submit(){
+		
+		var realname=$("#realname").val();
+		var mobile=$("#mobile").val();
+		var summary=$("#summary").val();
+		
+		var email=$("#email").val();
+		var title=$("#title").val();
+		var validate=$("#validate").val();
+		
+		
+	        
+	        if (realname==""){
+	            show_error("请输入姓名 Please input Name");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+		var   sltSource=false;   
+          for   (var   i=0;i<document.form_input.sex.length;i++){   
+              if   (document.form_input.sex[i].checked==true)   sltSource=true;   
+          }   
+          if   (sltSource==false){   
+              show_error("请输入性别 Please input Sex");
+              document.form_input.sex[0].focus();   
+              return false;   
+          }
+		if (document.form_input.sex[0].checked==true){
+		var sex=1;
+		}
+		else{
+		var sex=2;
+		}
+
+
+
+
+	        if (mobile==""){
+	            show_error("请输入联系电话 Please input Mobile");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        
+	        if (email==""){
+	            show_error("请输入邮箱 Please input Email");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        var reg = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
+	        if (reg.test(email) <= 0){
+	       	 show_error("邮箱有误 Email is error");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        
+	        
+	        
+	        if (title==""){
+	            show_error("请输入反馈标题 Please input Title");
+	            return false;
+	        }
+	        else{
+	        }
+	        
+	        if (summary==""){
+	            show_error("请输入反馈内容 Please input Message");
+	            return false;
+	        }
+	        else{
+	        	
+	        	 if (summary.length<30){
+			  show_error("反馈内容请输入至少30个字");
+			  return false;
+			}
+			
+	        }
+	        
+	       
+	        
+        
+        $.ajax({
+            url: "<?php echo __ROOT__;?>/about/contact_sub",
+            async: false,
+            type: "POST",
+            dataType: "json",
+            data: {
+            realname:realname,
+            mobile:mobile,
+            summary:summary,
+            email:email,
+            title:title,
+            sex:sex,
+            validate:validate,
+            dosubmit:"yes"
+            
+            },
+            success: function(ret){
+                if(ret.success=='success'){
+                	 
+                	 show_error("提交成功。3秒后刷新...");
+                	 setTimeout('location.href="<?php echo __ROOT__;?>/about/contact";', 3000);
+                	 //location.href="<?php echo __ROOT__;?>/about/contact";
+                	 //self.location.reload();
+	              //return false;
+                	 
+                    //location.href="<?php echo __ROOT__;?>/baoming/apply_finish/order_id/"+ret.order_id;
+                	
+					//$('.valid_error').html("注册成功。3秒后跳转到首页...");
+					//setTimeout('location.href="<?php echo __ROOT__;?>/baoming/index";', 3000);
+					
+                }
+                else{
+                	
+                	 show_error(ret.success);
+	              return false;
+	              
+                }
+            }
+        });
+        
+        
+	}
+</script>
+
+
+
+<script src="<?php echo STATICSPATH;?>scripts/app/about/feedback.js" type="text/javascript"></script>
+
+<include file="public:footer" />

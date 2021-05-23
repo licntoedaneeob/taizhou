@@ -1,0 +1,171 @@
+		</thead>
+		<tbody>
+		<tr> 
+			<th width="80">{:L('参赛组别')} :</th>
+			<td colspan="1">
+			<volist name="Game_Groups" id="group">
+				
+				<input type="radio" name="game_group" id="game_group_{$group['code']}" data-code="{$group['code']}" value="{$group['name']}" size="80" class="input-text" <if condition="$record['game_group'] eq $group['name']">checked="checked"</if> />
+	      		<label for="game_group_{$group['code']}">{$group['name']}</label>&nbsp;&nbsp;&nbsp;
+				
+			</volist>
+			</td>
+		</tr>
+		</tbody>
+		<thead>
+		<tr> 
+			<td colspan="2">{:L('预选赛曲目')} :</td>
+		</tr>
+		</thead>
+		<tbody>
+		<tr> 
+			<th>1.</th>
+			<td>
+				<input type="text" name="track_a1" id="track_a1" value="{$record.track_a1}" size="64" class="input-text"  />
+			</td>
+		</tr>
+		<tr> 
+			<th>2.</th>
+			<td>
+				<input type="text" name="track_a2" id="track_a2" value="{$record.track_a2}" size="64" class="input-text"  />
+			</td>
+		</tr>
+		<tr> 
+			<th>3.</th>
+			<td>
+				<input type="text" name="track_a3" id="track_a3" value="{$record.track_a3}" size="64" class="input-text"  />
+			</td>
+		</tr>
+		<tr> 
+			<th>4.</th>
+			<td>
+				<input type="text" name="track_a4" id="track_a4" value="{$record.track_a4}" size="64" class="input-text"  />
+			</td>
+		</tr>
+		</tbody>
+		<thead>
+		<tr> 
+			<td colspan="2">{:L('分赛区决赛曲目')} :</td>
+		</tr>
+		</thead>
+		<tbody>
+		<tr> 
+			<th>1.</th>
+			<td>
+				<input type="text" name="track_b1" id="track_b1" value="{$record.track_b1}" size="64" class="input-text"  />
+			</td>
+		</tr>
+		<tr> 
+			<th>2.</th>
+			<td>
+				<input type="text" name="track_b2" id="track_b2" value="{$record.track_b2}" size="64" class="input-text"  />
+			</td>
+		</tr>
+		<tr> 
+			<th>3.</th>
+			<td>
+				<input type="text" name="track_b3" id="track_b3" value="{$record.track_b3}" size="64" class="input-text"  />
+			</td>
+		</tr>
+		<tr> 
+			<th>4.</th>
+			<td>
+				<input type="text" name="track_b4" id="track_b4" value="{$record.track_b4}" size="64" class="input-text"  />
+			</td>
+		</tr>
+		</tbody>
+		<thead>
+		<tr> 
+			<td colspan="2">{:L('总决赛曲目')} :</td>
+		</tr>
+		</thead>
+		<tbody>
+		<tr class="track-for-pro"> 
+			<td>{:L('第一轮')} :</td>
+			<td> </td>
+		</tr>
+		<tr> 
+			<th>1.</th>
+			<td>
+				<input type="text" name="track_c1" id="track_c1" value="{$record.track_c1}" size="64" class="input-text"  />
+			</td>
+		</tr>
+		<tr> 
+			<th>2.</th>
+			<td>
+				<input type="text" name="track_c2" id="track_c2" value="{$record.track_c2}" size="64" class="input-text"  />
+			</td>
+		</tr>
+		<tr> 
+			<th>3.</th>
+			<td>
+				<input type="text" name="track_c3" id="track_c3" value="{$record.track_c3}" size="64" class="input-text"  />
+			</td>
+		</tr>
+		<tr> 
+			<th>4.</th>
+			<td>
+				<input type="text" name="track_c4" id="track_c4" value="{$record.track_c4}" size="64" class="input-text"  />
+			</td>
+		</tr>
+		<tr class="track-for-pro"> 
+			<td>{:L('第二轮')} :</td>
+			<td> </td>
+		</tr>
+		<tr class="track-for-pro"> 
+			<th>1.</th>
+			<td>
+				<input type="text" name="track_c5" id="track_c5" value="{$record.track_c5}" size="64" class="input-text"  />
+			</td>
+		</tr>
+		<tr class="track-for-pro"> 
+			<th>2.</th>
+			<td>
+				<input type="text" name="track_c6" id="track_c6" value="{$record.track_c6}" size="64" class="input-text"  />
+			</td>
+		</tr>
+		<tr class="track-for-pro"> 
+			<th>3.</th>
+			<td>
+				<input type="text" name="track_c7" id="track_c7" value="{$record.track_c7}" size="64" class="input-text"  />
+			</td>
+		</tr>
+		<tr class="track-for-pro"> 
+			<th>4.</th>
+			<td>
+				<input type="text" name="track_c8" id="track_c8" value="{$record.track_c8}" size="64" class="input-text"  />
+			</td>
+		</tr>
+		</tbody>
+		<tbody>
+		<tr> 
+			<td></td>
+			<td>
+
+<script type="text/javascript">
+function game_group_change(){
+	var obj = $('input:radio[name="game_group"]:checked');
+	var code = "";
+	if( obj.length > 0 ){
+		code = obj.data("code");
+	}
+	var pro = code.substr(0, 3) == 'pro' ? "table-row" : "none";
+	$("tr.track-for-pro").css('display', pro);
+}
+
+(function($){
+	$(document).ready(function(){
+		
+		game_group_change();
+		
+		$('input[name="game_group"]').change(function(){ game_group_change(); });
+
+	});
+
+})(jQuery);
+</script>
+
+			</td>
+		</tr>
+		</tbody>
+

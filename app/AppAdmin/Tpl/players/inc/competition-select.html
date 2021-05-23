@@ -1,0 +1,24 @@
+<style>
+	#competition { font-size: 24px; font-family: 'Microsoft Yahei',tahoma,arial,SimSun,Sans-Serif;   }
+	#competition option {   }
+</style>
+<fieldset class="competition">
+	<legend class="competition"></legend>
+<table width="100%" cellpadding="2" cellspacing="1" class="" id="grid">
+	<tbody>
+        <tr>
+            <td class="action" align="center">
+<form id="competitionform" name="competitionform" action="{:U(MODULE_NAME .'/'.ACTION_NAME)}" method="GET">
+	<input type="hidden" name="{$Think.Config.VAR_MODULE}" value="{$Think.const.MODULE_NAME}">
+	<input type="hidden" name="{$Think.Config.VAR_ACTION}" value="{$Think.const.ACTION_NAME}">
+	<select name="competition" id="competition" class="makeMeFancy" onchange="this.form.submit();">
+		<foreach name="CompetitionList" item="comp">
+		<option value="{$comp['serial']}" <if condition="$comp['serial'] eq $CompetitionInfo['serial']"> selected="selected"</if>>{$comp['title']}</option>
+		</foreach>
+	</select>
+</form>
+      		</td>
+        </tr>
+	</tbody>
+</table>
+</fieldset>

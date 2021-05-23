@@ -1,0 +1,49 @@
+<include file="public:header" />
+
+
+<div class="main-container container">
+    <!-- <div class="row">
+        <div class="tools-bar">
+            <div class="countdown pull-left">
+                <strong>赛事倒计时<span>COUNTDOWN</span></strong>
+                <div class="bd time">
+                    
+                </div>
+            </div>
+            <div class="pull-left rlink">
+                <a href="#"><i class="icon-user"></i>注册</a>丨<a href="#">登录</a>
+            </div>
+        </div>
+    </div> -->
+   <div class="row">
+        <ol class="breadcrumb">
+          <li><a href="{:U('/')}">首页</a></li>
+          <li class="active">报名赛事</li>
+        </ol>
+        <h3 class="title-m v2"><span>报名赛事</span></h3>
+        <div class="content-block v2 col-main">
+            <div class="text-center">
+            	<?php if($isSuccess==1){ ?>
+            	<p>恭喜您成功报名台州国际马拉松赛，更多赛事信息敬请关注官方微信公众账号。</p>
+                <p>您提交的资料已上传，缴费已完成，请耐心等待组委会的审核！</p>
+            	<?php }else{ ?>
+            	<p>请进入报名查询支付结果</p>
+            	<?php } ?>
+                
+            </div>
+
+            <div class="btn-list tac mt30">
+            	<a href="{:U('baoming/order_search')}" class="btn btn-lg btn-danger">报名查询</a>
+                <a href="{:U('/')}" class="btn btn-lg btn-danger">返回首页</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<include file="public:footer" />
+
+

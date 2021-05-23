@@ -1,0 +1,98 @@
+<include file="public:header" />
+
+
+
+<div class="main-container container">
+    <!-- <div class="row">
+        <div class="tools-bar">
+            <div class="countdown pull-left">
+                <strong>赛事倒计时<span>COUNTDOWN</span></strong>
+                <div class="bd time">
+                    
+                </div>
+            </div>
+            <div class="pull-left rlink">
+                <a href="#"><i class="icon-user"></i>注册</a>丨<a href="#">登录</a>
+            </div>
+        </div>
+    </div> -->
+   <div class="row">
+        <ol class="breadcrumb">
+          <li><a href="{:U('/')}">首页</a></li>
+          <li class="active">合作伙伴</li>
+        </ol>
+        <h3 class="title-m v2"><span>合作伙伴</span></h3>
+        <div class="content-block v2 col-main partner-content">
+            
+<?php
+		if(!empty($media_class_list)){
+	?>
+	<?php
+		foreach ($media_class_list as $k_class=>$v_class) {
+			?>
+            
+            
+            
+	            <?php
+			if(!empty($v_class['pic_list'])){
+			?>
+			<div class="item">
+			<h3><span><?php echo $v_class['title'];?></span></h3>
+			<?php
+				foreach ($v_class['pic_list'] as $k=>$v) {
+				?>
+				
+				
+				
+				 <?php if(!empty($v['link_url'])){ ?><a href="<?php echo $v['link_url'];?>" target="_blank"><?php } ?>
+				 <div class="row">
+	                <div class="col-sm-3 pic"><img src="<?php echo STATICSCDN.$v['pic_show'];?>" alt=""></div>
+	                <div class="col-sm-9 con">
+	                    <h4><?php echo $v['title'];?></h4>
+	                    <div class="text"><?php echo $v['summary'];?></div>
+	                </div>
+	            </div><?php if(!empty($v['link_url'])){ ?></a><?php } ?>
+            
+            
+                
+                
+			<?php
+				 }
+				?>
+				 </div>
+			<?php
+				 }
+				?>
+				
+				
+            
+            
+<?php
+	 }
+	?>
+	
+<?php
+	 }
+	?>
+
+    
+
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<include file="public:footer" />

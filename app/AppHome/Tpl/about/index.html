@@ -1,0 +1,59 @@
+<include file="public:header" />
+
+
+
+
+<div class="main-container container">
+    <!-- <div class="row">
+        <div class="tools-bar">
+            <div class="countdown pull-left">
+                <strong>赛事倒计时<span>COUNTDOWN</span></strong>
+                <div class="bd time">
+                    
+                </div>
+            </div>
+            <div class="pull-left rlink">
+                <a href="#"><i class="icon-user"></i>注册</a>丨<a href="#">登录</a>
+            </div>
+        </div>
+    </div> -->
+    <div class="row">
+    	<ol class="breadcrumb">
+            <li><a href="{:U('/')}">首页</a></li>
+            <li class="active"><!--报名赛事--><?php echo $title_sub[0];?></li>
+        </ol>
+        <div class="two-new">
+            <div class="two-news-item">
+            	<!-- <div class="two-news-tit">
+                    <h4 class="pull-left">台州马拉松 > 新闻公告</h4>
+                </div> -->
+                <!-- 
+                <div class="two-news-tit">
+                    <h4 class="pull-left"><?php echo $title_sub[0];?> > <?php echo $title_sub[1];?></h4>
+                </div>
+                <div class="three-news-head">
+                    <h2 class="text-center"><?php echo $record['title'];?></h2>
+                </div>-->
+                <h3 class="title-m v2"><span><!--报名须知--><?php echo $title_sub[1];?></span></h3>
+                
+                
+                
+                <div class="content-full">
+                    <h2 class="text-center"><!--2017台州马拉松报名须知--><?php echo $record['title'];?></h2>
+                    <?php echo $record['content'];?>
+                </div>
+                
+            </div>
+            <div class="three-news-footer center-block text-center">
+               <a href="javascript:history.back();"><img src="<?php echo STATICSPATH;?>images/tz-icon-fanhui.png" alt="">返回</a>
+            </div>    
+        </div>
+       <!-- //news-item -->
+    </div>
+</div>
+
+
+
+    
+
+<include file="public:footer" />

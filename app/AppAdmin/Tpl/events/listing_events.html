@@ -1,0 +1,128 @@
+<include file="public:header" />
+
+<style>
+.grid-table .col-id { width: 50px; }
+.grid-table .col-checkbox { text-align: center; width: 35px; }
+.grid-table .col-role { text-align: left; width: 120px; }
+.grid-table .col-name { text-align: left;  }
+.grid-table .col-status { width: 50px;  }
+.grid-table .col-time { width: 140px; }
+.grid-table .col-action { text-align: center; width: 120px; }
+</style>
+
+   <form id="lkform" name="lkform" action="" data-list="{:U('events/listing_events')}" data-delete="{:U('events/delete_events')}" method="post" class="lkcmsform">
+
+<table width="100%" cellspacing="0" class="filter-table">
+<tbody>
+<tr>
+	<td width="100%" align="left">
+	{:L('筛选')}:
+    <input type="text" id="_f_search" name="_f_search" onchanges="form_list_submit(lkform);" class="" value="{$f_search}">
+
+	<button onclick="form_list_submit(lkform);">{:L('开始')}</button>
+	<button onclick="
+		document.getElementById('_f_order').value='';
+		document.getElementById('_f_direc').value='';
+		document.getElementById('_f_search').value='';
+
+		document.getElementById('_filter_state').value='';
+		form_list_submit(this.form);">{:L('清空')}</button>
+	</td>
+	<td nowrap="nowrap">
+		<!-- {:L('状态')}: -->
+		<select id="_filter_state" name="_filter_state" onchange="form_list_submit(lkform);" data-value="{$filter_state}">
+		<option value=""> - {:L('选择状态')} - </option>
+		<option value="1" <if condition="$filter_state eq '1'"> selected="selected"</if> > {:L('发布')} </option>
+		<option value="0" <if condition="$filter_state eq '0'"> selected="selected"</if> > {:L('隐藏')} </option>
+		</select>
+	</td>
+</tr>
+</tbody>
+</table>
+
+<table width="100%" cellspacing="0" class="grid-table style-joomla2">
+<thead>
+<tr>
+	<th><input type="checkbox" value="" id="chkallid" name="chkallid" onclick="form_checkbox_selectall(this.form);"></th>
+	<th><php>echo LkHTML::ListSort( L('id'), 'id', $f_order, $f_direc, 'form_ordering', L('按此列排序'));  </php></th>
+	<th><php>echo LkHTML::ListSort( L('链接'), 'title', $f_order, $f_direc, 'form_ordering', L('按此列排序'));  </php></th>
+    <?php /* <th>{:L('新闻')}</th> */ ?>
+    <th>{:L('小图')}</th>
+    <th><php>echo LkHTML::ListSort( L('顺序'), 'sort', $f_order, $f_direc, 'form_ordering', L('按此列排序'));  </php></th>
+	<th>{:L('创建时间')}</th>
+	<th>{:L('修改时间')}</th>
+	<th class="cell-action" nowrap="nowrap">{:L('状态')}</th>
+	<th class="cell-action">操作</th>
+</tr>
+</thead>
+<tbody>
+<volist name="dataset" id="rec" >
+<tr>
+	<td class="cell-checkbox"><input type="checkbox" value="{$rec['id']}" name="id[]" /></td>
+	<td class="cell-id">{$rec['id']}</td>
+	<td>{$rec['title']}</td>
+    <?php /* <td>{$rec['class_name']}</td> */ ?>
+    <td><img src="{$rec['pic_show']}" width="50" height="50"></td>
+    <td>{$rec['sort']}</td>
+	<td class="cell-time">{$rec.create_time|date='Y-m-d H:i:s',###}</td>
+	<td class="cell-time">{$rec.modify_time|date='Y-m-d H:i:s',###}</td>
+	<td class="cell-status"><a <?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?>href="javascript:table_change_status({$rec['id']},'form_record_status')"<?php }?> id="form_record_status_{$rec['id']}"><img src="__ROOT__/statics/images/status_{$rec['status']}.gif" /></a></td>
+	<td class="cell-action"><a href="{:U('events/edit_events', array('id'=>$rec['id']))}" class="action action-edit">{:L('编辑')}</a></td>
+</tr>
+</volist>
+</tbody>
+<tfoot>
+<tr><td colspan="12">
+	<!--<label for="check_box" style="float:left;">全选/取消</label>-->
+	<?php if($CurrAccount['Account-Role']=='administrator' || $CurrAccount['Account-Role']=='admin'){ ?><input type="submit" class="button" name="dosubmit" value="删除" onclick="return confirm('你确定要删除吗？')" style="float:left;margin-left:10px;"/><?php }?>
+	<div id="pages">{$page}</div>
+</td></tr>
+</tfoot>
+</table>
+
+
+       <input type="hidden" name="_f_order" value="{$f_order}" />
+       <input type="hidden" name="_f_direc" value="{$f_direc}" />
+
+
+</form>
+
+
+<script language="javascript">
+
+    function form_ordering( order, dir, task ) {
+        var form = document.lkform;
+        form._f_order.value = order;
+        form._f_direc.value = dir;
+        form.submit( task );
+    }
+
+function form_checkbox_selectall(form){
+	LkCmsForm.CheckBoxAll(form, 'name', 'id[]', 'chkallid');
+}
+function form_list_submit(form){
+	$ = jQuery;
+	$(form).prop('action', $(form).data('list'));
+	$(form).submit();
+}
+
+function table_change_status(id, type){
+    $.get("{:U('events/ajax_change_status_events')}", { id: id, type: type }, function(jsondata){
+    	var status = jsondata.status;
+    	var result = jsondata.result;
+    	if( status == 'true'){
+			$("#"+type+"_"+id+" img").attr('src', '__ROOT__/statics/images/status_'+ result +'.gif');
+    	}
+	}); 
+}
+
+;(function($){
+	$(document).ready(function(){
+		
+
+	});
+
+})(jQuery);
+</script>
+
+<include file="public:footer" />

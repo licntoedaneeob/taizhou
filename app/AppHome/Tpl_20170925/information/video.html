@@ -1,0 +1,86 @@
+<include file="public:header" />
+
+   
+<div class="main-container container">
+    <!-- <div class="row">
+        <div class="tools-bar">
+            <div class="countdown pull-left">
+                <strong>赛事倒计时<span>COUNTDOWN</span></strong>
+                <div class="bd time">
+                    
+                </div>
+            </div>
+            <div class="pull-left rlink">
+                <a href="#"><i class="icon-user"></i>注册</a>丨<a href="#">登录</a>
+            </div>
+        </div>
+    </div> -->
+   <div class="row">
+        <ol class="breadcrumb">
+          <li><a href="#">首页</a></li>
+          <li class="active">精彩视频</li>
+        </ol>
+        <h3 class="title-m v2"><span>精彩视频</span></h3>
+        <div class="content-block v2 col-main m-video-list">
+		
+        <?php
+    		if(empty($news_information_list)){
+		?>
+        <p class="no-data">暂无内容</p>
+        <?php
+			}
+		?>
+        
+        
+        <?php
+		if(!empty($news_information_list)){
+		?>
+		
+            <div class="list row">
+            
+		
+		
+		<?php
+        	
+				foreach ($news_information_list as $k=>$v) {
+			?>
+                <a href="<?php if(!empty($v['link_url'])){ echo $v['link_url']; }else{ echo U('information/video_detail', array('id'=>$v['id'] )); } ?>"  <?php if(!empty($v['link_url'])){ echo 'target=“_blank”'; }?>  class="col-md-3 col-sm-4 item">
+                    <div class="pic"><img src="<?php echo STATICSCDN.$v['pic_show'];?>" alt=""><i class="m-icon-play"></i></div>
+                    <div class="date"><?php echo $v['pub_time'];?></div>
+                    <div class="text"><?php echo $v['title'];?></div>
+                </a>
+                <?php
+        		}
+			
+			?>
+            </div>
+
+
+            <nav class="container text-center">
+            <ul class="pagination">
+                 {$page}
+            </ul>
+        </nav>
+        
+        <?php
+			}
+		?>
+		
+		
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    
+    
+
+
+<script src="<?php echo STATICSPATH;?>scripts/lib/swiper.jquery.min.js" type="text/javascript"></script>
+<script src="<?php echo STATICSPATH;?>scripts/app/news/list.js" type="text/javascript"></script>
+
+<include file="public:footer" />

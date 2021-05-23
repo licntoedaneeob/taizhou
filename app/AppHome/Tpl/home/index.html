@@ -1,0 +1,520 @@
+<include file="public:header" />
+
+<script src="<?php echo STATICSPATH;?>js/jquery.jcountdown.js"></script>
+<script src="<?php echo STATICSPATH;?>js/swiper.min.js"></script>
+<script type="text/javascript">
+    $(window).load(function() {
+        var swiper = new Swiper('.swiper-banner', {
+                pagination: '.swiper-pagination',
+                paginationClickable: true,
+                nextButton: '.swiper-button-next',
+                prevButton: '.swiper-button-prev',
+                autoplay : 5000
+        });
+        $(".s-pagination .col-xs-3").click(function(e){
+                e.preventDefault()
+                swiper.slideTo( $(this).index() )
+        });
+
+        var swiperImg = new Swiper('.swiper-img', {
+                nextButton: '.swiper-button-next',
+                prevButton: '.swiper-button-prev',
+                slidesPerView: 3,spaceBetween: 20,
+                breakpoints: {
+                    1024: {
+                        slidesPerView: 3,
+                        spaceBetween: 20
+                    },
+                    768: {
+                        slidesPerView: 3,
+                        spaceBetween: 20
+                    },
+                    640: {
+                        slidesPerView: 2,
+                        spaceBetween: 20
+                    },
+                    320: {
+                        slidesPerView: 1,
+                        spaceBetween: 10
+                    }
+                }
+        });
+        $(".time").countdown({
+                date: "2017/11/12 08:00",
+                htmlTemplate: "<span class='cd-time'><b>%d</b>天</span><span class='cd-time'><b>%h</b>小时</span><span class='cd-time'><b>%i</b>分钟</span><span class='cd-time'><b>%s</b>秒</span>",
+                leadingZero: true
+
+            });
+
+    });
+</script>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="swiper-container swiper-banner">
+            <div class="swiper-wrapper">
+            <?php
+			foreach ($index_banner_list as $k=>$v) {
+			?>
+                <div class="swiper-slide">
+                <?php if(!empty($v['link_url'])){ ?><a href="<?php echo $v['link_url'];?>" target="_blank"><?php } ?><img src="<?php echo STATICSCDN.$v['pic_show'];?>"  alt="" ><?php if(!empty($v['link_url'])){ ?></a><?php } ?>
+                </div>
+                <?php
+			}
+			?>
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+            <!-- Add Arrows -->
+            <div class="swiper-button-next swiper-button-black" style="background-image: url(images/tz_swiper_button-right.png);"></div>
+            <div class="swiper-button-prev swiper-button-black" style="background-image: url(images/tz_swiper_button-left.png);"></div>
+        </div>
+    </div>
+
+<!-- //swiper -->
+</div>
+<!-- 倒计时 -->
+<div class="container-fluid tz-countdown-main">
+    <div class="container">
+            <div class="countdown pull-left">
+                <strong class="pull-left">赛事倒计时<span>Countdown</span></strong>
+                <div class="pull-left rlink">
+
+                </div>
+                <div class="bd time">
+                </div>
+            </div>
+            <ul class="menu nav navbar-nav pull-left">
+              <li class="nav_icon_bus">
+                    <a href="http://live.163.com/room/153905.html" target="_blank">
+                    <img src="<?php echo STATICSPATH;?>images/tz_icon_bus.png" alt="">
+
+                    <span>全程直播<br />VIDEO WEBCAST</span>
+                    </a>
+                </li>
+                <li class="nav_icon_guide">
+                    <!--<a href="{:U('about/index', array('id'=>32 ))}">-->
+                    <a href="{:U('information/competition_guide')}">
+                    <img src="<?php echo STATICSPATH;?>images/tz_icon_guide.png" alt="">
+
+                        <span>参赛指南 <br />COMPETITION GUIDE</span>
+                    </a>
+                </li>
+                <li class="nav_icon_run">
+                	<?php if(date('YmdHis')>'20170928100000'){ ?>
+                    <!--<a href="{:U('baoming/statement')}">-->
+                    <a href="{:U('baoming/order_search')}">
+                	<?php }else{ ?>
+                	<a href="#">
+                	<?php } ?>
+                    <img src="<?php echo STATICSPATH;?>images/tz_icon_run.png" alt="">
+
+                        <span> 报名通道 <br />REGISTRATION CHANNEL</span>
+                    </a>
+                </li>
+                <li class="nav_icon_post">
+                    <a href="<?php echo STATICSPATH;?>down/health.docx">
+                    <img src="<?php echo STATICSPATH;?>images/tz_icon_post.png" alt="">
+
+                    <span> 体检模板下载<br />CERTIFICATE OF HEALTH</span>
+                    </a>
+                </li>
+
+            </ul>
+    </div>
+</div>
+<!-- //倒计时 -->
+<div class="main-container container">
+    <!-- <div class="row">
+        <div class="tools-bar">
+            <div class="countdown pull-left">
+                <strong>赛事倒计时<span>COUNTDOWN</span></strong>
+                <div class="bd time">
+
+                </div>
+            </div>
+            <div class="pull-left rlink">
+                <a href="#"><i class="icon-user"></i>注册</a>丨<a href="#">登录</a>
+            </div>
+        </div>
+    </div> -->
+    <div class="row">
+        <div class="m-news">
+            <div class="news-item">
+                <div class="news-tit">
+                    <h4 class="pull-left">新闻公告</h4>
+                    <a class="pull-right" href="{:U('information/news')}">更多</a>
+                </div>
+                <div class="news-left-img pull-left">
+                    <img src="<?php echo $index_info['pic_b_show'];?>" alt="">
+                </div>
+                <ul>
+                <?php
+			foreach ($news_notice_list as $k=>$v) {
+			?>
+                    <li>
+                        <span class="date"><?php echo $v['pub_time'];?></span>
+
+                        <a href="<?php  if($v['class_id']==11){ echo U('information/news_detail', array('id'=>$v['id'] ));}else{ echo U('information/notice_detail', array('id'=>$v['id'] )); } ?>"><?php echo $v['title'];?></a>
+
+
+                    </li>
+                    <?php
+		     }
+			?>
+
+                </ul>
+            </div>
+            <div class="news-item">
+                <div class="news-tit">
+                    <h4 class="pull-left">精彩视频</h4>
+                    <a class="pull-right" href="{:U('information/video')}">更多</a>
+                </div>
+                <!-- <div class="news-left-video pull-left">
+                    <img src="<?php echo STATICSPATH;?>images/tz_video.png" alt="">
+                </div> -->
+                <div class="content video-iframe-mc">
+	                <?php
+	                $video_url=stristr($video_list[0]['iframe_url'], 'http');
+	                $video_url_del=stristr($video_url, '"');
+	                $video_url=str_replace($video_url_del,'',$video_url);
+	                //echo $video_url;exit;
+	                ?>
+	                <iframe width="686" height="480" frameborder="0" src="<?php echo $video_url;?>" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div class="news-item">
+                <div class="news-tit">
+                    <h4 class="pull-left">精彩图集</h4>
+                    <a class="pull-right" href="{:U('information/picture')}">更多</a>
+                </div>
+                <!-- <div class="tz-good-photo">
+                    <img src="" alt="">
+                    <img src="" alt="">
+                    <img src="" alt="">
+                </div> -->
+                <div class="col-main">
+                <div class="tz-good-photo swiper-container swiper-img">
+                    <div class="swiper-wrapper">
+                    <?php
+        		if(!empty($picture_list)){
+				foreach ($picture_list as $k=>$v) {
+			?>
+                        <div class="swiper-slide"><a href="{:U('information/picture_detail', array('id'=>$v['id'] ))}"><img src="<?php echo STATICSCDN.$v['pic_show'];?>" alt=""></a></div>
+                       <?php
+        		}
+			}
+			?>
+                         </div>
+                        <!-- Add Arrows -->
+                        <div class="swiper-button-next  swiper-button-white"></div>
+                        <div class="swiper-button-prev  swiper-button-white"></div>
+                    </div>
+                </div>
+                </div>
+
+            <div class="news-item">
+                <div class="news-tit">
+                    <h4 class="pull-left">赛事简介</h4>
+                       <!--<a class="pull-right" href="#">更多</a>-->
+                </div>
+                <div class="tz-gamereport">
+                    <ul>
+                        <li class="nav_icon_ssjj">
+                            <a href="{:U('about/index', array('id'=>1 ))}">
+                            <img src="<?php echo STATICSPATH;?>images/tz_icon_ssjj.png" alt="">
+                            赛事简介
+                            </a>
+                        </li>
+                        <li class="nav_icon_bsxl">
+                            <a href="{:U('about/index', array('id'=>2 ))}">
+                            <img src="<?php echo STATICSPATH;?>images/tz_icon_map.png" alt="">
+                            比赛线路
+                            </a>
+                        </li>
+                        <li class="nav_icon_tzzm">
+                            <a href="{:U('about/index', array('id'=>3 ))}">
+                            <img src="<?php echo STATICSPATH;?>images/tz_icon_ball.png" alt="">
+                            兔子招募
+                            </a>
+                        </li>
+                        <li class="nav_icon_zyzzm">
+                            <a href="{:U('about/index', array('id'=>4 ))}">
+                            <img src="<?php echo STATICSPATH;?>images/tz_icon_zyzzm.png" alt="">
+                            志愿者招募
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+           <!-- <div class="news-item">
+                <div class="news-tit">
+                    <h4 class="pull-left">相关活动</h4>
+                     <a class="pull-right" href="{:U('information/picture')}">更多</a>
+                </div>
+                <div class="tz-xgjs">
+                    <a href="{:U('about/index', array('id'=>5 ))}" ><img src="<?php echo STATICSPATH;?>images/tz_jcimg1.png" alt="" ></a>
+                    <a href="{:U('about/index', array('id'=>6 ))}" ><img src="<?php echo STATICSPATH;?>images/tz_jcimg2.png" alt=""  style=" margin-right:0;"></a>
+                    <a href="{:U('information/tourist')}" ><img src="<?php echo STATICSPATH;?>images/tz_jcimg1.png" alt="" ></a>
+                    <a href="{:U('information/event')}" ><img src="<?php echo STATICSPATH;?>images/tz_jcimg2.png" alt=""  style=" margin-right:0;"></a>
+                </div>
+            </div>-->
+        </div>
+
+            <!-- //news-item -->
+        <div class="sponsor-right">
+
+        		<?php
+				if(!empty($media_all_list[1]['pic_list'])){
+			?>
+                <div >
+                    <h3>顶级冠名赞助商</h3>
+                    <?php
+				foreach ($media_all_list[1]['pic_list'] as $k=>$v) {
+			?>
+                    <?php if(!empty($v['link_url'])){ ?><a href="<?php echo $v['link_url'];?>" target="_blank"><?php } ?><img src="<?php echo STATICSCDN.$v['pic_show'];?>" alt=""><?php if(!empty($v['link_url'])){ ?></a><?php } ?>
+                    <?php
+				}
+			?>
+                </div>
+                <?php
+		     }
+	          ?>
+
+
+	          <?php
+				if(!empty($media_all_list[2]['pic_list'])){
+			?>
+                <div class="text-center">
+                    <h3>官方战略合作伙伴</h3>
+                    <?php
+				foreach ($media_all_list[2]['pic_list'] as $k=>$v) {
+			?>
+                    <?php if(!empty($v['link_url'])){ ?><a href="<?php echo $v['link_url'];?>" target="_blank"><?php } ?><img src="<?php echo STATICSCDN.$v['pic_show'];?>" alt=""><?php if(!empty($v['link_url'])){ ?></a><?php } ?>
+                    <?php
+				}
+			?>
+                </div>
+                <?php
+		     }
+	          ?>
+
+
+
+
+	          <?php
+				if(!empty($media_all_list[3]['pic_list'])){
+			?>
+
+                <?php
+		     }
+	          ?>
+
+
+
+            <!-- //sponsor -->
+        </div>
+
+        <div class="sponsor-bottom">
+            <div class="sponsor-b1">
+                <img src="<?php echo STATICSPATH;?>images/tz_sponsor_b1.png" alt="">
+            </div>
+
+            <?php
+				if(!empty($media_all_list[1]['pic_list'])){
+			?>
+            <div class="text-center sponsor">
+                    <h3>顶级冠名赞助商</h3>
+                    <?php
+				foreach ($media_all_list[1]['pic_list'] as $k=>$v) {
+			?>
+                    <?php if(!empty($v['link_url'])){ ?><a href="<?php echo $v['link_url'];?>" target="_blank"><?php } ?><img class="center-block" src="<?php echo STATICSCDN.$v['pic_show'];?>" alt=""><?php if(!empty($v['link_url'])){ ?></a><?php } ?>
+                    <?php
+				}
+			?>
+            </div>
+            <?php
+		     }
+	          ?>
+
+	          <?php
+				if(!empty($media_all_list[2]['pic_list'])){
+			?>
+            <div class="text-center sponsor space_long">
+                    <h3>官方战略合作伙伴</h3>
+                    <?php
+				foreach ($media_all_list[2]['pic_list'] as $k=>$v) {
+			?>
+                    <?php if(!empty($v['link_url'])){ ?><a href="<?php echo $v['link_url'];?>" target="_blank"><?php } ?><img class="center-block" src="<?php echo STATICSCDN.$v['pic_show'];?>" alt=""><?php if(!empty($v['link_url'])){ ?></a><?php } ?>
+                    <?php
+				}
+			?>
+            </div>
+            <?php
+		     }
+	          ?>
+
+
+	           <?php
+				if(!empty($media_all_list[3]['pic_list'])){
+			?>
+            <div class="text-center sponsor">
+                    <h3>官方合作伙伴</h3>
+                    <?php
+				foreach ($media_all_list[3]['pic_list'] as $k=>$v) {
+			?>
+                    <?php if(!empty($v['link_url'])){ ?><a href="<?php echo $v['link_url'];?>" target="_blank"><?php } ?><img class="center-block" src="<?php echo STATICSCDN.$v['pic_show'];?>" alt=""><?php if(!empty($v['link_url'])){ ?></a><?php } ?>
+                    <?php
+				}
+			?>
+            </div>
+            <?php
+		     }
+	          ?>
+
+
+	           <?php
+				if(!empty($media_all_list[4]['pic_list'])){
+			?>
+            <div class="text-center sponsor">
+                    <h3>合作媒体</h3>
+                    <?php
+				foreach ($media_all_list[4]['pic_list'] as $k=>$v) {
+			?>
+                    <?php if(!empty($v['link_url'])){ ?><a href="<?php echo $v['link_url'];?>" target="_blank"><?php } ?><img class="center-block" src="<?php echo STATICSCDN.$v['pic_show'];?>" alt=""><?php if(!empty($v['link_url'])){ ?></a><?php } ?>
+                    <?php
+				}
+			?>
+            </div>
+            <?php
+		     }
+	          ?>
+
+
+
+        </div>
+    </div>
+
+   <!--  <div class="row mt20">
+        <div class="col-main">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="reg-box">
+                        <div class="hd">
+                            我要报名<span>REGISTER</span>
+                            <i></i>
+                        </div>
+                        <div class="bd">
+                            <div class="row">
+                                <div class="col-xs-6"><a href="#">全程马拉松</a></div>
+                                <div class="col-xs-6"><a href="#">半程马拉松</a></div>
+                                <div class="col-xs-6"><a href="#">迷你马拉松</a></div>
+                                <div class="col-xs-6"><a href="#">志愿者</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="game-info">
+                            <div class="row">
+                                <div class="col-xs-6"><a href="#"><img src="<?php echo STATICSPATH;?>images/pic_map.png" alt=""></a></div>
+                                <div class="col-xs-6"><a href="#"><img src="<?php echo STATICSPATH;?>images/pic_qa.png" alt=""></a></div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <!-- <div class="row mt20">
+        <div class="col-main notice-group">
+            <div class="row">
+                <div class="col-md-4"><div class="tit">报名查询<span>NOTICE</span></div></div>
+                <div class="col-md-6">
+                        <div class="input-group">
+                          <span class="input-group-btn input-name"><input type="text" class="form-control" placeholder="请输入姓名"></span>
+                          <input type="text" class="form-control" placeholder="请输入证件号/参赛号">
+                          <span class="input-group-btn"><button class="btn btn-default" type="button">查询</button></span>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <!--    <div class="row mt20">
+        <div class="col-main">
+            <div class="swiper-container swiper-img">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><a href="#"><img src="<?php echo STATICSPATH;?>images/img01.jpg" alt=""></a></div>
+                    <div class="swiper-slide"><a href="#"><img src="<?php echo STATICSPATH;?>images/img01.jpg" alt=""></a></div>
+                    <div class="swiper-slide"><a href="#"><img src="<?php echo STATICSPATH;?>images/img01.jpg" alt=""></a></div>
+                    <div class="swiper-slide"><a href="#"><img src="<?php echo STATICSPATH;?>images/img01.jpg" alt=""></a></div>
+                    <div class="swiper-slide"><a href="#"><img src="<?php echo STATICSPATH;?>images/img01.jpg" alt=""></a></div>
+                    <div class="swiper-slide"><a href="#"><img src="<?php echo STATICSPATH;?>images/img01.jpg" alt=""></a></div>
+                    <div class="swiper-slide"><a href="#"><img src="<?php echo STATICSPATH;?>images/img01.jpg" alt=""></a></div>
+                    <div class="swiper-slide"><a href="#"><img src="<?php echo STATICSPATH;?>images/img01.jpg" alt=""></a></div>
+                </div>
+                <div class="swiper-button-next  swiper-button-white"></div>
+                <div class="swiper-button-prev  swiper-button-white"></div>
+            </div>
+        </div>
+    </div>
+    -->
+    <!-- <div class="row mt20">
+        <div class="col-main sponsor-box">
+            <div class="tit">赞助商<span>SPONSOR</span></div>
+            <dl>
+                <dd>冠名赞助商</dd>
+                <dt>
+                    <a href="#"><img src="<?php echo STATICSPATH;?>images/logo01.jpg" alt=""></a>
+                    <a href="#"><img src="<?php echo STATICSPATH;?>images/logo01.jpg" alt=""></a>
+                    <a href="#"><img src="<?php echo STATICSPATH;?>images/logo01.jpg" alt=""></a>
+                    <a href="#"><img src="<?php echo STATICSPATH;?>images/logo01.jpg" alt=""></a>
+                </dt>
+            </dl>
+            <dl>
+                <dd>官方战略合作伙伴</dd>
+                <dt>
+                    <a href="#"><img src="<?php echo STATICSPATH;?>images/logo01.jpg" alt=""></a>
+                    <a href="#"><img src="<?php echo STATICSPATH;?>images/logo01.jpg" alt=""></a>
+                    <a href="#"><img src="<?php echo STATICSPATH;?>images/logo01.jpg" alt=""></a>
+                    <a href="#"><img src="<?php echo STATICSPATH;?>images/logo01.jpg" alt=""></a>
+                </dt>
+            </dl>
+        </div>
+    </div> -->
+
+</div>
+
+
+
+
+<script src="<?php echo STATICSPATH;?>scripts/lib/swiper.jquery.min.js" type="text/javascript"></script>
+<script src="<?php echo STATICSPATH;?>scripts/lib/projekktor/projekktor-1.3.09.min.js" type="text/javascript"></script>
+
+<script src="<?php echo STATICSPATH;?>scripts/app/home.js?v=01" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(function(){
+
+        projekktor('#player_a', {
+                    poster: "<?php echo STATICSCDN.$video_list[0]['pic_b_show'];?>",
+                    imageScaling: 'fill',
+                    title: "视频",
+                    playerFlashMP4: '<?php echo STATICSPATH;?>scripts/lib/projekktor/swf/StrobeMediaPlayback/StrobeMediaPlayback.swf',
+                    playerFlashMP3: '<?php echo STATICSPATH;?>scripts/lib/projekktor/swf/StrobeMediaPlayback/StrobeMediaPlayback.swf',
+                    width: '100%',
+                    height: '100%',
+                    playlist: [
+                        {
+                            0: {src: "<?php echo STATICSCDN.$video_list[0]['filepath'];?>", type: "video/mp4"}
+                        }
+                    ]
+                }, function(player) {} // on ready
+        );
+
+    });
+</script>
+
+<include file="public:footer" />

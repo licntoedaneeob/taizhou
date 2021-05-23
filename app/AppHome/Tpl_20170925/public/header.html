@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>台州国际马拉松赛</title>
+<link rel="stylesheet" href="<?php echo STATICSPATH;?>css/bootstrap.css">
+<link rel="stylesheet" href="<?php echo STATICSPATH;?>css/fontawesome/font-awesome.min.css">
+<link rel="stylesheet" href="<?php echo STATICSPATH;?>css/swiper.css">
+<link rel="stylesheet" href="<?php echo STATICSPATH;?>css/style.css">
+
+<script type="text/javascript" src="<?php echo STATICSPATH;?>js/jquery.min.js"></script>
+<script type="text/javascript" src="<?php echo STATICSPATH;?>js/bootstrap.js"></script>
+<script type="text/javascript" src="<?php echo STATICSPATH;?>js/app/main.js"></script>
+</head>
+<body>
+<header id="navbar" role="banner" class="navbar navbar-static-top navbar-default">
+<div class="container">
+    <div class="navbar-header">
+        <a class="logo pull-left" href="{:U('/')}" title="首页">
+        <img src="<?php echo STATICSPATH;?>images/tz_logo.png" alt="首页">
+        </a>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        </button>
+    </div>
+    <div class="navbar-collapse collapse">
+        <nav role="navigation">
+            <ul class="menu nav navbar-nav ">
+                <li class="<?php if($curmenu==0){echo 'active';}?>" ><a href="{:U('/')}">首页<span>HOME</span></a></li>
+                <li class="<?php if($curmenu==1){echo 'active';}?>" ><a href="#" data-toggle="dropdown"  class="dropdown-toggle">新闻公告<span>NEWS</span></a>
+                   <ul class="dropdown-menu dropdown-menu-left" role="menu">
+                        <li><a href="{:U('information/news')}">新闻</a></li>
+                        <li><a href="{:U('information/notice')}">公告</a></li>
+                       
+                    </ul>
+                </li>
+                <li class="<?php if($curmenu==2){echo 'active';}?>" >
+                    <a href="#" data-toggle="dropdown"  class="dropdown-toggle">参赛指南<span>COMPETITION GUIDE</span></a>
+                    <ul class="dropdown-menu dropdown-menu-left" role="menu">
+                        <li><a href="{:U('about/index', array('id'=>21 ))}">竞赛规程</a></li>
+                        <li><a href="{:U('about/index', array('id'=>22 ))}">比赛路线</a></li>
+                        <li><a href="{:U('about/index', array('id'=>23 ))}">常见问题</a></li>
+                    </ul>
+                </li>
+                <li class="<?php if($curmenu==3){echo 'active';}?>" ><a href="#" data-toggle="dropdown"  class="dropdown-toggle">报名参赛<span>ENTER FOR COMPETITION</span></a>
+                   <ul class="dropdown-menu dropdown-menu-left" role="menu">
+                        <li><a href="{:U('about/index', array('id'=>31 ))}">报名须知</a></li>
+                        <li><a href="{:U('about/index', array('id'=>32 ))}">参赛指南</a></li>
+                        <li><a href="#">报名查询</a></li>
+                    </ul>
+                </li>
+                <li class="<?php if($curmenu==4){echo 'active';}?>" >
+                    <a href="#" data-toggle="dropdown"  class="dropdown-toggle">赛后查询<span>POST GAME QUERY</span></a>
+                    <ul class="dropdown-menu dropdown-menu-left" role="menu">
+                        <li><a href="#">成绩查询</a></li>
+                        <li><a href="#">证书下载</a></li>
+                        <li><a href="#">照片查询</a></li>
+                    </ul>
+                </li>
+                <li class="<?php if($curmenu==5){echo 'active';}?>" >
+                    <a href="{:U('home/partner')}" data-toggle="dropdown"  class="dropdown-toggle">合作伙伴<span>SPONSOR</span></a>
+                </li>
+                <li class="<?php if($curmenu==6){echo 'active';}?>" >
+                    <a href="#" data-toggle="dropdown"  class="dropdown-toggle">关于我们<span>ABOUT US</span></a>
+                    <ul class="dropdown-menu dropdown-menu-left" role="menu">
+                        <li><a href="{:U('about/index', array('id'=>61 ))}">赛事简介</a></li>
+                        <li><a href="{:U('about/index', array('id'=>62 ))}">联系我们</a></li>
+                 
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <!-- <div class="header-tools">
+            <a href="#" class="hidden-xs"><i class="icon-search icon-2x"></i></a>
+            <div class="visible-xs">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="请输入搜索内容">
+                    <span class="input-group-btn"><button class="btn btn-default" type="button"><i class="icon-search"></i></button></span>
+                </div>
+            </div>
+        </div> -->
+    </div>
+        <div class="navbar-header-right">
+        <a class="pull-right" href="{:U('/')}" title="首页">
+        <img src="<?php echo STATICSPATH;?>images/tz_logo_r2.png" alt="首页">
+        </a>
+        </div>
+    </div>
+    
+</div>
+    
+</header>
+<!-- //header -->

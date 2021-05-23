@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>微信支付</title>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<link rel="stylesheet" href="<?php echo STATICSPATH;?>css/fz.css" type="text/css">
+<link rel="stylesheet" href="<?php echo STATICSPATH;?>css/style.css" type="text/css">
+
+<script type="text/javascript" src="<?php echo STATICSPATH;?>js/jquery.min.js"></script>
+
+
+    <script type="text/javascript">
+
+        var __order_no = '<?php echo $order_no; ?>';
+
+        //调用微信JS api 支付
+        function jsApiCall()
+        {
+            WeixinJSBridge.invoke(
+                'getBrandWCPayRequest',
+                <?php echo $jsApiParameters; ?>,
+                function(res){
+                    WeixinJSBridge.log(res.err_msg);
+                    //alert(res.err_code+"  "+res.err_desc+"  "+res.err_msg);return false;
+                    
+
+                    switch(res.err_msg)
+                    {
+                        case "get_brand_wcpay_request:ok":
+
+                            $("#payCon").hide();
+                            $("#successCon").show();
+
+                            paySuccessHandler();
+
+                            break;
+
+                        case "get_brand_wcpay_request:cancel":
+                            alert("您取消了支付！请重新支付！");
+                            initPayClick();
+                            break;
+
+                        case "get_brand_wcpay_request:fail":
+                            alert("因为网络或其他原因，您的支付失败，请重试！");
+                            initPayClick();
+                            break;
+                    }
+
+                }
+            );
+        }
+
+        function callpay()
+        {
+            if (typeof WeixinJSBridge == "undefined"){
+                if( document.addEventListener ){
+                    document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+                }else if (document.attachEvent){
+                    document.attachEvent('WeixinJSBridgeReady', jsApiCall);
+                    document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+                }
+            }else{
+                jsApiCall();
+            }
+        }
+
+        function initPayClick()
+        {
+            $("#btn_pay").one('click',function(){
+
+                callpay();
+
+            });
+        }
+
+        function paySuccessHandler()
+        {
+            
+	        $.ajax({
+	            url: "<?php echo __ROOT__;?>/order/wx_paySuccess",
+	            async: false,
+	            type: "POST",
+	            dataType: "json",
+	            data: {order_no:__order_no},
+	            success: function(ret){
+	                if(ret.success=='success'){
+	                	return false;
+	                	//location.href="<?php echo __ROOT__;?>/baoming/index";
+	                	
+						//$('.valid_error').html("登录成功。3秒后跳转到首页...");
+						//setTimeout('location.href="<?php echo __ROOT__;?>/home/index";', 3000);
+						
+						//if(dosubmit=='yes'){
+				        //   document.frm_reg.submit();
+				        //}
+	                }
+	                //else if(ret.success=='login_error'){
+	                //	$('.valid_error').html("登录失败，请重试！");
+	                //    return false;
+	                //}
+	                else{
+	                //    $('.valid_error').html("登录失败，请重试！");
+	                    return false;
+	                }
+	            }
+	        });
+	        
+	        
+	        
+	        
+	        
+        }
+
+    </script>
+
+</head>
+
+
+<body class="sb-body">
+<header class="ui-header ui-header-positive">
+    <i class="ui-icon-return" onclick="history.back()"></i>
+    <h1>付款</h1>
+</header>
+<!-- //header -->
+<footer class="ui-footer ui-footer-team ui-border-t">
+    <div class="ui-btn-wrap">
+        <button class="ui-btn-lg ui-btn-primary" id="btn_pay">微信安全支付</button>
+    </div>
+</footer>
+<section class="ui-container">
+
+
+    <div class="tip-notice" id="successCon" style="display: none;">
+        <!--<img src="<?php echo STATICSPATH;?>images/icon-success.png" alt="">-->
+        <p>付款成功！</p>
+        <p>恭喜您成功报名成都国际马拉松赛，更多赛事信息敬请关注官方微信公众账号。</p>
+        <p><a href="{:U('/')}" class="btn btn-default">返回首页</a></p>
+    </div>
+    
+    
+    <div class="order-main" id="payCon">
+        <ul class="ui-list ui-list-text ui-border-tb">
+                <li class="ui-border-t">
+                    <div class="ui-list-info">
+                        <h4>您的订单号：</h4>
+                    </div>
+                    <div class="ui-list-action"><?php echo $order_no; ?></div>
+                </li>
+                
+            </ul>
+    	<p class="tp">您的本次报名金额是<?php echo $total_fee; ?>元 <br>请点击下面的按钮立即进行微信安全支付</p>    
+    </div>
+    
+</section>
+
+
+
+
+<script>initPayClick();</script>
+
+<script>callpay();</script>
+
+
+</body>
+</html>

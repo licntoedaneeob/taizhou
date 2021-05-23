@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>微信报名系统</title>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<link rel="stylesheet" href="<?php echo STATICSPATH;?>css/fz.css" type="text/css">
+<link rel="stylesheet" href="<?php echo STATICSPATH;?>css/style.css" type="text/css">
+
+<script type="text/javascript" src="<?php echo STATICSPATH;?>js/jquery.min.js"></script>
+
+
+
+<link rel="stylesheet" type="text/css" href="<?php echo STATICSPATH;?>css/layer.css" />
+<script src="<?php echo STATICSPATH;?>js/layer.js"></script>
+
+
+
+</head>
+<body>
+
+
+<div class="valid_error" style="display:none">&nbsp;</div>
+
+
+        <span id="demo3" style="display:none">
+            layer.open({
+                content: $(".valid_error").html(),
+                shade:0.5
+            });
+        </span>
+        
+        
+
+<header class="ui-header ui-header-positive ui-border-b">
+    <i class="ui-icon-return" onclick="history.back()"></i><h1>支付清单</h1>
+</header>
+<section class="ui-container">
+	<form action="{:U('order/paySubmit')}" method="post" id="frm_login" name="frm_login">
+    <div class="u-order-top ui-border-b">
+    
+        
+        <ul class="ui-list ui-border-tb">
+        
+            
+            
+            
+        </ul>
+        <ul class="ui-justify-flex ui-whitespace">
+            <li><!--共2件--></li>
+            <li class="ui-txt-warning">合计：<span class="fs18">￥<?php echo $amount_total_format;?></span></li>
+        </ul>
+    </div>
+    
+    
+    <div class="u-paylist mt10">
+        <h5 class="tit-tesc ui-whitespace ui-border-tb">请选择支付方式</h5>
+        <ul class="ui-list ui-border-b">
+        	<?php
+        	if($is_wxBrowser==1){
+	    	?>
+            <li class="ui-border-t li_weixin <?php if($payMode!=1){ ?>on<?php } ?>" onclick="javascript:chang_pay_method('2');" ><!--选中高亮加 on-->
+                <div class="ui-list-icon">
+                    <img src="<?php echo STATICSPATH;?>images/pay_ic_01.jpg" alt="">
+                </div>
+                <div class="ui-list-info">
+                    <h4 class="ui-nowrap">微信支付</h4>
+                </div>
+            </li>
+            
+            <li class="ui-border-t li_alipay <?php if($payMode==1){ ?>on<?php } ?>" onclick="javascript:chang_pay_method('1');" >
+                <div class="ui-list-icon">
+                    <img src="<?php echo STATICSPATH;?>images/pay_ic_02.jpg" alt="">
+                </div>
+                <div class="ui-list-info">
+                    <h4 class="ui-nowrap">支付宝支付</h4>
+                </div>
+            </li>
+            
+            <?php
+	    	}else{
+	    	?>
+	    	<li class="ui-border-t on" >
+                <div class="ui-list-icon">
+                    <img src="<?php echo STATICSPATH;?>images/pay_ic_02.jpg" alt="">
+                </div>
+                <div class="ui-list-info">
+                    <h4 class="ui-nowrap">支付宝支付</h4>
+                </div>
+            </li>
+	    	<?php
+	    	}
+	    	?>
+	    	
+        </ul>
+    </div>
+    <div class="ui-btn-wrap">
+        <button class="ui-btn-lg ui-btn-primary" onclick="javascript:do_submit();return false;" >立即支付</button>
+        
+        <input type="hidden" id="order_id" name="order_id" value="<?php echo $order_id;?>" >
+        <input type="hidden" id="order_no" name="order_no" value="<?php echo $order_no;?>" >
+        <input type="hidden" id="payMode" name="payMode" value="<?php echo $payMode;?>" >
+        <input type="hidden" id="is_wxBrowser" name="is_wxBrowser" value="<?php echo $is_wxBrowser;?>" >
+        <input type="hidden" name="dosubmit" id="dosubmit" value="yes">
+        
+        
+    </div>
+    </form>
+</section>
+
+<script src="<?php echo STATICSPATH;?>js/zepto.js"></script>
+<script>
+$(function() {
+    $(".u-paylist li").on("tap",function(){
+       //console.log('123')
+       $(this).addClass('on').siblings().removeClass('on')
+    });
+   
+});
+</script>
+
+
+
+
+<script  type="text/javascript">
+	function chang_pay_method(metd){
+		
+		if( metd=='2'){
+			$(".li_weixin").addClass('on');
+			$(".li_alipay").removeClass('on');
+			
+		}
+		else{
+			$(".li_alipay").addClass('on');
+			$(".li_weixin").removeClass('on');
+			
+		}
+		$("#payMode").val(metd);
+	}
+	
+	
+</script>
+
+
+
+<script type="text/javascript">
+
+    function do_submit(){
+    	
+        var order_id=$("#order_id").val();
+        var order_no=$("#order_no").val();
+        var payMode=$("#payMode").val();
+        var dosubmit=$("#dosubmit").val();
+		var is_wxBrowser=$("#is_wxBrowser").val();
+        
+        $.ajax({
+            url: "<?php echo __ROOT__;?>/order/paySubmit",
+            async: false,
+            type: "POST",
+            dataType: "json",
+            data: {order_id:order_id,order_no:order_no,payMode:payMode,dosubmit:dosubmit},
+            success: function(ret){
+                if(ret.success=='success'){
+                	
+                	if(payMode==2){
+                		$("#wxPay").submit();
+                		return false;
+                	}
+                	else if(payMode==1){
+                		
+                		if(is_wxBrowser == 1){
+		                    $('.valid_error').html("请点击右上角选择“在浏览器中打开”进行支付");
+		                    new Function(demo3.innerHTML)();
+            				return false;
+		                }
+		                else{
+		                    $("#alipayment").submit();
+		                    return false;
+		                }
+
+                		return false;
+                	}
+                	else{
+	                	$("#wxPay").submit();
+	                	return false;
+	                }
+	                
+                }
+                //else if(ret.success=='is_login'){
+                //	  $('.valid_error').html("请先退出登录");
+                //    new Function(demo3.innerHTML)();
+                //    return false;
+                //}
+                else{
+                    $('.valid_error').html("提交失败，请重试！");
+                    new Function(demo3.innerHTML)();
+                    return false;
+                }
+            }
+        });
+        
+    }
+
+</script>
+
+
+<!--支付宝-->
+<form id="alipayment" name="alipayment" action="{:U('ali_pay/alipayapi')}" method="post">
+    <input type="hidden" size="30" name="WIDout_trade_no" id="WIDout_trade_no" value="<?php echo $order_no; ?>" />
+    <input type="hidden" size="30" name="WIDsubject" value="<?php echo $order_info['active_name']; ?>报名" />
+    <input type="hidden" size="30" name="WIDtotal_fee" id="WIDtotal_fee" value="<?php echo $amount_total; ?>" />
+    <input type="hidden" size="30" name="WIDshow_url" id="WIDshow_url" value="<?php echo BASE_URL; ?>" />
+    <input type="hidden" size="30" name="WIDbody" id="WIDbody" value="" />
+    <button type="submit" style="display:none;">确 认</button>
+</form>
+
+
+<!--微信支付-->
+<form id="wxPay" name="wxPay" action="{:U('wxpay/api', array('showwxpaytitle'=>1 ))}" method="post">
+    <input type="hidden" size="30" name="wx_out_trade_no" id="wx_out_trade_no" value="<?php echo $order_no; ?>" />
+    <input type="hidden" size="30" name="wx_total_fee" id="wx_total_fee" value="<?php echo $amount_total; ?>" />
+    <button type="submit" style="display:none;">确 认</button>
+</form>
+
+
+
+</body>
+</html>

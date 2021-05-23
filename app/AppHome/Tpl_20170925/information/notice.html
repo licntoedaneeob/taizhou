@@ -1,0 +1,76 @@
+<include file="public:header" />
+
+<div class="main-container container">
+    <!-- <div class="row">
+        <div class="tools-bar">
+            <div class="countdown pull-left">
+                <strong>赛事倒计时<span>COUNTDOWN</span></strong>
+                <div class="bd time">
+                    
+                </div>
+            </div>
+            <div class="pull-left rlink">
+                <a href="#"><i class="icon-user"></i>注册</a>丨<a href="#">登录</a>
+            </div>
+        </div>
+    </div> -->
+    <div class="row">
+    		<ol class="breadcrumb">
+                    <li><a href="#">首页</a></li>
+                    <li class="active">新闻公告</li>
+                    </ol>
+                    
+        <div class="two-new">
+            <?php
+		if(!empty($news_information_list)){
+		?>
+            <div class="two-news-item">
+                <!-- <div class="two-news-tit">
+                    <h4 class="pull-left">台州马拉松 > 新闻</h4>
+                </div>
+                <div class="two-news-head">
+                    <h4>新闻</h4>
+                    <span>NEWS BULLETIN</span>
+                </div> -->
+                 <h3 class="title-m v2"><span>公告 NEWS BULLETIN</span></h3>
+                <ul class="content-full">
+                    <?php
+				foreach ($news_information_list as $k=>$v) {
+			?>
+                    <li>
+                        <i class="tz-right-icon"></i>
+                        <span class="date"><?php echo $v['pub_time'];?></span>
+                        <a href="{:U('information/notice_detail', array('id'=>$v['id'] ))}"><?php echo $v['title'];?></a>
+                    </li>
+                     <?php
+				}
+			 ?>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="two-news-footer">
+                <ul >
+	                 {$page}
+	             </ul>
+            </div>
+	        <!--
+            <div class="two-news-footer">
+                <ul >
+                    <li><a href="http://baidu.com">1</a></li>
+                    <li><a href="http://baidu.com">2</a></li>
+                </ul>
+            </div>
+            -->
+            
+            <?php
+			}
+		?>
+                
+        </div>
+       <!-- //news-item -->
+    </div>
+</div>
+
+<include file="public:footer" />
