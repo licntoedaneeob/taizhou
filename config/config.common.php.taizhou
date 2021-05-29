@@ -1,0 +1,19 @@
+<?php
+
+return array (
+	//'DB_TYPE'	=> 'mysqli',     // PHP7不支持默认的mysql数据库类型，需要指定mysqli数据库类型
+	'DB_HOST'	=> 'irunnerbisai.mysql.rds.aliyuncs.com',
+	'DB_PORT'	=> '3306',
+	'DB_NAME'	=> 'taizhou',
+	'DB_USER'	=> 'taizhou',
+	'DB_PWD'	=> 'TAI_zhou0920',
+	'DB_PREFIX'	=> 'taizhou_',
+	'DEFAULT_THEME' => 'default',
+	'TMPL_ACTION_SUCCESS' => 'public:success',
+	'TMPL_ACTION_ERROR' => 'public:error',
+	
+ 	
+); 
+
+
+?>

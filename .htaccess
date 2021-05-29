@@ -1,0 +1,26 @@
+RewriteEngine On
+
+# if a directory or a file exists, use it directly
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# 不允许访问目录
+Options -Indexes
+
+# 支持二级目录方式访问，不支持URL_MODEL=2的REWRITE模式，但支持URL_MODEL=0、1、3模式
+# RewriteRule ^think/(.*)$ think/index.php?s=$1 [L]
+
+
+# 支持二级目录方式访问，且支持URL_MODEL=2的REWRITE模式
+RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]
+
+# 支持根目录方式访问
+# RewriteRule .* index.php
+
+
+# 支持CDN调用静态文件，如字体文件
+<FilesMatch "\.(ttf|otf|eot|woff)$">
+  <IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+  </IfModule>
+</FilesMatch>

@@ -1,0 +1,12 @@
+[ 2017-09-27T14:07:39+08:00 ] ERR: (ThinkException) 非法操作:welcome
+[ 2017-09-27T14:07:50+08:00 ] ERR: (ThinkException) 模板不存在[/var/www/taizhou/app/AppHome/Tpl/home/welcome.html]
+[ 2017-09-27T14:08:12+08:00 ] ERR: (ThinkException) 非法操作:images
+[ 2017-09-27T14:08:12+08:00 ] ERR: (ThinkException) 非法操作:images
+[ 2017-09-27T14:08:25+08:00 ] ERR: (ThinkException) 非法操作:images
+[ 2017-09-27T14:08:25+08:00 ] ERR: (ThinkException) 非法操作:images
+[ 2017-09-27T14:08:26+08:00 ] ERR: (ThinkException) 非法操作:images
+[ 2017-09-27T14:08:26+08:00 ] ERR: (ThinkException) 非法操作:images
+[ 2017-09-27T16:21:23+08:00 ] ERR: (ThinkException) 非法操作:index
+[ 2017-09-27T16:38:26+08:00 ] ERR: (ThinkException) 非法操作:index
+[ 2017-09-27T20:33:53+08:00 ] ERR: (ThinkException) 模板不存在[/var/www/taizhou/app/AppHome/Tpl/login/index.html]
+[ 2017-09-27T22:58:31+08:00 ] ERR: (ThinkException) 模板不存在[/var/www/taizhou/app/AppHome/Tpl/login/index.html]
